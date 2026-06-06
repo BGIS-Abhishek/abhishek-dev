@@ -1,0 +1,60 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        
+        {
+            "name": "Flutter",
+            "type": "dart",
+            "request": "launch",
+            "program": "lib/main.dart"
+        },
+        {
+            "name": "Dart: Run all Tests",
+            "type": "dart",
+            "request": "launch",
+            "program": "./test/"
+        },
+        {
+            "name": "Dart",
+            "type": "dart",
+            "request": "launch",
+            "program": "bin/main.dart"
+        },
+        {
+            "name": "Attach to Chrome",
+            "port": 9222,
+            "request": "attach",
+            "type": "chrome",
+            "webRoot": "${workspaceFolder}"
+        },
+        {
+            "name": "Flutter Web (Chrome - CanvasKit)",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main.dart",
+            "deviceId": "chrome",
+            "args": [
+                "--web-renderer",
+                "canvaskit"
+            ]
+        },
+        {
+            "name": "Flutter Web (Chrome - HTML)",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main.dart",
+            "deviceId": "chrome",
+            "args": [
+                "--web-renderer",
+                "html"
+            ]
+        },
+        {
+            "name": "Flutter macOS",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main.dart",
+            "deviceId": "macos"
+        }
+    ]
+}
