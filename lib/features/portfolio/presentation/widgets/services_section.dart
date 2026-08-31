@@ -10,10 +10,15 @@ class ServicesSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isMobile = Responsive.isMobile(context);
+    final surfaceColor = AppColors.surface(context);
+    final accentColor = AppColors.accent(context);
+    final textColor = AppColors.text(context);
+    final textSubtleColor = AppColors.textSubtle(context);
+    final lineBorder = AppColors.line(context);
 
     return Container(
       width: double.infinity,
-      color: AppColors.ink2,
+      color: surfaceColor,
       padding: EdgeInsets.symmetric(
         horizontal: isMobile ? 20 : 48,
         vertical: isMobile ? 80 : 120,
@@ -27,14 +32,14 @@ class ServicesSection extends StatelessWidget {
               RevealAnimation(
                 child: Row(
                   children: [
-                    Container(width: 20, height: 1, color: AppColors.lime),
+                    Container(width: 20, height: 1, color: accentColor),
                     const SizedBox(width: 10),
                     Text(
                       'WHAT I DO',
                       style: AppTheme.jetBrainsMono.copyWith(
                         fontSize: 10.4,
                         letterSpacing: 3.2,
-                        color: AppColors.lime,
+                        color: accentColor,
                       ),
                     ),
                   ],
@@ -49,13 +54,13 @@ class ServicesSection extends StatelessWidget {
                       fontSize: isMobile ? 38.4 : 72,
                       height: 1.05,
                       letterSpacing: -0.01,
-                      color: AppColors.textMain,
+                      color: textColor,
                     ),
-                    children: const [
-                      TextSpan(text: 'How I can\n'),
+                    children: [
+                      const TextSpan(text: 'How I can\n'),
                       TextSpan(
                         text: 'help you',
-                        style: TextStyle(fontStyle: FontStyle.italic, color: AppColors.muted2),
+                        style: TextStyle(fontStyle: FontStyle.italic, color: textSubtleColor),
                       ),
                     ],
                   ),
@@ -66,23 +71,23 @@ class ServicesSection extends StatelessWidget {
                 delay: const Duration(milliseconds: 200),
                 child: Container(
                   decoration: BoxDecoration(
-                    color: AppColors.border,
-                    border: Border.all(color: AppColors.border),
+                    color: lineBorder,
+                    border: Border.all(color: lineBorder),
                     borderRadius: BorderRadius.circular(4),
                   ),
                   child: isMobile
                       ? Column(
                           children: [
                             _buildServiceCard('01', 'Cross-Platform App Development', 'Full Android & iOS apps built from scratch in Flutter — single codebase, native performance, production-ready from day one.'),
-                            Container(height: 1, color: AppColors.border),
+                            Container(height: 1, color: lineBorder),
                             _buildServiceCard('02', 'Figma → Flutter Conversion', 'Pixel-perfect translation of your Figma designs into responsive, animated Flutter interfaces that feel alive.'),
-                            Container(height: 1, color: AppColors.border),
+                            Container(height: 1, color: lineBorder),
                             _buildServiceCard('03', 'API Integration & Backend', 'REST APIs, WebSockets, Firebase — clean, well-structured data layers that scale without becoming a maintenance nightmare.'),
-                            Container(height: 1, color: AppColors.border),
+                            Container(height: 1, color: lineBorder),
                             _buildServiceCard('04', 'App Store Deployment', 'From code to live listing — Play Store & App Store deployment with Fastlane automation and CI/CD pipelines.'),
-                            Container(height: 1, color: AppColors.border),
+                            Container(height: 1, color: lineBorder),
                             _buildServiceCard('05', 'Performance & Bug Fixing', 'Diagnose slow renders, fix memory leaks, resolve crashes. I bring production-grade stability to apps that need a second look.'),
-                            Container(height: 1, color: AppColors.border),
+                            Container(height: 1, color: lineBorder),
                             _buildServiceCard('06', 'Architecture Consulting', 'Bloc, Provider, clean architecture setup for teams who want their codebase to still make sense in two years.'),
                           ],
                         )
@@ -93,22 +98,22 @@ class ServicesSection extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
                                   Expanded(child: _buildServiceCard('01', 'Cross-Platform App Development', 'Full Android & iOS apps built from scratch in Flutter — single codebase, native performance, production-ready from day one.')),
-                                  Container(width: 1, color: AppColors.border),
+                                  Container(width: 1, color: lineBorder),
                                   Expanded(child: _buildServiceCard('02', 'Figma → Flutter Conversion', 'Pixel-perfect translation of your Figma designs into responsive, animated Flutter interfaces that feel alive.')),
-                                  Container(width: 1, color: AppColors.border),
+                                  Container(width: 1, color: lineBorder),
                                   Expanded(child: _buildServiceCard('03', 'API Integration & Backend', 'REST APIs, WebSockets, Firebase — clean, well-structured data layers that scale without becoming a maintenance nightmare.')),
                                 ],
                               ),
                             ),
-                            Container(height: 1, color: AppColors.border),
+                            Container(height: 1, color: lineBorder),
                             IntrinsicHeight(
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
                                   Expanded(child: _buildServiceCard('04', 'App Store Deployment', 'From code to live listing — Play Store & App Store deployment with Fastlane automation and CI/CD pipelines.')),
-                                  Container(width: 1, color: AppColors.border),
+                                  Container(width: 1, color: lineBorder),
                                   Expanded(child: _buildServiceCard('05', 'Performance & Bug Fixing', 'Diagnose slow renders, fix memory leaks, resolve crashes. I bring production-grade stability to apps that need a second look.')),
-                                  Container(width: 1, color: AppColors.border),
+                                  Container(width: 1, color: lineBorder),
                                   Expanded(child: _buildServiceCard('06', 'Architecture Consulting', 'Bloc, Provider, clean architecture setup for teams who want their codebase to still make sense in two years.')),
                                 ],
                               ),
@@ -149,15 +154,21 @@ class _HoverServiceCardState extends State<_HoverServiceCard> {
 
   @override
   Widget build(BuildContext context) {
+    final surfaceColor = AppColors.surface(context);
+    final elevatedColor = AppColors.elevated(context);
+    final accentColor = AppColors.accent(context);
+    final textColor = AppColors.text(context);
+    final textSubtleColor = AppColors.textSubtle(context);
+
     return MouseRegion(
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 250),
         decoration: BoxDecoration(
-          color: _isHovered ? AppColors.ink3 : AppColors.ink2,
+          color: _isHovered ? elevatedColor : surfaceColor,
           border: Border.all(
-            color: _isHovered ? AppColors.lime.withOpacity(0.35) : Colors.transparent,
+            color: _isHovered ? accentColor.withOpacity(0.35) : Colors.transparent,
           ),
         ),
         child: Stack(
@@ -175,7 +186,7 @@ class _HoverServiceCardState extends State<_HoverServiceCard> {
                         style: AppTheme.instrumentSerif.copyWith(
                           fontSize: 56,
                           fontStyle: FontStyle.italic,
-                          color: _isHovered ? AppColors.lime.withOpacity(0.5) : Colors.white.withOpacity(0.06),
+                          color: _isHovered ? accentColor.withOpacity(0.5) : textColor.withOpacity(0.08),
                           height: 1.0,
                         ),
                         child: Text(widget.numText),
@@ -186,13 +197,13 @@ class _HoverServiceCardState extends State<_HoverServiceCard> {
                         child: Container(
                           padding: const EdgeInsets.all(8),
                           decoration: BoxDecoration(
-                            color: AppColors.lime.withOpacity(0.12),
+                            color: accentColor.withOpacity(0.12),
                             shape: BoxShape.circle,
                           ),
-                          child: const Icon(
+                          child: Icon(
                             Icons.arrow_outward_rounded,
                             size: 16,
-                            color: AppColors.lime,
+                            color: accentColor,
                           ),
                         ),
                       ),
@@ -205,7 +216,7 @@ class _HoverServiceCardState extends State<_HoverServiceCard> {
                       fontSize: 15,
                       fontWeight: FontWeight.w700,
                       letterSpacing: 0.64,
-                      color: _isHovered ? AppColors.lime : AppColors.textMain,
+                      color: _isHovered ? accentColor : textColor,
                     ),
                     child: Text(widget.title),
                   ),
@@ -215,7 +226,7 @@ class _HoverServiceCardState extends State<_HoverServiceCard> {
                     style: AppTheme.syne.copyWith(
                       fontSize: 13.4,
                       height: 1.7,
-                      color: AppColors.muted2,
+                      color: textSubtleColor,
                     ),
                   ),
                 ],
@@ -228,7 +239,7 @@ class _HoverServiceCardState extends State<_HoverServiceCard> {
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 350),
                 height: 2,
-                color: AppColors.lime,
+                color: accentColor,
                 transform: Matrix4.identity()..scale(_isHovered ? 1.0 : 0.0, 1.0, 1.0),
                 transformAlignment: Alignment.centerLeft,
               ),

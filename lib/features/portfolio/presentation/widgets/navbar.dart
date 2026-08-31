@@ -6,6 +6,8 @@ import 'dart:ui' as ui;
 
 class Navbar extends StatelessWidget {
   final bool isSolid;
+  final ThemeMode themeMode;
+  final VoidCallback onToggleTheme;
   final VoidCallback onAboutTap;
   final VoidCallback onWorkTap;
   final VoidCallback onServicesTap;
@@ -14,6 +16,8 @@ class Navbar extends StatelessWidget {
   const Navbar({
     super.key,
     required this.isSolid,
+    required this.themeMode,
+    required this.onToggleTheme,
     required this.onAboutTap,
     required this.onWorkTap,
     required this.onServicesTap,
@@ -21,6 +25,10 @@ class Navbar extends StatelessWidget {
   });
 
   void _openMobileMenu(BuildContext context) {
+    final surfaceColor = AppColors.surface(context);
+    final textColor = AppColors.text(context);
+    final accentColor = AppColors.accent(context);
+
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
@@ -31,7 +39,7 @@ class Navbar extends StatelessWidget {
           child: BackdropFilter(
             filter: ui.ImageFilter.blur(sigmaX: 20, sigmaY: 20),
             child: Container(
-              color: AppColors.ink.withOpacity(0.95),
+              color: surfaceColor.withOpacity(0.96),
               padding: const EdgeInsets.fromLTRB(28, 24, 28, 48),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -40,10 +48,24 @@ class Navbar extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      _buildLogo(),
-                      IconButton(
-                        onPressed: () => Navigator.pop(context),
-                        icon: const Icon(Icons.close, color: AppColors.textMain, size: 24),
+                      _buildLogo(context),
+                      Row(
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              onToggleTheme();
+                            },
+                            icon: Icon(
+                              AppColors.isDark(context) ? Icons.wb_sunny_outlined : Icons.dark_mode_outlined,
+                              color: textColor,
+                              size: 22,
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: () => Navigator.pop(context),
+                            icon: Icon(Icons.close, color: textColor, size: 24),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -61,8 +83,8 @@ class Navbar extends StatelessWidget {
                         onContactTap();
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.lime,
-                        foregroundColor: AppColors.ink,
+                        backgroundColor: accentColor,
+                        foregroundColor: AppColors.isDark(context) ? AppColors.darkInk : Colors.white,
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
                       ),
@@ -72,7 +94,7 @@ class Navbar extends StatelessWidget {
                           fontSize: 12,
                           fontWeight: FontWeight.w700,
                           letterSpacing: 2.0,
-                          color: AppColors.ink,
+                          color: AppColors.isDark(context) ? AppColors.darkInk : Colors.white,
                         ),
                       ),
                     ),
@@ -87,6 +109,8 @@ class Navbar extends StatelessWidget {
   }
 
   Widget _buildMobileMenuItem(BuildContext context, String title, VoidCallback onTap) {
+    final textColor = AppColors.text(context);
+    final accentColor = AppColors.accent(context);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 12),
       child: InkWell(
@@ -102,10 +126,10 @@ class Navbar extends StatelessWidget {
               style: AppTheme.syne.copyWith(
                 fontSize: 20,
                 fontWeight: FontWeight.w700,
-                color: AppColors.textMain,
+                color: textColor,
               ),
             ),
-            const Icon(Icons.arrow_forward_ios, size: 14, color: AppColors.lime),
+            Icon(Icons.arrow_forward_ios, size: 14, color: accentColor),
           ],
         ),
       ),
@@ -117,15 +141,17 @@ class Navbar extends StatelessWidget {
     final isMobile = Responsive.isMobile(context);
     final padding = isMobile ? const EdgeInsets.symmetric(horizontal: 20, vertical: 16) : const EdgeInsets.symmetric(horizontal: 48, vertical: 22);
     final solidPadding = isMobile ? const EdgeInsets.symmetric(horizontal: 20, vertical: 12) : const EdgeInsets.symmetric(horizontal: 48, vertical: 16);
+    final bgColor = AppColors.surface(context);
+    final borderLine = AppColors.line(context);
 
     return AnimatedContainer(
       duration: const Duration(milliseconds: 400),
       padding: isSolid ? solidPadding : padding,
       decoration: BoxDecoration(
-        color: isSolid ? AppColors.ink.withOpacity(0.92) : Colors.transparent,
+        color: isSolid ? bgColor.withOpacity(0.92) : Colors.transparent,
         border: Border(
           bottom: BorderSide(
-            color: isSolid ? AppColors.border : Colors.transparent,
+            color: isSolid ? borderLine : Colors.transparent,
           ),
         ),
       ),
@@ -139,45 +165,75 @@ class Navbar extends StatelessWidget {
   }
 
   Widget _buildContent(BuildContext context, bool isMobile) {
+    final textColor = AppColors.text(context);
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        _buildLogo(),
+        _buildLogo(context),
         if (!isMobile) ...[
-          _buildNavLinks(),
-          _buildHireButton(),
+          Row(
+            children: [
+              _buildNavLinks(context),
+              const SizedBox(width: 24),
+              IconButton(
+                onPressed: onToggleTheme,
+                tooltip: 'Toggle Theme Mode',
+                icon: Icon(
+                  AppColors.isDark(context) ? Icons.wb_sunny_outlined : Icons.dark_mode_outlined,
+                  color: textColor,
+                  size: 20,
+                ),
+              ),
+              const SizedBox(width: 16),
+              _buildHireButton(context),
+            ],
+          ),
         ] else ...[
-          IconButton(
-            onPressed: () => _openMobileMenu(context),
-            icon: const Icon(Icons.menu_rounded, color: AppColors.textMain, size: 26),
+          Row(
+            children: [
+              IconButton(
+                onPressed: onToggleTheme,
+                icon: Icon(
+                  AppColors.isDark(context) ? Icons.wb_sunny_outlined : Icons.dark_mode_outlined,
+                  color: textColor,
+                  size: 22,
+                ),
+              ),
+              IconButton(
+                onPressed: () => _openMobileMenu(context),
+                icon: Icon(Icons.menu_rounded, color: textColor, size: 26),
+              ),
+            ],
           ),
         ],
       ],
     );
   }
 
-  Widget _buildLogo() {
+  Widget _buildLogo(BuildContext context) {
+    final textColor = AppColors.text(context);
+    final accentColor = AppColors.accent(context);
     return RichText(
       text: TextSpan(
         style: AppTheme.syne.copyWith(
-          fontSize: 13, // ~0.8rem
+          fontSize: 13,
           fontWeight: FontWeight.w700,
-          letterSpacing: 2.2, // 0.18em
-          color: AppColors.textMain,
+          letterSpacing: 2.2,
+          color: textColor,
         ),
-        children: const [
-          TextSpan(text: 'A'),
+        children: [
+          const TextSpan(text: 'A'),
           TextSpan(
             text: '.',
-            style: TextStyle(color: AppColors.lime),
+            style: TextStyle(color: accentColor),
           ),
-          TextSpan(text: 'YADAV'),
+          const TextSpan(text: 'YADAV'),
         ],
       ),
     );
   }
 
-  Widget _buildNavLinks() {
+  Widget _buildNavLinks(BuildContext context) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -192,22 +248,23 @@ class Navbar extends StatelessWidget {
     );
   }
 
-  Widget _buildHireButton() {
+  Widget _buildHireButton(BuildContext context) {
+    final accentColor = AppColors.accent(context);
     return InkWell(
       onTap: onContactTap,
       borderRadius: BorderRadius.circular(2),
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 9),
         decoration: BoxDecoration(
-          border: Border.all(color: AppColors.lime),
+          border: Border.all(color: accentColor),
           borderRadius: BorderRadius.circular(2),
         ),
         child: Text(
           'HIRE ME',
           style: AppTheme.jetBrainsMono.copyWith(
-            fontSize: 11, // ~0.68rem
-            letterSpacing: 1.6, // 0.1em
-            color: AppColors.lime,
+            fontSize: 11,
+            letterSpacing: 1.6,
+            color: accentColor,
           ),
         ),
       ),
@@ -230,6 +287,8 @@ class _NavLinkState extends State<_NavLink> {
 
   @override
   Widget build(BuildContext context) {
+    final accentColor = AppColors.accent(context);
+    final subtleTextColor = AppColors.textSubtle(context);
     return InkWell(
       onTap: widget.onTap,
       onHover: (value) => setState(() => _isHovered = value),
@@ -238,9 +297,9 @@ class _NavLinkState extends State<_NavLink> {
       child: AnimatedDefaultTextStyle(
         duration: const Duration(milliseconds: 250),
         style: AppTheme.jetBrainsMono.copyWith(
-          fontSize: 11, // ~0.68rem
-          letterSpacing: 1.6, // 0.1em
-          color: _isHovered ? AppColors.lime : AppColors.muted2,
+          fontSize: 11,
+          letterSpacing: 1.6,
+          color: _isHovered ? accentColor : subtleTextColor,
         ),
         child: Text(widget.text),
       ),

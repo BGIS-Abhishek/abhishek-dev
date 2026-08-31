@@ -10,10 +10,11 @@ class AboutSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isMobile = Responsive.isMobile(context);
+    final bgColor = AppColors.bg(context);
 
     return Container(
       width: double.infinity,
-      color: AppColors.ink,
+      color: bgColor,
       padding: EdgeInsets.symmetric(
         horizontal: isMobile ? 20 : 48,
         vertical: isMobile ? 80 : 120,
@@ -21,13 +22,13 @@ class AboutSection extends StatelessWidget {
       child: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 1300),
-          child: isMobile ? _buildMobileLayout() : _buildDesktopLayout(),
+          child: isMobile ? _buildMobileLayout(context) : _buildDesktopLayout(context),
         ),
       ),
     );
   }
 
-  Widget _buildDesktopLayout() {
+  Widget _buildDesktopLayout(BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -35,43 +36,47 @@ class AboutSection extends StatelessWidget {
           flex: 10,
           child: RevealAnimation(
             isLeft: true,
-            child: _buildLeftCol(),
+            child: _buildLeftCol(context),
           ),
         ),
         const SizedBox(width: 80),
         Expanded(
-          flex: 15, // Approx 1.5 ratio -> 10 to 15
-          child: _buildRightCol(),
+          flex: 15,
+          child: _buildRightCol(context),
         ),
       ],
     );
   }
 
-  Widget _buildMobileLayout() {
+  Widget _buildMobileLayout(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        RevealAnimation(isLeft: true, child: _buildLeftCol()),
+        RevealAnimation(isLeft: true, child: _buildLeftCol(context)),
         const SizedBox(height: 40),
-        _buildRightCol(),
+        _buildRightCol(context),
       ],
     );
   }
 
-  Widget _buildLeftCol() {
+  Widget _buildLeftCol(BuildContext context) {
+    final accentColor = AppColors.accent(context);
+    final textColor = AppColors.text(context);
+    final textSubtleColor = AppColors.textSubtle(context);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           children: [
-            Container(width: 20, height: 1, color: AppColors.lime),
+            Container(width: 20, height: 1, color: accentColor),
             const SizedBox(width: 10),
             Text(
               'WHO I AM',
               style: AppTheme.jetBrainsMono.copyWith(
-                fontSize: 10.4, // ~0.65rem
-                letterSpacing: 3.2, // 0.2em
-                color: AppColors.lime,
+                fontSize: 10.4,
+                letterSpacing: 3.2,
+                color: accentColor,
               ),
             ),
           ],
@@ -80,16 +85,16 @@ class AboutSection extends StatelessWidget {
         RichText(
           text: TextSpan(
             style: AppTheme.instrumentSerif.copyWith(
-              fontSize: 56, // clamp(2.4rem, 5vw, 4.5rem)
+              fontSize: 56,
               height: 1.05,
               letterSpacing: -0.01,
-              color: AppColors.textMain,
+              color: textColor,
             ),
-            children: const [
-              TextSpan(text: 'Building apps\n'),
+            children: [
+              const TextSpan(text: 'Building apps\n'),
               TextSpan(
                 text: 'that ship',
-                style: TextStyle(fontStyle: FontStyle.italic, color: AppColors.muted2),
+                style: TextStyle(fontStyle: FontStyle.italic, color: textSubtleColor),
               ),
             ],
           ),
@@ -98,13 +103,14 @@ class AboutSection extends StatelessWidget {
     );
   }
 
-  Widget _buildRightCol() {
+  Widget _buildRightCol(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         RevealAnimation(
           delay: const Duration(milliseconds: 100),
           child: _buildParagraph(
+            context,
             "I'm a ",
             bold1: "Flutter Developer",
             text2: " with hands-on experience building production-level mobile applications used by real people — from Kerala Forest Department rangers tagging trees in the field, to senior citizens accessing healthcare from their doorstep.",
@@ -114,6 +120,7 @@ class AboutSection extends StatelessWidget {
         RevealAnimation(
           delay: const Duration(milliseconds: 200),
           child: _buildParagraph(
+            context,
             "My edge is in ",
             bold1: "scalable architecture",
             text2: " — I don't just make things work, I make them maintainable. Bloc, Provider, clean code separation, CI/CD pipelines. I care about the codebase three years from now, not just the demo.",
@@ -123,6 +130,7 @@ class AboutSection extends StatelessWidget {
         RevealAnimation(
           delay: const Duration(milliseconds: 300),
           child: _buildParagraph(
+            context,
             "Currently ",
             bold1: "open to freelance projects",
             text2: " and collaborations where I can bring full-stack Flutter expertise to solve meaningful problems.",
@@ -134,60 +142,65 @@ class AboutSection extends StatelessWidget {
           child: Wrap(
             spacing: 10,
             runSpacing: 10,
-            children: [
-              _buildPill('Flutter & Dart'),
-              _buildPill('Bloc Pattern'),
-              _buildPill('Provider'),
-              _buildPill('WebSocket'),
-              _buildPill('REST APIs'),
-              _buildPill('Firebase'),
-              _buildPill('SQLite · Hive'),
-              _buildPill('Fastlane'),
-              _buildPill('GitHub Actions'),
-              _buildPill('GIS Mapping'),
-              _buildPill('MongoDB'),
+            children: const [
+              _HoverPill(text: 'Flutter & Dart'),
+              _HoverPill(text: 'Bloc Pattern'),
+              _HoverPill(text: 'Provider'),
+              _HoverPill(text: 'WebSocket'),
+              _HoverPill(text: 'REST APIs'),
+              _HoverPill(text: 'Firebase'),
+              _HoverPill(text: 'SQLite · Hive'),
+              _HoverPill(text: 'Fastlane'),
+              _HoverPill(text: 'GitHub Actions'),
+              _HoverPill(text: 'GIS Mapping'),
+              _HoverPill(text: 'MongoDB'),
             ],
           ),
         ),
         const SizedBox(height: 48),
         RevealAnimation(
           delay: const Duration(milliseconds: 500),
-          child: _buildCodeBlock(),
+          child: _buildCodeBlock(context),
         ),
       ],
     );
   }
 
-  Widget _buildParagraph(String text1, {required String bold1, required String text2}) {
+  Widget _buildParagraph(BuildContext context, String text1, {required String bold1, required String text2}) {
+    final textColor = AppColors.text(context);
+    final textSubtleColor = AppColors.textSubtle(context);
     return RichText(
       text: TextSpan(
         style: AppTheme.syne.copyWith(
-          fontSize: 16.8, // 1.05rem
+          fontSize: 16.8,
           height: 1.85,
-          color: AppColors.muted2,
+          color: textSubtleColor,
         ),
         children: [
           TextSpan(text: text1),
-          TextSpan(text: bold1, style: const TextStyle(color: AppColors.textMain, fontWeight: FontWeight.w600)),
+          TextSpan(text: bold1, style: TextStyle(color: textColor, fontWeight: FontWeight.w600)),
           TextSpan(text: text2),
         ],
       ),
     );
   }
 
-  Widget _buildPill(String text) {
-    return _HoverPill(text: text);
-  }
+  Widget _buildCodeBlock(BuildContext context) {
+    final surfaceColor = AppColors.surface(context);
+    final elevatedColor = AppColors.elevated(context);
+    final lineBorder = AppColors.line(context);
+    final textSubtleColor = AppColors.textSubtle(context);
+    final textCaptionColor = AppColors.textCaption(context);
+    final accentColor = AppColors.accent(context);
 
-  Widget _buildCodeBlock() {
     return Container(
       decoration: BoxDecoration(
-        color: AppColors.ink2,
-        border: Border.all(color: AppColors.border),
+        color: surfaceColor,
+        border: Border.all(color: lineBorder),
         borderRadius: BorderRadius.circular(8),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.3),
+            color: Colors.black.withOpacity(0.12),
             blurRadius: 20,
             offset: const Offset(0, 8),
           ),
@@ -199,8 +212,8 @@ class AboutSection extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             decoration: BoxDecoration(
-              color: AppColors.ink3.withOpacity(0.5),
-              border: Border(bottom: BorderSide(color: AppColors.border)),
+              color: elevatedColor,
+              border: Border(bottom: BorderSide(color: lineBorder)),
               borderRadius: const BorderRadius.vertical(top: Radius.circular(8)),
             ),
             child: Row(
@@ -219,7 +232,7 @@ class AboutSection extends StatelessWidget {
                   'abhishek_developer.dart',
                   style: AppTheme.jetBrainsMono.copyWith(
                     fontSize: 11,
-                    color: AppColors.muted2,
+                    color: textSubtleColor,
                   ),
                 ),
               ],
@@ -230,35 +243,35 @@ class AboutSection extends StatelessWidget {
             child: SelectableText.rich(
               TextSpan(
                 style: AppTheme.jetBrainsMono.copyWith(
-                  fontSize: 12.5, // 0.78rem
+                  fontSize: 12.5,
                   height: 1.9,
-                  color: AppColors.muted2,
+                  color: textSubtleColor,
                 ),
-                children: const [
-                  TextSpan(text: '// Abhishek\'s approach to every project\n', style: TextStyle(color: AppColors.muted, fontStyle: FontStyle.italic)),
-                  TextSpan(text: 'class ', style: TextStyle(color: Color(0xFFC8F041))),
-                  TextSpan(text: 'AbhishekYadav ', style: TextStyle(color: Color(0xFF82B4FF))),
-                  TextSpan(text: 'extends ', style: TextStyle(color: Color(0xFFC8F041))),
-                  TextSpan(text: 'FlutterDeveloper ', style: TextStyle(color: Color(0xFF82B4FF))),
-                  TextSpan(text: '{\n'),
-                  TextSpan(text: '  final ', style: TextStyle(color: Color(0xFFC8F041))),
-                  TextSpan(text: 'architecture = '),
-                  TextSpan(text: "'Clean + Scalable'", style: TextStyle(color: Color(0xFFE8A87C))),
-                  TextSpan(text: ';\n'),
-                  TextSpan(text: '  final ', style: TextStyle(color: Color(0xFFC8F041))),
-                  TextSpan(text: 'platforms = ['),
-                  TextSpan(text: "'Android'", style: TextStyle(color: Color(0xFFE8A87C))),
-                  TextSpan(text: ', '),
-                  TextSpan(text: "'iOS'", style: TextStyle(color: Color(0xFFE8A87C))),
-                  TextSpan(text: '];\n'),
-                  TextSpan(text: '  final ', style: TextStyle(color: Color(0xFFC8F041))),
-                  TextSpan(text: 'passion = '),
-                  TextSpan(text: "'Real-world impact'", style: TextStyle(color: Color(0xFFE8A87C))),
-                  TextSpan(text: ';\n\n'),
-                  TextSpan(text: '  build', style: TextStyle(color: Color(0xFF82B4FF))),
-                  TextSpan(text: '(Idea idea) => '),
-                  TextSpan(text: 'ProductionApp', style: TextStyle(color: Color(0xFF82B4FF))),
-                  TextSpan(text: '(idea);\n}'),
+                children: [
+                  TextSpan(text: '// Abhishek\'s approach to every project\n', style: TextStyle(color: textCaptionColor, fontStyle: FontStyle.italic)),
+                  TextSpan(text: 'class ', style: TextStyle(color: accentColor)),
+                  const TextSpan(text: 'AbhishekYadav ', style: TextStyle(color: Color(0xFF82B4FF))),
+                  TextSpan(text: 'extends ', style: TextStyle(color: accentColor)),
+                  const TextSpan(text: 'FlutterDeveloper ', style: TextStyle(color: Color(0xFF82B4FF))),
+                  const TextSpan(text: '{\n'),
+                  TextSpan(text: '  final ', style: TextStyle(color: accentColor)),
+                  const TextSpan(text: 'architecture = '),
+                  const TextSpan(text: "'Clean + Scalable'", style: TextStyle(color: Color(0xFFE8A87C))),
+                  const TextSpan(text: ';\n'),
+                  TextSpan(text: '  final ', style: TextStyle(color: accentColor)),
+                  const TextSpan(text: 'platforms = ['),
+                  const TextSpan(text: "'Android'", style: TextStyle(color: Color(0xFFE8A87C))),
+                  const TextSpan(text: ', '),
+                  const TextSpan(text: "'iOS'", style: TextStyle(color: Color(0xFFE8A87C))),
+                  const TextSpan(text: '];\n'),
+                  TextSpan(text: '  final ', style: TextStyle(color: accentColor)),
+                  const TextSpan(text: 'passion = '),
+                  const TextSpan(text: "'Real-world impact'", style: TextStyle(color: Color(0xFFE8A87C))),
+                  const TextSpan(text: ';\n\n'),
+                  const TextSpan(text: '  build', style: TextStyle(color: Color(0xFF82B4FF))),
+                  const TextSpan(text: '(Idea idea) => '),
+                  const TextSpan(text: 'ProductionApp', style: TextStyle(color: Color(0xFF82B4FF))),
+                  const TextSpan(text: '(idea);\n}'),
                 ],
               ),
             ),
@@ -282,6 +295,10 @@ class _HoverPillState extends State<_HoverPill> {
 
   @override
   Widget build(BuildContext context) {
+    final accentColor = AppColors.accent(context);
+    final textSubtleColor = AppColors.textSubtle(context);
+    final line2Color = AppColors.line2(context);
+
     return MouseRegion(
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
@@ -289,16 +306,16 @@ class _HoverPillState extends State<_HoverPill> {
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
-          color: _isHovered ? AppColors.lime.withOpacity(0.05) : Colors.transparent,
-          border: Border.all(color: _isHovered ? AppColors.lime : AppColors.border2),
+          color: _isHovered ? accentColor.withOpacity(0.08) : Colors.transparent,
+          border: Border.all(color: _isHovered ? accentColor : line2Color),
           borderRadius: BorderRadius.circular(2),
         ),
         child: Text(
           widget.text,
           style: AppTheme.jetBrainsMono.copyWith(
-            fontSize: 10.8, // 0.68rem
-            letterSpacing: 1.28, // 0.08em
-            color: _isHovered ? AppColors.lime : AppColors.muted2,
+            fontSize: 10.8,
+            letterSpacing: 1.28,
+            color: _isHovered ? accentColor : textSubtleColor,
           ),
         ),
       ),

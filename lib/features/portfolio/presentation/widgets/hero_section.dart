@@ -102,11 +102,11 @@ class HeroSection extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        _buildEyebrow(),
+                        _buildEyebrow(context),
                         SizedBox(height: isMobile ? 24 : (size.height * 0.035).clamp(20.0, 32.0)),
-                        _buildHeadline(isMobile, size),
+                        _buildHeadline(context, isMobile, size),
                         SizedBox(height: isMobile ? 32 : (size.height * 0.04).clamp(24.0, 40.0)),
-                        _buildSubRow(isMobile, size),
+                        _buildSubRow(context, isMobile, size),
                       ],
                     ),
                   ),
@@ -115,7 +115,7 @@ class HeroSection extends StatelessWidget {
                 Center(
                   child: ConstrainedBox(
                     constraints: const BoxConstraints(maxWidth: 1300),
-                    child: _buildBottom(isMobile),
+                    child: _buildBottom(context, isMobile),
                   ),
                 ),
               ],
@@ -126,7 +126,9 @@ class HeroSection extends StatelessWidget {
     );
   }
 
-  Widget _buildEyebrow() {
+  Widget _buildEyebrow(BuildContext context) {
+    final accentColor = AppColors.accent(context);
+    final textSubtleColor = AppColors.textSubtle(context);
     return Row(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.start,
@@ -136,25 +138,25 @@ class HeroSection extends StatelessWidget {
         Text(
           'MUMBAI, INDIA',
           style: AppTheme.jetBrainsMono.copyWith(
-            fontSize: 11, // ~0.7rem
-            letterSpacing: 2.8, // 0.18em
-            color: AppColors.muted2,
+            fontSize: 11,
+            letterSpacing: 2.8,
+            color: textSubtleColor,
           ),
         ),
         const SizedBox(width: 14),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
           decoration: BoxDecoration(
-            color: AppColors.lime.withOpacity(0.12),
-            border: Border.all(color: AppColors.lime.withOpacity(0.25)),
+            color: accentColor.withOpacity(0.12),
+            border: Border.all(color: accentColor.withOpacity(0.25)),
             borderRadius: BorderRadius.circular(2),
           ),
           child: Text(
             'OPEN TO FREELANCE',
             style: AppTheme.jetBrainsMono.copyWith(
-              fontSize: 10.5, // ~0.65rem
-              letterSpacing: 1.6, // 0.1em
-              color: AppColors.lime,
+              fontSize: 10.5,
+              letterSpacing: 1.6,
+              color: accentColor,
             ),
           ),
         ),
@@ -162,11 +164,14 @@ class HeroSection extends StatelessWidget {
     );
   }
 
-  Widget _buildHeadline(bool isMobile, Size size) {
+  Widget _buildHeadline(BuildContext context, bool isMobile, Size size) {
     final double rawFontSize = isMobile 
         ? size.width * 0.18 
         : (size.height * 0.135).clamp(64.0, 128.0);
     final double fontSize = rawFontSize.clamp(48.0, 128.0);
+    final textColor = AppColors.text(context);
+    final accentColor = AppColors.accent(context);
+
     return RichText(
       text: TextSpan(
         style: AppTheme.instrumentSerif.copyWith(
@@ -175,20 +180,19 @@ class HeroSection extends StatelessWidget {
           letterSpacing: -0.02,
         ),
         children: [
-          const TextSpan(
-              text: 'Abhishek\n', style: TextStyle(color: AppColors.textMain)),
-          const TextSpan(
+          TextSpan(text: 'Abhishek\n', style: TextStyle(color: textColor)),
+          TextSpan(
               text: 'Yadav\n',
               style: TextStyle(
-                  color: AppColors.lime, fontStyle: FontStyle.italic)),
+                  color: accentColor, fontStyle: FontStyle.italic)),
           TextSpan(
             text: 'Developer',
             style: TextStyle(
-              color: AppColors.textMain.withOpacity(0.25),
+              color: textColor.withOpacity(0.25),
               shadows: [
                 Shadow(
                   offset: const Offset(1, 1),
-                  color: AppColors.textMain.withOpacity(0.2),
+                  color: textColor.withOpacity(0.2),
                 ),
               ],
             ),
@@ -198,12 +202,12 @@ class HeroSection extends StatelessWidget {
     );
   }
 
-  Widget _buildSubRow(bool isMobile, Size size) {
+  Widget _buildSubRow(BuildContext context, bool isMobile, Size size) {
     if (isMobile) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildDesc(),
+          _buildDesc(context),
           const SizedBox(height: 32),
           _buildActions(isMobile: true),
         ],
@@ -215,7 +219,7 @@ class HeroSection extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          Expanded(child: _buildDesc()),
+          Expanded(child: _buildDesc(context)),
           SizedBox(width: gap),
           Expanded(
               child: Align(
@@ -225,7 +229,9 @@ class HeroSection extends StatelessWidget {
     );
   }
 
-  Widget _buildDesc() {
+  Widget _buildDesc(BuildContext context) {
+    final textColor = AppColors.text(context);
+    final textSubtleColor = AppColors.textSubtle(context);
     return ConstrainedBox(
       constraints: const BoxConstraints(maxWidth: 380),
       child: RichText(
@@ -233,21 +239,21 @@ class HeroSection extends StatelessWidget {
           style: AppTheme.syne.copyWith(
             fontSize: 16,
             height: 1.75,
-            color: AppColors.muted2,
+            color: textSubtleColor,
           ),
-          children: const [
+          children: [
             TextSpan(
                 text: 'Flutter Developer',
                 style: TextStyle(
-                    color: AppColors.textMain, fontWeight: FontWeight.w600)),
-            TextSpan(
+                    color: textColor, fontWeight: FontWeight.w600)),
+            const TextSpan(
                 text:
                     ' crafting production-level mobile apps for Android & iOS. Specialized in '),
             TextSpan(
                 text: 'clean architecture',
                 style: TextStyle(
-                    color: AppColors.textMain, fontWeight: FontWeight.w600)),
-            TextSpan(
+                    color: textColor, fontWeight: FontWeight.w600)),
+            const TextSpan(
                 text: ', real-time systems, and government-grade solutions.'),
           ],
         ),
@@ -278,11 +284,12 @@ class HeroSection extends StatelessWidget {
     );
   }
 
-  Widget _buildBottom(bool isMobile) {
+  Widget _buildBottom(BuildContext context, bool isMobile) {
+    final line = AppColors.line(context);
     return Container(
-      padding: const EdgeInsets.only(top: 60,),
-      decoration: const BoxDecoration(
-        border: Border(top: BorderSide(color: AppColors.border)),
+      padding: const EdgeInsets.only(top: 60),
+      decoration: BoxDecoration(
+        border: Border(top: BorderSide(color: line)),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -293,21 +300,23 @@ class HeroSection extends StatelessWidget {
               spacing: isMobile ? 24 : 48,
               runSpacing: 24,
               children: [
-                _buildStat('5+', 'APPS SHIPPED', isMobile),
-                _buildStat('2', 'PLATFORMS', isMobile),
-                _buildStat('Gov', 'GRADE PROJECTS', isMobile),
-                _buildStat('∞', 'LINES OF DART', isMobile),
+                _buildStat(context, '5+', 'APPS SHIPPED', isMobile),
+                _buildStat(context, '2', 'PLATFORMS', isMobile),
+                _buildStat(context, 'Gov', 'GRADE PROJECTS', isMobile),
+                _buildStat(context, '∞', 'LINES OF DART', isMobile),
               ],
             ),
           ),
           const SizedBox(width: 24),
-          _buildScrollHint(),
+          _buildScrollHint(context),
         ],
       ),
     );
   }
 
-  Widget _buildStat(String num, String lbl, bool isMobile) {
+  Widget _buildStat(BuildContext context, String num, String lbl, bool isMobile) {
+    final accentColor = AppColors.accent(context);
+    final textCaptionColor = AppColors.textCaption(context);
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -317,7 +326,7 @@ class HeroSection extends StatelessWidget {
           style: AppTheme.instrumentSerif.copyWith(
             fontSize: isMobile ? 32 : 48,
             fontStyle: FontStyle.italic,
-            color: AppColors.lime,
+            color: accentColor,
             height: 1.0,
           ),
         ),
@@ -325,16 +334,17 @@ class HeroSection extends StatelessWidget {
         Text(
           lbl,
           style: AppTheme.jetBrainsMono.copyWith(
-            fontSize: 9.6, // ~0.6rem
-            letterSpacing: 2.2, // 0.14em
-            color: AppColors.muted,
+            fontSize: 9.6,
+            letterSpacing: 2.2,
+            color: textCaptionColor,
           ),
         ),
       ],
     );
   }
 
-  Widget _buildScrollHint() {
+  Widget _buildScrollHint(BuildContext context) {
+    final textCaptionColor = AppColors.textCaption(context);
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -343,9 +353,9 @@ class HeroSection extends StatelessWidget {
         Text(
           'SCROLL',
           style: AppTheme.jetBrainsMono.copyWith(
-            fontSize: 9.2, // ~0.58rem
-            letterSpacing: 2.2, // 0.14em
-            color: AppColors.muted,
+            fontSize: 9.2,
+            letterSpacing: 2.2,
+            color: textCaptionColor,
           ),
         ),
       ],
@@ -381,6 +391,7 @@ class _BlinkingDotState extends State<_BlinkingDot>
 
   @override
   Widget build(BuildContext context) {
+    final accentColor = AppColors.accent(context);
     return AnimatedBuilder(
       animation: _controller,
       builder: (context, child) {
@@ -389,8 +400,8 @@ class _BlinkingDotState extends State<_BlinkingDot>
           child: Container(
             width: 8,
             height: 8,
-            decoration: const BoxDecoration(
-              color: AppColors.lime,
+            decoration: BoxDecoration(
+              color: accentColor,
               shape: BoxShape.circle,
             ),
           ),
@@ -428,6 +439,7 @@ class _ScrollLineState extends State<_ScrollLine>
 
   @override
   Widget build(BuildContext context) {
+    final accentColor = AppColors.accent(context);
     return AnimatedBuilder(
       animation: _controller,
       builder: (context, child) {
@@ -436,11 +448,11 @@ class _ScrollLineState extends State<_ScrollLine>
           child: Container(
             width: 1,
             height: 44,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: [AppColors.lime, Colors.transparent],
+                colors: [accentColor, Colors.transparent],
               ),
             ),
           ),
@@ -480,6 +492,15 @@ class _HoverButtonState extends State<_HoverButton> {
     final verticalPadding = widget.isMobile ? 12.0 : 14.0;
     final fontSize = widget.isMobile ? 11.5 : 12.8;
 
+    final accentColor = AppColors.accent(context);
+    final accentHoverColor = AppColors.accentHover(context);
+    final textSubtleColor = AppColors.textSubtle(context);
+    final line2Color = AppColors.line2(context);
+    final isDarkTheme = AppColors.isDark(context);
+
+    final primaryTextColor = isDarkTheme ? AppColors.darkInk : Colors.white;
+    final ghostTextColor = _isHovered ? accentColor : textSubtleColor;
+
     return MouseRegion(
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
@@ -495,20 +516,20 @@ class _HoverButtonState extends State<_HoverButton> {
           ),
           decoration: BoxDecoration(
             color: widget.isPrimary
-                ? (_isHovered ? AppColors.lime2 : AppColors.lime)
+                ? (_isHovered ? accentHoverColor : accentColor)
                 : Colors.transparent,
             border: Border.all(
               color: widget.isPrimary
                   ? Colors.transparent
                   : (_isHovered
-                      ? Colors.white.withOpacity(0.4)
-                      : AppColors.border2),
+                      ? accentColor
+                      : line2Color),
             ),
             borderRadius: BorderRadius.circular(2),
             boxShadow: _isHovered && widget.isPrimary
                 ? [
                     BoxShadow(
-                      color: AppColors.lime.withOpacity(0.25),
+                      color: accentColor.withOpacity(0.25),
                       blurRadius: 32,
                       offset: const Offset(0, 12),
                     )
@@ -522,7 +543,7 @@ class _HoverButtonState extends State<_HoverButton> {
                 Icon(
                   widget.icon,
                   size: widget.isMobile ? 13 : 14,
-                  color: widget.isPrimary ? AppColors.ink : AppColors.muted2,
+                  color: widget.isPrimary ? primaryTextColor : ghostTextColor,
                 ),
                 SizedBox(width: widget.isMobile ? 6 : 10),
               ],
@@ -534,8 +555,8 @@ class _HoverButtonState extends State<_HoverButton> {
                       widget.isPrimary ? FontWeight.w700 : FontWeight.w600,
                   letterSpacing: widget.isMobile ? 0.5 : 0.96,
                   color: widget.isPrimary
-                      ? AppColors.ink
-                      : (_isHovered ? AppColors.textMain : AppColors.muted2),
+                      ? primaryTextColor
+                      : ghostTextColor,
                 ),
               ),
             ],

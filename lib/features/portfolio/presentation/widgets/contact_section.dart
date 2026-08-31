@@ -12,6 +12,9 @@ class ContactSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isMobile = Responsive.isMobile(context);
+    final textColor = AppColors.text(context);
+    final accentColor = AppColors.accent(context);
+    final textSubtleColor = AppColors.textSubtle(context);
 
     return Container(
       width: double.infinity,
@@ -29,20 +32,20 @@ class ContactSection extends StatelessWidget {
                   textAlign: TextAlign.center,
                   text: TextSpan(
                     style: AppTheme.instrumentSerif.copyWith(
-                      fontSize: isMobile ? 48 : 128, // clamp(3rem, 8vw, 8rem)
+                      fontSize: isMobile ? 48 : 128,
                       fontStyle: FontStyle.italic,
                       fontWeight: FontWeight.w400,
                       height: 1.0,
                       letterSpacing: -0.02,
-                      color: AppColors.textMain,
+                      color: textColor,
                     ),
-                    children: const [
-                      TextSpan(text: "Let's build\n"),
+                    children: [
+                      const TextSpan(text: "Let's build\n"),
                       TextSpan(
                         text: 'something',
-                        style: TextStyle(color: AppColors.lime),
+                        style: TextStyle(color: accentColor),
                       ),
-                      TextSpan(text: '\nreal.'),
+                      const TextSpan(text: '\nreal.'),
                     ],
                   ),
                 ),
@@ -58,7 +61,7 @@ class ContactSection extends StatelessWidget {
                     style: AppTheme.syne.copyWith(
                       fontSize: 16,
                       height: 1.8,
-                      color: AppColors.muted2,
+                      color: textSubtleColor,
                     ),
                   ),
                 ),
@@ -70,7 +73,7 @@ class ContactSection extends StatelessWidget {
                   spacing: 14,
                   runSpacing: 14,
                   alignment: WrapAlignment.center,
-                  children: [
+                  children: const [
                     _ContactLink(
                       icon: Icons.email_outlined,
                       text: 'EMAIL ME',
@@ -127,7 +130,6 @@ class _ContactLinkState extends State<_ContactLink> {
     try {
       await launchUrl(uri, mode: LaunchMode.platformDefault);
     } catch (_) {
-      // Fallback
       if (await canLaunchUrl(uri)) {
         await launchUrl(uri);
       }
@@ -136,6 +138,11 @@ class _ContactLinkState extends State<_ContactLink> {
 
   @override
   Widget build(BuildContext context) {
+    final accentColor = AppColors.accent(context);
+    final surfaceColor = AppColors.surface(context);
+    final textSubtleColor = AppColors.textSubtle(context);
+    final lineBorder = AppColors.line(context);
+
     return MouseRegion(
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
@@ -148,10 +155,10 @@ class _ContactLinkState extends State<_ContactLink> {
           padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 14),
           decoration: BoxDecoration(
             color: _isHovered
-                ? AppColors.lime.withOpacity(0.08)
-                : AppColors.ink2,
+                ? accentColor.withOpacity(0.08)
+                : surfaceColor,
             border: Border.all(
-                color: _isHovered ? AppColors.lime : AppColors.border),
+                color: _isHovered ? accentColor : lineBorder),
             borderRadius: BorderRadius.circular(4),
           ),
           child: Row(
@@ -160,15 +167,15 @@ class _ContactLinkState extends State<_ContactLink> {
               Icon(
                 widget.icon,
                 size: 14,
-                color: _isHovered ? AppColors.lime : AppColors.muted2,
+                color: _isHovered ? accentColor : textSubtleColor,
               ),
               const SizedBox(width: 10),
               Text(
                 widget.text,
                 style: AppTheme.jetBrainsMono.copyWith(
-                  fontSize: 11.2, // 0.7rem
-                  letterSpacing: 1.6, // 0.1em
-                  color: _isHovered ? AppColors.lime : AppColors.muted2,
+                  fontSize: 11.2,
+                  letterSpacing: 1.6,
+                  color: _isHovered ? accentColor : textSubtleColor,
                 ),
               ),
             ],

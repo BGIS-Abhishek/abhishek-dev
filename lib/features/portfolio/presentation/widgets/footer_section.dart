@@ -20,6 +20,8 @@ class FooterSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isMobile = Responsive.isMobile(context);
+    final surfaceColor = AppColors.surface(context);
+    final lineBorder = AppColors.line(context);
 
     return Container(
       width: double.infinity,
@@ -27,16 +29,16 @@ class FooterSection extends StatelessWidget {
         horizontal: isMobile ? 20 : 48,
         vertical: isMobile ? 24 : 32,
       ),
-      decoration: const BoxDecoration(
-        color: AppColors.ink2,
-        border: Border(top: BorderSide(color: AppColors.border)),
+      decoration: BoxDecoration(
+        color: surfaceColor,
+        border: Border(top: BorderSide(color: lineBorder)),
       ),
       child: isMobile
           ? Column(
               children: [
-                _buildLogo(),
+                _buildLogo(context),
                 const SizedBox(height: 14),
-                _buildCopy('© ${DateTime.now().year} Abhishek Yadav · Flutter Developer · Mumbai'),
+                _buildCopy(context, '© ${DateTime.now().year} Abhishek Yadav · Flutter Developer · Mumbai'),
                 const SizedBox(height: 14),
                 _buildBackToTop(context),
               ],
@@ -44,61 +46,65 @@ class FooterSection extends StatelessWidget {
           : Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                _buildLogo(),
-                _buildCopy('© ${DateTime.now().year} Abhishek Yadav · Flutter Developer · Mumbai'),
+                _buildLogo(context),
+                _buildCopy(context, '© ${DateTime.now().year} Abhishek Yadav · Flutter Developer · Mumbai'),
                 _buildBackToTop(context),
               ],
             ),
     );
   }
 
-  Widget _buildLogo() {
+  Widget _buildLogo(BuildContext context) {
+    final textColor = AppColors.text(context);
+    final accentColor = AppColors.accent(context);
     return RichText(
       text: TextSpan(
         style: AppTheme.syne.copyWith(
           fontSize: 12.5,
           fontWeight: FontWeight.w700,
           letterSpacing: 2.16,
-          color: AppColors.textMain,
+          color: textColor,
         ),
-        children: const [
-          TextSpan(text: 'A'),
+        children: [
+          const TextSpan(text: 'A'),
           TextSpan(
             text: '.',
-            style: TextStyle(color: AppColors.lime),
+            style: TextStyle(color: accentColor),
           ),
-          TextSpan(text: 'YADAV'),
+          const TextSpan(text: 'YADAV'),
         ],
       ),
     );
   }
 
-  Widget _buildCopy(String text) {
+  Widget _buildCopy(BuildContext context, String text) {
+    final textSubtleColor = AppColors.textSubtle(context);
     return Text(
       text,
       textAlign: TextAlign.center,
       style: AppTheme.jetBrainsMono.copyWith(
         fontSize: 10,
         letterSpacing: 1.28,
-        color: AppColors.muted2,
+        color: textSubtleColor,
       ),
     );
   }
 
   Widget _buildBackToTop(BuildContext context) {
+    final accentColor = AppColors.accent(context);
     return InkWell(
       onTap: () => _scrollToTop(context),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Icon(Icons.arrow_upward_rounded, size: 14, color: AppColors.lime),
+          Icon(Icons.arrow_upward_rounded, size: 14, color: accentColor),
           const SizedBox(width: 6),
           Text(
             'BACK TO TOP',
             style: AppTheme.jetBrainsMono.copyWith(
               fontSize: 10,
               letterSpacing: 1.6,
-              color: AppColors.lime,
+              color: accentColor,
               fontWeight: FontWeight.w600,
             ),
           ),

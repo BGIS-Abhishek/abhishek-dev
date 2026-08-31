@@ -10,10 +10,11 @@ class ProjectsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isMobile = Responsive.isMobile(context);
+    final bgColor = AppColors.bg(context);
 
     return Container(
       width: double.infinity,
-      color: AppColors.ink,
+      color: bgColor,
       padding: EdgeInsets.fromLTRB(
         isMobile ? 20 : 48,
         0,
@@ -27,12 +28,12 @@ class ProjectsSection extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               RevealAnimation(
-                child: _buildHeader(isMobile),
+                child: _buildHeader(context, isMobile),
               ),
               const SizedBox(height: 60),
               RevealAnimation(
                 delay: const Duration(milliseconds: 100),
-                child: _buildHighlight(isMobile),
+                child: _buildHighlight(context, isMobile),
               ),
               const SizedBox(height: 2),
               _buildList(isMobile),
@@ -43,7 +44,12 @@ class ProjectsSection extends StatelessWidget {
     );
   }
 
-  Widget _buildHeader(bool isMobile) {
+  Widget _buildHeader(BuildContext context, bool isMobile) {
+    final accentColor = AppColors.accent(context);
+    final textColor = AppColors.text(context);
+    final textSubtleColor = AppColors.textSubtle(context);
+    final line2Color = AppColors.line2(context);
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.end,
@@ -53,14 +59,14 @@ class ProjectsSection extends StatelessWidget {
           children: [
             Row(
               children: [
-                Container(width: 20, height: 1, color: AppColors.lime),
+                Container(width: 20, height: 1, color: accentColor),
                 const SizedBox(width: 10),
                 Text(
                   'SELECTED WORK',
                   style: AppTheme.jetBrainsMono.copyWith(
-                    fontSize: 10.4, // ~0.65rem
-                    letterSpacing: 3.2, // 0.2em
-                    color: AppColors.lime,
+                    fontSize: 10.4,
+                    letterSpacing: 3.2,
+                    color: accentColor,
                   ),
                 ),
               ],
@@ -69,16 +75,16 @@ class ProjectsSection extends StatelessWidget {
             RichText(
               text: TextSpan(
                 style: AppTheme.instrumentSerif.copyWith(
-                  fontSize: isMobile ? 38.4 : 72, // clamp(2.4rem, 5vw, 4.5rem)
+                  fontSize: isMobile ? 38.4 : 72,
                   height: 1.05,
                   letterSpacing: -0.01,
-                  color: AppColors.textMain,
+                  color: textColor,
                 ),
-                children: const [
-                  TextSpan(text: 'Projects that\n'),
+                children: [
+                  const TextSpan(text: 'Projects that\n'),
                   TextSpan(
                     text: 'actually shipped',
-                    style: TextStyle(fontStyle: FontStyle.italic, color: AppColors.muted2),
+                    style: TextStyle(fontStyle: FontStyle.italic, color: textSubtleColor),
                   ),
                 ],
               ),
@@ -88,9 +94,9 @@ class ProjectsSection extends StatelessWidget {
         Text(
           '05',
           style: AppTheme.instrumentSerif.copyWith(
-            fontSize: 80, // 5rem
+            fontSize: 80,
             fontStyle: FontStyle.italic,
-            color: AppColors.border2,
+            color: line2Color,
             height: 1.0,
           ),
         ),
@@ -98,35 +104,42 @@ class ProjectsSection extends StatelessWidget {
     );
   }
 
-  Widget _buildHighlight(bool isMobile) {
+  Widget _buildHighlight(BuildContext context, bool isMobile) {
+    final surfaceColor = AppColors.surface(context);
+    final lineBorder = AppColors.line(context);
+
     return Container(
       decoration: BoxDecoration(
-        color: AppColors.ink2,
-        border: Border.all(color: AppColors.border),
+        color: surfaceColor,
+        border: Border.all(color: lineBorder),
         borderRadius: BorderRadius.circular(4),
       ),
       child: isMobile
           ? Column(
               children: [
-                _buildHighlightLeft(),
-                Container(height: 1, color: AppColors.border),
-                _buildHighlightRight(isMobile),
+                _buildHighlightLeft(context),
+                Container(height: 1, color: lineBorder),
+                _buildHighlightRight(context, isMobile),
               ],
             )
           : IntrinsicHeight(
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Expanded(child: _buildHighlightLeft()),
-                  Container(width: 1, color: AppColors.border),
-                  Expanded(child: _buildHighlightRight(isMobile)),
+                  Expanded(child: _buildHighlightLeft(context)),
+                  Container(width: 1, color: lineBorder),
+                  Expanded(child: _buildHighlightRight(context, isMobile)),
                 ],
               ),
             ),
     );
   }
 
-  Widget _buildHighlightLeft() {
+  Widget _buildHighlightLeft(BuildContext context) {
+    final accentColor = AppColors.accent(context);
+    final textColor = AppColors.text(context);
+    final textSubtleColor = AppColors.textSubtle(context);
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 44, vertical: 48),
       child: Column(
@@ -135,44 +148,48 @@ class ProjectsSection extends StatelessWidget {
           Text(
             '✦ HIGHLIGHT PROJECT · KERALA FOREST DEPT.',
             style: AppTheme.jetBrainsMono.copyWith(
-              fontSize: 9.9, // 0.62rem
-              letterSpacing: 2.88, // 0.18em
-              color: AppColors.lime,
+              fontSize: 9.9,
+              letterSpacing: 2.88,
+              color: accentColor,
             ),
           ),
           const SizedBox(height: 16),
           Text(
             'Tigram',
             style: AppTheme.instrumentSerif.copyWith(
-              fontSize: 48, // 3rem
+              fontSize: 48,
               fontStyle: FontStyle.italic,
               height: 1.0,
-              color: AppColors.textMain,
+              color: textColor,
             ),
           ),
           const SizedBox(height: 12),
           Text(
             'Timber traceability platform used by the Kerala Forest Department to track and verify timber from forest to market using GPS and QR codes.',
             style: AppTheme.syne.copyWith(
-              fontSize: 14.4, // 0.9rem
+              fontSize: 14.4,
               height: 1.7,
-              color: AppColors.muted2,
+              color: textSubtleColor,
             ),
           ),
           const SizedBox(height: 32),
-          _buildFeatureItem('GPS-based tree tracking', ' — real-time field data capture'),
+          _buildFeatureItem(context, 'GPS-based tree tracking', ' — real-time field data capture'),
           const SizedBox(height: 12),
-          _buildFeatureItem('QR code integration', ' — unique ID per timber piece'),
+          _buildFeatureItem(context, 'QR code integration', ' — unique ID per timber piece'),
           const SizedBox(height: 12),
-          _buildFeatureItem('REST API', ' — synced with government backend systems'),
+          _buildFeatureItem(context, 'REST API', ' — synced with government backend systems'),
           const SizedBox(height: 12),
-          _buildFeatureItem('Offline-capable', ' — works in low-connectivity forests'),
+          _buildFeatureItem(context, 'Offline-capable', ' — works in low-connectivity forests'),
         ],
       ),
     );
   }
 
-  Widget _buildFeatureItem(String boldText, String text) {
+  Widget _buildFeatureItem(BuildContext context, String boldText, String text) {
+    final accentColor = AppColors.accent(context);
+    final textColor = AppColors.text(context);
+    final textSubtleColor = AppColors.textSubtle(context);
+
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -181,16 +198,16 @@ class ProjectsSection extends StatelessWidget {
           width: 18,
           height: 18,
           decoration: BoxDecoration(
-            color: AppColors.lime.withOpacity(0.12),
-            border: Border.all(color: AppColors.lime.withOpacity(0.25)),
+            color: accentColor.withOpacity(0.12),
+            border: Border.all(color: accentColor.withOpacity(0.25)),
             borderRadius: BorderRadius.circular(2),
           ),
           alignment: Alignment.center,
           child: Container(
             width: 5,
             height: 5,
-            decoration: const BoxDecoration(
-              color: AppColors.lime,
+            decoration: BoxDecoration(
+              color: accentColor,
               shape: BoxShape.circle,
             ),
           ),
@@ -200,12 +217,12 @@ class ProjectsSection extends StatelessWidget {
           child: RichText(
             text: TextSpan(
               style: AppTheme.syne.copyWith(
-                fontSize: 14, // 0.88rem
+                fontSize: 14,
                 height: 1.5,
-                color: AppColors.muted2,
+                color: textSubtleColor,
               ),
               children: [
-                TextSpan(text: boldText, style: const TextStyle(color: AppColors.textMain, fontWeight: FontWeight.w600)),
+                TextSpan(text: boldText, style: TextStyle(color: textColor, fontWeight: FontWeight.w600)),
                 TextSpan(text: text),
               ],
             ),
@@ -215,9 +232,13 @@ class ProjectsSection extends StatelessWidget {
     );
   }
 
-  Widget _buildHighlightRight(bool isMobile) {
+  Widget _buildHighlightRight(BuildContext context, bool isMobile) {
+    final accentColor = AppColors.accent(context);
+    final textSubtleColor = AppColors.textSubtle(context);
+    final textCaptionColor = AppColors.textCaption(context);
+
     return Container(
-      color: AppColors.lime.withOpacity(0.04),
+      color: accentColor.withOpacity(0.04),
       padding: const EdgeInsets.symmetric(horizontal: 44, vertical: 48),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -229,9 +250,9 @@ class ProjectsSection extends StatelessWidget {
               Text(
                 'TECH STACK',
                 style: AppTheme.jetBrainsMono.copyWith(
-                  fontSize: 9.9, // 0.62rem
-                  letterSpacing: 2.4, // 0.15em
-                  color: AppColors.muted,
+                  fontSize: 9.9,
+                  letterSpacing: 2.4,
+                  color: textCaptionColor,
                 ),
               ),
               const SizedBox(height: 16),
@@ -239,13 +260,13 @@ class ProjectsSection extends StatelessWidget {
                 spacing: 8,
                 runSpacing: 8,
                 children: [
-                  _buildTag('Flutter', isHighlight: true),
-                  _buildTag('Dart', isHighlight: true),
-                  _buildTag('Provider', isHighlight: true),
-                  _buildTag('Bloc', isHighlight: true),
-                  _buildTag('REST API', isHighlight: true),
-                  _buildTag('GPS', isHighlight: true),
-                  _buildTag('QR Code', isHighlight: true),
+                  _buildTag(context, 'Flutter', isHighlight: true),
+                  _buildTag(context, 'Dart', isHighlight: true),
+                  _buildTag(context, 'Provider', isHighlight: true),
+                  _buildTag(context, 'Bloc', isHighlight: true),
+                  _buildTag(context, 'REST API', isHighlight: true),
+                  _buildTag(context, 'GPS', isHighlight: true),
+                  _buildTag(context, 'QR Code', isHighlight: true),
                 ],
               ),
             ],
@@ -254,8 +275,8 @@ class ProjectsSection extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(24),
             decoration: BoxDecoration(
-              color: AppColors.lime.withOpacity(0.05),
-              border: Border.all(color: AppColors.lime.withOpacity(0.12)),
+              color: accentColor.withOpacity(0.05),
+              border: Border.all(color: accentColor.withOpacity(0.12)),
               borderRadius: BorderRadius.circular(2),
             ),
             child: Column(
@@ -264,18 +285,18 @@ class ProjectsSection extends StatelessWidget {
                 Text(
                   'IMPACT',
                   style: AppTheme.jetBrainsMono.copyWith(
-                    fontSize: 9.6, // 0.6rem
-                    letterSpacing: 1.92, // 0.12em
-                    color: AppColors.lime,
+                    fontSize: 9.6,
+                    letterSpacing: 1.92,
+                    color: accentColor,
                   ),
                 ),
                 const SizedBox(height: 8),
                 Text(
                   'Live in the field with Kerala Forest Department officers — directly reducing timber fraud through digital traceability.',
                   style: AppTheme.syne.copyWith(
-                    fontSize: 14, // 0.88rem
+                    fontSize: 14,
                     height: 1.7,
-                    color: AppColors.muted2,
+                    color: textSubtleColor,
                   ),
                 ),
               ],
@@ -307,20 +328,23 @@ class ProjectsSection extends StatelessWidget {
     );
   }
 
-  Widget _buildTag(String text, {bool isHighlight = false}) {
+  Widget _buildTag(BuildContext context, String text, {bool isHighlight = false}) {
+    final textCaptionColor = AppColors.textCaption(context);
+    final lineBorder = AppColors.line(context);
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.04),
-        border: Border.all(color: AppColors.border),
+        color: Colors.transparent,
+        border: Border.all(color: lineBorder),
         borderRadius: BorderRadius.circular(2),
       ),
       child: Text(
         text.toUpperCase(),
         style: AppTheme.jetBrainsMono.copyWith(
-          fontSize: 9.6, // 0.6rem
-          letterSpacing: 1.28, // 0.08em
-          color: AppColors.muted,
+          fontSize: 9.6,
+          letterSpacing: 1.28,
+          color: textCaptionColor,
         ),
       ),
     );
@@ -351,6 +375,14 @@ class _HoverProjectRowState extends State<_HoverProjectRow> {
 
   @override
   Widget build(BuildContext context) {
+    final surfaceColor = AppColors.surface(context);
+    final elevatedColor = AppColors.elevated(context);
+    final accentColor = AppColors.accent(context);
+    final textColor = AppColors.text(context);
+    final textSubtleColor = AppColors.textSubtle(context);
+    final textCaptionColor = AppColors.textCaption(context);
+    final line2Color = AppColors.line2(context);
+
     return MouseRegion(
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
@@ -361,8 +393,8 @@ class _HoverProjectRowState extends State<_HoverProjectRow> {
             ? const EdgeInsets.symmetric(horizontal: 28, vertical: 24)
             : const EdgeInsets.symmetric(horizontal: 36, vertical: 28),
         decoration: BoxDecoration(
-          color: _isHovered ? AppColors.ink3 : AppColors.ink2,
-          border: Border.all(color: _isHovered ? AppColors.border2 : Colors.transparent),
+          color: _isHovered ? elevatedColor : surfaceColor,
+          border: Border.all(color: _isHovered ? line2Color : Colors.transparent),
           borderRadius: BorderRadius.circular(4),
         ),
         transform: Matrix4.translationValues(_isHovered && !widget.isMobile ? 8.0 : 0.0, 0, 0),
@@ -377,7 +409,7 @@ class _HoverProjectRowState extends State<_HoverProjectRow> {
                       style: AppTheme.jetBrainsMono.copyWith(
                         fontSize: 10.4,
                         letterSpacing: 1.6,
-                        color: AppColors.muted,
+                        color: textCaptionColor,
                       ),
                     ),
                   ),
@@ -390,7 +422,7 @@ class _HoverProjectRowState extends State<_HoverProjectRow> {
                           style: AppTheme.instrumentSerif.copyWith(
                             fontSize: 24,
                             fontStyle: FontStyle.italic,
-                            color: AppColors.textMain,
+                            color: textColor,
                           ),
                         ),
                         const SizedBox(height: 4),
@@ -398,7 +430,7 @@ class _HoverProjectRowState extends State<_HoverProjectRow> {
                           widget.desc,
                           style: AppTheme.syne.copyWith(
                             fontSize: 12.8,
-                            color: AppColors.muted2,
+                            color: textSubtleColor,
                           ),
                         ),
                       ],
@@ -415,7 +447,7 @@ class _HoverProjectRowState extends State<_HoverProjectRow> {
                       style: AppTheme.jetBrainsMono.copyWith(
                         fontSize: 10.4,
                         letterSpacing: 1.6,
-                        color: AppColors.muted,
+                        color: textCaptionColor,
                       ),
                     ),
                   ),
@@ -429,7 +461,7 @@ class _HoverProjectRowState extends State<_HoverProjectRow> {
                           style: AppTheme.instrumentSerif.copyWith(
                             fontSize: 24,
                             fontStyle: FontStyle.italic,
-                            color: AppColors.textMain,
+                            color: textColor,
                           ),
                         ),
                         const SizedBox(height: 4),
@@ -437,7 +469,7 @@ class _HoverProjectRowState extends State<_HoverProjectRow> {
                           widget.desc,
                           style: AppTheme.syne.copyWith(
                             fontSize: 12.8,
-                            color: AppColors.muted2,
+                            color: textSubtleColor,
                           ),
                         ),
                       ],
@@ -449,7 +481,7 @@ class _HoverProjectRowState extends State<_HoverProjectRow> {
                       alignment: WrapAlignment.end,
                       spacing: 8,
                       runSpacing: 8,
-                      children: widget.tags.map((t) => _buildTag(t)).toList(),
+                      children: widget.tags.map((t) => _buildTag(context, t)).toList(),
                     ),
                   ),
                   const SizedBox(width: 32),
@@ -459,7 +491,7 @@ class _HoverProjectRowState extends State<_HoverProjectRow> {
                     child: AnimatedSlide(
                       duration: const Duration(milliseconds: 300),
                       offset: _isHovered ? Offset.zero : const Offset(-0.5, 0),
-                      child: const Icon(Icons.arrow_forward, color: AppColors.lime, size: 20),
+                      child: Icon(Icons.arrow_forward, color: accentColor, size: 20),
                     ),
                   ),
                 ],
@@ -468,13 +500,18 @@ class _HoverProjectRowState extends State<_HoverProjectRow> {
     );
   }
 
-  Widget _buildTag(String text) {
+  Widget _buildTag(BuildContext context, String text) {
+    final lineBorder = AppColors.line(context);
+    final line2Border = AppColors.line2(context);
+    final textSubtleColor = AppColors.textSubtle(context);
+    final textCaptionColor = AppColors.textCaption(context);
+
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.04),
-        border: Border.all(color: _isHovered ? AppColors.border2 : AppColors.border),
+        color: Colors.transparent,
+        border: Border.all(color: _isHovered ? line2Border : lineBorder),
         borderRadius: BorderRadius.circular(2),
       ),
       child: Text(
@@ -482,7 +519,7 @@ class _HoverProjectRowState extends State<_HoverProjectRow> {
         style: AppTheme.jetBrainsMono.copyWith(
           fontSize: 9.6,
           letterSpacing: 1.28,
-          color: _isHovered ? const Color(0xFF9A968E) : const Color(0xFF6B6B6B),
+          color: _isHovered ? textSubtleColor : textCaptionColor,
         ),
       ),
     );

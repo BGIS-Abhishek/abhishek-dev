@@ -12,7 +12,14 @@ import 'package:abhishek_dev/features/portfolio/presentation/widgets/contact_sec
 import 'package:abhishek_dev/features/portfolio/presentation/widgets/footer_section.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  final ThemeMode themeMode;
+  final VoidCallback onToggleTheme;
+
+  const HomePage({
+    super.key,
+    required this.themeMode,
+    required this.onToggleTheme,
+  });
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -60,8 +67,12 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final bgColor = AppColors.bg(context);
+    final surfaceColor = AppColors.surface(context);
+    final borderLine = AppColors.line(context);
+
     return Scaffold(
-      backgroundColor: AppColors.ink,
+      backgroundColor: bgColor,
       body: Stack(
         children: [
           SingleChildScrollView(
@@ -76,32 +87,32 @@ class _HomePageState extends State<HomePage> {
                 const MarqueeStrip(),
                 Container(
                   key: _aboutKey,
-                  color: AppColors.ink,
+                  color: bgColor,
                   child: const AboutSection(),
                 ),
                 Container(
-                  color: AppColors.ink,
+                  color: bgColor,
                   child: const SkillsSection(),
                 ),
                 Container(
                   key: _workKey,
-                  color: AppColors.ink,
+                  color: bgColor,
                   child: const ProjectsSection(),
                 ),
                 Container(
                   key: _servicesKey,
-                  color: AppColors.ink2,
+                  color: surfaceColor,
                   child: const ServicesSection(),
                 ),
                 Container(
-                  color: AppColors.ink,
+                  color: bgColor,
                   child: const ExperienceSection(),
                 ),
                 Container(
                   key: _contactKey,
                   decoration: BoxDecoration(
-                    color: AppColors.ink2,
-                    border: Border(top: BorderSide(color: AppColors.border)),
+                    color: surfaceColor,
+                    border: Border(top: BorderSide(color: borderLine)),
                   ),
                   child: const ContactSection(),
                 ),
@@ -115,6 +126,8 @@ class _HomePageState extends State<HomePage> {
             right: 0,
             child: Navbar(
               isSolid: _isScrolled,
+              themeMode: widget.themeMode,
+              onToggleTheme: widget.onToggleTheme,
               onAboutTap: () => _scrollTo(_aboutKey),
               onWorkTap: () => _scrollTo(_workKey),
               onServicesTap: () => _scrollTo(_servicesKey),

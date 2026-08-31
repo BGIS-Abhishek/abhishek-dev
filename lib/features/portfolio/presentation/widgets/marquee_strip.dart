@@ -86,11 +86,13 @@ class _MarqueeStripState extends State<MarqueeStrip> {
       return const SizedBox.shrink();
     }
 
+    final accentColor = AppColors.accent(context);
+
     return MouseRegion(
       onEnter: (_) => _onHover(true),
       onExit: (_) => _onHover(false),
       child: Container(
-        color: AppColors.lime,
+        color: accentColor,
         padding: const EdgeInsets.symmetric(vertical: 14),
         child: SizedBox(
           height: 24,
@@ -99,7 +101,7 @@ class _MarqueeStripState extends State<MarqueeStrip> {
             scrollDirection: Axis.horizontal,
             physics: const NeverScrollableScrollPhysics(),
             child: Row(
-              children: List.generate(8, (_) => _buildGroup()),
+              children: List.generate(8, (_) => _buildGroup(context)),
             ),
           ),
         ),
@@ -107,7 +109,9 @@ class _MarqueeStripState extends State<MarqueeStrip> {
     );
   }
 
-  Widget _buildGroup() {
+  Widget _buildGroup(BuildContext context) {
+    final textColor = AppColors.isDark(context) ? AppColors.darkInk : Colors.white;
+
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: _items.map((item) {
@@ -122,15 +126,15 @@ class _MarqueeStripState extends State<MarqueeStrip> {
                   fontSize: 12.5,
                   fontWeight: FontWeight.w700,
                   letterSpacing: 1.9,
-                  color: AppColors.ink,
+                  color: textColor,
                 ),
               ),
             ),
-            const Text(
+            Text(
               '✦',
               style: TextStyle(
                 fontSize: 9.6,
-                color: AppColors.ink,
+                color: textColor,
               ),
             ),
           ],

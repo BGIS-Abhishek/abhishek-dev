@@ -10,10 +10,15 @@ class SkillsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isMobile = Responsive.isMobile(context);
+    final bgColor = AppColors.bg(context);
+    final accentColor = AppColors.accent(context);
+    final textColor = AppColors.text(context);
+    final textSubtleColor = AppColors.textSubtle(context);
+    final lineBorder = AppColors.line(context);
 
     return Container(
       width: double.infinity,
-      color: AppColors.ink,
+      color: bgColor,
       padding: EdgeInsets.fromLTRB(
         isMobile ? 20 : 48,
         0,
@@ -29,14 +34,14 @@ class SkillsSection extends StatelessWidget {
               RevealAnimation(
                 child: Row(
                   children: [
-                    Container(width: 20, height: 1, color: AppColors.lime),
+                    Container(width: 20, height: 1, color: accentColor),
                     const SizedBox(width: 10),
                     Text(
                       'TECHNICAL SKILLS',
                       style: AppTheme.jetBrainsMono.copyWith(
-                        fontSize: 10.4, // ~0.65rem
-                        letterSpacing: 3.2, // 0.2em
-                        color: AppColors.lime,
+                        fontSize: 10.4,
+                        letterSpacing: 3.2,
+                        color: accentColor,
                       ),
                     ),
                   ],
@@ -48,16 +53,16 @@ class SkillsSection extends StatelessWidget {
                 child: RichText(
                   text: TextSpan(
                     style: AppTheme.instrumentSerif.copyWith(
-                      fontSize: isMobile ? 38.4 : 72, // clamp(2.4rem, 5vw, 4.5rem)
+                      fontSize: isMobile ? 38.4 : 72,
                       height: 1.05,
                       letterSpacing: -0.01,
-                      color: AppColors.textMain,
+                      color: textColor,
                     ),
-                    children: const [
-                      TextSpan(text: 'The full '),
+                    children: [
+                      const TextSpan(text: 'The full '),
                       TextSpan(
                         text: 'toolkit',
-                        style: TextStyle(fontStyle: FontStyle.italic, color: AppColors.muted2),
+                        style: TextStyle(fontStyle: FontStyle.italic, color: textSubtleColor),
                       ),
                     ],
                   ),
@@ -68,14 +73,14 @@ class SkillsSection extends StatelessWidget {
                 delay: const Duration(milliseconds: 200),
                 child: Container(
                   decoration: BoxDecoration(
-                    color: AppColors.border,
-                    border: Border.all(color: AppColors.border),
+                    color: lineBorder,
+                    border: Border.all(color: lineBorder),
                     borderRadius: BorderRadius.circular(4),
                   ),
                   child: isMobile
                       ? Column(
                           children: [
-                            _buildSkillCard('📱', 'Core Development', [
+                            _buildSkillCard(context, '📱', 'Core Development', [
                               'Flutter & Dart',
                               'State — Bloc',
                               'State — Provider',
@@ -83,8 +88,8 @@ class SkillsSection extends StatelessWidget {
                               'WebSocket',
                               'Clean Architecture'
                             ]),
-                            Container(height: 1, color: AppColors.border),
-                            _buildSkillCard('🛠', 'Tools & Infra', [
+                            Container(height: 1, color: lineBorder),
+                            _buildSkillCard(context, '🛠', 'Tools & Infra', [
                               'Fastlane + GitHub Actions',
                               'Firebase',
                               'SQLite & Hive',
@@ -92,8 +97,8 @@ class SkillsSection extends StatelessWidget {
                               'Git & GitHub',
                               'Play Store / App Store'
                             ]),
-                            Container(height: 1, color: AppColors.border),
-                            _buildSkillCard('⚡', 'Strengths', [
+                            Container(height: 1, color: lineBorder),
+                            _buildSkillCard(context, '⚡', 'Strengths', [
                               'Performance Optimization',
                               'Scalable Codebase',
                               'GIS & Geotagging',
@@ -108,7 +113,7 @@ class SkillsSection extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
                               Expanded(
-                                child: _buildSkillCard('📱', 'Core Development', [
+                                child: _buildSkillCard(context, '📱', 'Core Development', [
                                   'Flutter & Dart',
                                   'State — Bloc',
                                   'State — Provider',
@@ -117,9 +122,9 @@ class SkillsSection extends StatelessWidget {
                                   'Clean Architecture'
                                 ]),
                               ),
-                              Container(width: 1, color: AppColors.border),
+                              Container(width: 1, color: lineBorder),
                               Expanded(
-                                child: _buildSkillCard('🛠', 'Tools & Infra', [
+                                child: _buildSkillCard(context, '🛠', 'Tools & Infra', [
                                   'Fastlane + GitHub Actions',
                                   'Firebase',
                                   'SQLite & Hive',
@@ -128,9 +133,9 @@ class SkillsSection extends StatelessWidget {
                                   'Play Store / App Store'
                                 ]),
                               ),
-                              Container(width: 1, color: AppColors.border),
+                              Container(width: 1, color: lineBorder),
                               Expanded(
-                                child: _buildSkillCard('⚡', 'Strengths', [
+                                child: _buildSkillCard(context, '⚡', 'Strengths', [
                                   'Performance Optimization',
                                   'Scalable Codebase',
                                   'GIS & Geotagging',
@@ -151,7 +156,10 @@ class SkillsSection extends StatelessWidget {
     );
   }
 
-  Widget _buildSkillCard(String icon, String title, List<String> skills) {
+  Widget _buildSkillCard(BuildContext context, String icon, String title, List<String> skills) {
+    final accentColor = AppColors.accent(context);
+    final lineBorder = AppColors.line(context);
+
     return _HoverCard(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 40),
@@ -163,16 +171,16 @@ class SkillsSection extends StatelessWidget {
             Container(
               padding: const EdgeInsets.only(bottom: 16),
               margin: const EdgeInsets.only(bottom: 20),
-              decoration: const BoxDecoration(
-                border: Border(bottom: BorderSide(color: AppColors.border)),
+              decoration: BoxDecoration(
+                border: Border(bottom: BorderSide(color: lineBorder)),
               ),
               child: Text(
                 title.toUpperCase(),
                 style: AppTheme.syne.copyWith(
-                  fontSize: 11.5, // 0.72rem
+                  fontSize: 11.5,
                   fontWeight: FontWeight.w700,
-                  letterSpacing: 2.4, // 0.15em
-                  color: AppColors.lime,
+                  letterSpacing: 2.4,
+                  color: accentColor,
                 ),
               ),
             ),
@@ -197,12 +205,15 @@ class _HoverCardState extends State<_HoverCard> {
 
   @override
   Widget build(BuildContext context) {
+    final bgColor = AppColors.bg(context);
+    final surfaceColor = AppColors.surface(context);
+
     return MouseRegion(
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 300),
-        color: _isHovered ? AppColors.ink2 : AppColors.ink,
+        color: _isHovered ? surfaceColor : bgColor,
         child: widget.child,
       ),
     );
@@ -222,6 +233,11 @@ class _HoverSkillItemState extends State<_HoverSkillItem> {
 
   @override
   Widget build(BuildContext context) {
+    final textColor = AppColors.text(context);
+    final textSubtleColor = AppColors.textSubtle(context);
+    final accentColor = AppColors.accent(context);
+    final line2Color = AppColors.line2(context);
+
     return MouseRegion(
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
@@ -233,8 +249,8 @@ class _HoverSkillItemState extends State<_HoverSkillItem> {
             Text(
               widget.text,
               style: AppTheme.syne.copyWith(
-                fontSize: 14.4, // 0.9rem
-                color: _isHovered ? AppColors.textMain : AppColors.muted2,
+                fontSize: 14.4,
+                color: _isHovered ? textColor : textSubtleColor,
               ),
             ),
             AnimatedContainer(
@@ -242,7 +258,7 @@ class _HoverSkillItemState extends State<_HoverSkillItem> {
               width: 5,
               height: 5,
               decoration: BoxDecoration(
-                color: _isHovered ? AppColors.lime : AppColors.border2,
+                color: _isHovered ? accentColor : line2Color,
                 shape: BoxShape.circle,
               ),
             ),

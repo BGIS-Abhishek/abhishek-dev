@@ -10,10 +10,16 @@ class ExperienceSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isMobile = Responsive.isMobile(context);
+    final bgColor = AppColors.bg(context);
+    final surfaceColor = AppColors.surface(context);
+    final accentColor = AppColors.accent(context);
+    final textColor = AppColors.text(context);
+    final textSubtleColor = AppColors.textSubtle(context);
+    final lineBorder = AppColors.line(context);
 
     return Container(
       width: double.infinity,
-      color: AppColors.ink,
+      color: bgColor,
       padding: EdgeInsets.symmetric(
         horizontal: isMobile ? 20 : 48,
         vertical: isMobile ? 80 : 120,
@@ -27,14 +33,14 @@ class ExperienceSection extends StatelessWidget {
               RevealAnimation(
                 child: Row(
                   children: [
-                    Container(width: 20, height: 1, color: AppColors.lime),
+                    Container(width: 20, height: 1, color: accentColor),
                     const SizedBox(width: 10),
                     Text(
                       'EXPERIENCE',
                       style: AppTheme.jetBrainsMono.copyWith(
                         fontSize: 10.4,
                         letterSpacing: 3.2,
-                        color: AppColors.lime,
+                        color: accentColor,
                       ),
                     ),
                   ],
@@ -49,13 +55,13 @@ class ExperienceSection extends StatelessWidget {
                       fontSize: isMobile ? 38.4 : 72,
                       height: 1.05,
                       letterSpacing: -0.01,
-                      color: AppColors.textMain,
+                      color: textColor,
                     ),
-                    children: const [
-                      TextSpan(text: "Where I've "),
+                    children: [
+                      const TextSpan(text: "Where I've "),
                       TextSpan(
                         text: 'worked',
-                        style: TextStyle(fontStyle: FontStyle.italic, color: AppColors.muted2),
+                        style: TextStyle(fontStyle: FontStyle.italic, color: textSubtleColor),
                       ),
                     ],
                   ),
@@ -70,8 +76,8 @@ class ExperienceSection extends StatelessWidget {
                     vertical: isMobile ? 36 : 60,
                   ),
                   decoration: BoxDecoration(
-                    color: AppColors.ink2,
-                    border: Border.all(color: AppColors.border),
+                    color: surfaceColor,
+                    border: Border.all(color: lineBorder),
                     borderRadius: BorderRadius.circular(4),
                   ),
                   child: Stack(
@@ -82,11 +88,11 @@ class ExperienceSection extends StatelessWidget {
                         left: isMobile ? -28 : -60,
                         child: Container(
                           width: 3,
-                          decoration: const BoxDecoration(
+                          decoration: BoxDecoration(
                             gradient: LinearGradient(
                               begin: Alignment.topCenter,
                               end: Alignment.bottomCenter,
-                              colors: [AppColors.lime, Colors.transparent],
+                              colors: [accentColor, Colors.transparent],
                             ),
                           ),
                         ),
@@ -95,17 +101,17 @@ class ExperienceSection extends StatelessWidget {
                           ? Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                _buildLeft(),
+                                _buildLeft(context),
                                 const SizedBox(height: 32),
-                                _buildRight(isMobile),
+                                _buildRight(context, isMobile),
                               ],
                             )
                           : Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Expanded(flex: 1, child: _buildLeft()),
+                                Expanded(flex: 1, child: _buildLeft(context)),
                                 const SizedBox(width: 80),
-                                Expanded(flex: 2, child: _buildRight(isMobile)),
+                                Expanded(flex: 2, child: _buildRight(context, isMobile)),
                               ],
                             ),
                     ],
@@ -119,47 +125,53 @@ class ExperienceSection extends StatelessWidget {
     );
   }
 
-  Widget _buildLeft() {
+  Widget _buildLeft(BuildContext context) {
+    final textColor = AppColors.text(context);
+    final accentColor = AppColors.accent(context);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           'Flutter Developer',
           style: AppTheme.instrumentSerif.copyWith(
-            fontSize: 38.4, // 2.4rem
+            fontSize: 38.4,
             fontStyle: FontStyle.italic,
             height: 1.1,
-            color: AppColors.textMain,
+            color: textColor,
           ),
         ),
         const SizedBox(height: 16),
         Text(
           'PRODUCTION · GOVERNMENT & ENTERPRISE',
           style: AppTheme.jetBrainsMono.copyWith(
-            fontSize: 10.4, // 0.65rem
-            letterSpacing: 2.4, // 0.15em
-            color: AppColors.lime,
+            fontSize: 10.4,
+            letterSpacing: 2.4,
+            color: accentColor,
           ),
         ),
       ],
     );
   }
 
-  Widget _buildRight(bool isMobile) {
+  Widget _buildRight(BuildContext context, bool isMobile) {
+    final textColor = AppColors.text(context);
+    final textSubtleColor = AppColors.textSubtle(context);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         RichText(
           text: TextSpan(
             style: AppTheme.syne.copyWith(
-              fontSize: 15.3, // 0.96rem
+              fontSize: 15.3,
               height: 1.82,
-              color: AppColors.muted2,
+              color: textSubtleColor,
             ),
-            children: const [
-              TextSpan(text: 'Built and shipped multiple '),
-              TextSpan(text: 'production-level mobile applications', style: TextStyle(color: AppColors.textMain, fontWeight: FontWeight.w600)),
-              TextSpan(text: ' serving real users across government departments and enterprise clients. Handled the full lifecycle — from architecture decisions and feature development to Play Store & App Store deployment.'),
+            children: [
+              const TextSpan(text: 'Built and shipped multiple '),
+              TextSpan(text: 'production-level mobile applications', style: TextStyle(color: textColor, fontWeight: FontWeight.w600)),
+              const TextSpan(text: ' serving real users across government departments and enterprise clients. Handled the full lifecycle — from architecture decisions and feature development to Play Store & App Store deployment.'),
             ],
           ),
         ),
@@ -168,23 +180,26 @@ class ExperienceSection extends StatelessWidget {
           spacing: 12,
           runSpacing: 12,
           children: [
-            _buildHighlight('Domains', 'Forestry · GIS · Healthcare · Insurance', isMobile),
-            _buildHighlight('Deployment', 'Play Store & App Store, live in production', isMobile),
-            _buildHighlight('Architecture', 'Bloc, Provider, Clean Architecture', isMobile),
-            _buildHighlight('DevOps', 'Fastlane + GitHub Actions CI/CD', isMobile),
+            _buildHighlight(context, 'Domains', 'Forestry · GIS · Healthcare · Insurance', isMobile),
+            _buildHighlight(context, 'Deployment', 'Play Store & App Store, live in production', isMobile),
+            _buildHighlight(context, 'Architecture', 'Bloc, Provider, Clean Architecture', isMobile),
+            _buildHighlight(context, 'DevOps', 'Fastlane + GitHub Actions CI/CD', isMobile),
           ],
         ),
       ],
     );
   }
 
-  Widget _buildHighlight(String label, String val, bool isMobile) {
+  Widget _buildHighlight(BuildContext context, String label, String val, bool isMobile) {
+    final accentColor = AppColors.accent(context);
+    final textSubtleColor = AppColors.textSubtle(context);
+
     return Container(
       width: isMobile ? double.infinity : 300,
       padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
       decoration: BoxDecoration(
-        color: AppColors.lime.withOpacity(0.04),
-        border: Border.all(color: AppColors.lime.withOpacity(0.1)),
+        color: accentColor.withOpacity(0.04),
+        border: Border.all(color: accentColor.withOpacity(0.1)),
         borderRadius: BorderRadius.circular(2),
       ),
       child: Column(
@@ -193,17 +208,17 @@ class ExperienceSection extends StatelessWidget {
           Text(
             label.toUpperCase(),
             style: AppTheme.jetBrainsMono.copyWith(
-              fontSize: 9.6, // 0.6rem
-              letterSpacing: 1.92, // 0.12em
-              color: AppColors.lime,
+              fontSize: 9.6,
+              letterSpacing: 1.92,
+              color: accentColor,
             ),
           ),
           const SizedBox(height: 4),
           Text(
             val,
             style: AppTheme.syne.copyWith(
-              fontSize: 13.4, // 0.84rem
-              color: AppColors.muted2,
+              fontSize: 13.4,
+              color: textSubtleColor,
             ),
           ),
         ],
