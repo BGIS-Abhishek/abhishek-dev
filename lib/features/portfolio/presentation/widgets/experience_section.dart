@@ -154,7 +154,7 @@ class ExperienceSection extends StatelessWidget {
             style: AppTheme.syne.copyWith(
               fontSize: 15.3, // 0.96rem
               height: 1.82,
-              color: const Color(0xFF9A968E),
+              color: AppColors.muted2,
             ),
             children: const [
               TextSpan(text: 'Built and shipped multiple '),
@@ -203,7 +203,7 @@ class ExperienceSection extends StatelessWidget {
             val,
             style: AppTheme.syne.copyWith(
               fontSize: 13.4, // 0.84rem
-              color: const Color(0xFF9A968E),
+              color: AppColors.muted2,
             ),
           ),
         ],

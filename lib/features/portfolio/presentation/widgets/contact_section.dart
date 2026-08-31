@@ -124,8 +124,13 @@ class _ContactLinkState extends State<_ContactLink> {
 
   Future<void> _launchUrl() async {
     final uri = Uri.parse(widget.url);
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri);
+    try {
+      await launchUrl(uri, mode: LaunchMode.platformDefault);
+    } catch (_) {
+      // Fallback
+      if (await canLaunchUrl(uri)) {
+        await launchUrl(uri);
+      }
     }
   }
 
@@ -135,6 +140,7 @@ class _ContactLinkState extends State<_ContactLink> {
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
       child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
         onTap: _launchUrl,
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 250),
@@ -142,11 +148,11 @@ class _ContactLinkState extends State<_ContactLink> {
           padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 14),
           decoration: BoxDecoration(
             color: _isHovered
-                ? AppColors.lime.withOpacity(0.05)
-                : Colors.transparent,
+                ? AppColors.lime.withOpacity(0.08)
+                : AppColors.ink2,
             border: Border.all(
-                color: _isHovered ? AppColors.lime : AppColors.border2),
-            borderRadius: BorderRadius.circular(2),
+                color: _isHovered ? AppColors.lime : AppColors.border),
+            borderRadius: BorderRadius.circular(4),
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
@@ -154,7 +160,7 @@ class _ContactLinkState extends State<_ContactLink> {
               Icon(
                 widget.icon,
                 size: 14,
-                color: _isHovered ? AppColors.lime : const Color(0xFF9A968E),
+                color: _isHovered ? AppColors.lime : AppColors.muted2,
               ),
               const SizedBox(width: 10),
               Text(
@@ -162,7 +168,7 @@ class _ContactLinkState extends State<_ContactLink> {
                 style: AppTheme.jetBrainsMono.copyWith(
                   fontSize: 11.2, // 0.7rem
                   letterSpacing: 1.6, // 0.1em
-                  color: _isHovered ? AppColors.lime : const Color(0xFF9A968E),
+                  color: _isHovered ? AppColors.lime : AppColors.muted2,
                 ),
               ),
             ],

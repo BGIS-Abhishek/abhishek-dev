@@ -35,17 +35,20 @@ class _RevealAnimationState extends State<RevealAnimation> with SingleTickerProv
           });
         }
       },
-      child: AnimatedOpacity(
-        duration: const Duration(milliseconds: 700),
-        curve: Curves.easeOut,
-        opacity: _isVisible ? 1.0 : 0.0,
-        child: AnimatedSlide(
+      child: IgnorePointer(
+        ignoring: !_isVisible,
+        child: AnimatedOpacity(
           duration: const Duration(milliseconds: 700),
           curve: Curves.easeOut,
-          offset: _isVisible 
-            ? Offset.zero 
-            : (widget.isLeft ? const Offset(-0.2, 0) : const Offset(0, 0.2)),
-          child: widget.child,
+          opacity: _isVisible ? 1.0 : 0.0,
+          child: AnimatedSlide(
+            duration: const Duration(milliseconds: 700),
+            curve: Curves.easeOut,
+            offset: _isVisible 
+              ? Offset.zero 
+              : (widget.isLeft ? const Offset(-0.2, 0) : const Offset(0, 0.2)),
+            child: widget.child,
+          ),
         ),
       ),
     );

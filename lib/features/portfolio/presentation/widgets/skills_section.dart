@@ -234,7 +234,7 @@ class _HoverSkillItemState extends State<_HoverSkillItem> {
               widget.text,
               style: AppTheme.syne.copyWith(
                 fontSize: 14.4, // 0.9rem
-                color: _isHovered ? AppColors.textMain : const Color(0xFF9A968E),
+                color: _isHovered ? AppColors.textMain : AppColors.muted2,
               ),
             ),
             AnimatedContainer(

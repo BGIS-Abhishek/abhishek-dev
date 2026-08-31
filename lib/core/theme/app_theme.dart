@@ -11,7 +11,6 @@ class AppTheme {
         primary: AppColors.lime,
         secondary: AppColors.lime2,
         surface: AppColors.ink2,
-        background: AppColors.ink,
         error: Colors.redAccent,
       ),
       textTheme: GoogleFonts.syneTextTheme(

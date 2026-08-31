@@ -199,7 +199,7 @@ class HeroSection extends StatelessWidget {
         children: [
           _buildDesc(),
           const SizedBox(height: 32),
-          _buildActions(),
+          _buildActions(isMobile: true),
         ],
       );
     }
@@ -212,7 +212,7 @@ class HeroSection extends StatelessWidget {
           const SizedBox(width: 48),
           Expanded(
               child: Align(
-                  alignment: Alignment.bottomLeft, child: _buildActions())),
+                  alignment: Alignment.bottomLeft, child: _buildActions(isMobile: false))),
         ],
       ),
     );
@@ -248,21 +248,24 @@ class HeroSection extends StatelessWidget {
     );
   }
 
-  Widget _buildActions() {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
+  Widget _buildActions({bool isMobile = false}) {
+    return Wrap(
+      spacing: isMobile ? 10 : 14,
+      runSpacing: 10,
+      crossAxisAlignment: WrapCrossAlignment.center,
       children: [
         _HoverButton(
           text: 'SEE MY WORK',
           icon: Icons.arrow_forward,
           isPrimary: true,
           onTap: onWorkPressed,
+          isMobile: isMobile,
         ),
-        const SizedBox(width: 14),
         _HoverButton(
           text: 'GET IN TOUCH',
           isPrimary: false,
           onTap: onContactPressed,
+          isMobile: isMobile,
         ),
       ],
     );
@@ -444,12 +447,14 @@ class _HoverButton extends StatefulWidget {
   final String text;
   final IconData? icon;
   final bool isPrimary;
+  final bool isMobile;
   final VoidCallback onTap;
 
   const _HoverButton({
     required this.text,
     this.icon,
     required this.isPrimary,
+    this.isMobile = false,
     required this.onTap,
   });
 
@@ -462,17 +467,25 @@ class _HoverButtonState extends State<_HoverButton> {
 
   @override
   Widget build(BuildContext context) {
+    final horizontalPadding = widget.isMobile
+        ? (widget.isPrimary ? 16.0 : 14.0)
+        : (widget.isPrimary ? 28.0 : 24.0);
+    final verticalPadding = widget.isMobile ? 12.0 : 14.0;
+    final fontSize = widget.isMobile ? 11.5 : 12.8;
+
     return MouseRegion(
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
       child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
         onTap: widget.onTap,
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 250),
           transform: Matrix4.translationValues(0, _isHovered ? -2.0 : 0.0, 0),
-          padding: widget.isPrimary
-              ? const EdgeInsets.symmetric(horizontal: 28, vertical: 14)
-              : const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+          padding: EdgeInsets.symmetric(
+            horizontal: horizontalPadding,
+            vertical: verticalPadding,
+          ),
           decoration: BoxDecoration(
             color: widget.isPrimary
                 ? (_isHovered ? AppColors.lime2 : AppColors.lime)
@@ -481,7 +494,7 @@ class _HoverButtonState extends State<_HoverButton> {
               color: widget.isPrimary
                   ? Colors.transparent
                   : (_isHovered
-                      ? Colors.white.withOpacity(0.3)
+                      ? Colors.white.withOpacity(0.4)
                       : AppColors.border2),
             ),
             borderRadius: BorderRadius.circular(2),
@@ -501,18 +514,18 @@ class _HoverButtonState extends State<_HoverButton> {
               if (widget.icon != null) ...[
                 Icon(
                   widget.icon,
-                  size: 14,
+                  size: widget.isMobile ? 13 : 14,
                   color: widget.isPrimary ? AppColors.ink : AppColors.muted2,
                 ),
-                const SizedBox(width: 10),
+                SizedBox(width: widget.isMobile ? 6 : 10),
               ],
               Text(
                 widget.text,
                 style: AppTheme.syne.copyWith(
-                  fontSize: 12.8, // ~0.8rem
+                  fontSize: fontSize,
                   fontWeight:
                       widget.isPrimary ? FontWeight.w700 : FontWeight.w600,
-                  letterSpacing: 0.96, // 0.06em
+                  letterSpacing: widget.isMobile ? 0.5 : 0.96,
                   color: widget.isPrimary
                       ? AppColors.ink
                       : (_isHovered ? AppColors.textMain : AppColors.muted2),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:abhishek_dev/core/theme/app_colors.dart';
-import 'package:abhishek_dev/core/widgets/custom_cursor.dart';
 import 'package:abhishek_dev/features/portfolio/presentation/widgets/navbar.dart';
 import 'package:abhishek_dev/features/portfolio/presentation/widgets/hero_section.dart';
 import 'package:abhishek_dev/features/portfolio/presentation/widgets/marquee_strip.dart';

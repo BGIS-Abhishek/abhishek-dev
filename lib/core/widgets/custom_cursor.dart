@@ -11,7 +11,7 @@ class CustomCursor extends StatefulWidget {
 
 class _CustomCursorState extends State<CustomCursor> {
   Offset _mousePosition = Offset.zero;
-  bool _isHovering = false;
+  final bool _isHovering = false;
 
   void _updateLocation(PointerEvent event) {
     setState(() {

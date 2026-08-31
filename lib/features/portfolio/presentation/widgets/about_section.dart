@@ -164,7 +164,7 @@ class AboutSection extends StatelessWidget {
         style: AppTheme.syne.copyWith(
           fontSize: 16.8, // 1.05rem
           height: 1.85,
-          color: const Color(0xFF9A968E),
+          color: AppColors.muted2,
         ),
         children: [
           TextSpan(text: text1),
@@ -192,10 +192,10 @@ class AboutSection extends StatelessWidget {
           style: AppTheme.jetBrainsMono.copyWith(
             fontSize: 12.5, // 0.78rem
             height: 1.9,
-            color: const Color(0xFF6B6B6B),
+            color: AppColors.muted2,
           ),
           children: const [
-            TextSpan(text: '// Abhishek\'s approach to every project\n', style: TextStyle(color: Color(0xFF3D3D3D), fontStyle: FontStyle.italic)),
+            TextSpan(text: '// Abhishek\'s approach to every project\n', style: TextStyle(color: AppColors.muted, fontStyle: FontStyle.italic)),
             TextSpan(text: 'class ', style: TextStyle(color: Color(0xFFC8F041))),
             TextSpan(text: 'AbhishekYadav ', style: TextStyle(color: Color(0xFF82B4FF))),
             TextSpan(text: 'extends ', style: TextStyle(color: Color(0xFFC8F041))),
@@ -255,7 +255,7 @@ class _HoverPillState extends State<_HoverPill> {
           style: AppTheme.jetBrainsMono.copyWith(
             fontSize: 10.8, // 0.68rem
             letterSpacing: 1.28, // 0.08em
-            color: _isHovered ? AppColors.lime : const Color(0xFF9A968E),
+            color: _isHovered ? AppColors.lime : AppColors.muted2,
           ),
         ),
       ),

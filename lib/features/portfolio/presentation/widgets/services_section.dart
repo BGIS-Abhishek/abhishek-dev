@@ -187,7 +187,7 @@ class _HoverServiceCardState extends State<_HoverServiceCard> {
                     style: AppTheme.syne.copyWith(
                       fontSize: 13.4, // 0.84rem
                       height: 1.7,
-                      color: const Color(0xFF6B6B6B),
+                      color: AppColors.muted2,
                     ),
                   ),
                 ],

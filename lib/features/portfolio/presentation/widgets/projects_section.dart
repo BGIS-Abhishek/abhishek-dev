@@ -202,7 +202,7 @@ class ProjectsSection extends StatelessWidget {
               style: AppTheme.syne.copyWith(
                 fontSize: 14, // 0.88rem
                 height: 1.5,
-                color: const Color(0xFF9A968E),
+                color: AppColors.muted2,
               ),
               children: [
                 TextSpan(text: boldText, style: const TextStyle(color: AppColors.textMain, fontWeight: FontWeight.w600)),
@@ -275,7 +275,7 @@ class ProjectsSection extends StatelessWidget {
                   style: AppTheme.syne.copyWith(
                     fontSize: 14, // 0.88rem
                     height: 1.7,
-                    color: const Color(0xFF9A968E),
+                    color: AppColors.muted2,
                   ),
                 ),
               ],
@@ -320,7 +320,7 @@ class ProjectsSection extends StatelessWidget {
         style: AppTheme.jetBrainsMono.copyWith(
           fontSize: 9.6, // 0.6rem
           letterSpacing: 1.28, // 0.08em
-          color: const Color(0xFF6B6B6B),
+          color: AppColors.muted,
         ),
       ),
     );
