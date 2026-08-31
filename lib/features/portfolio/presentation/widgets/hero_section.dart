@@ -17,12 +17,13 @@ class HeroSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final isMobile = Responsive.isMobile(context);
     final size = MediaQuery.of(context).size;
+    final double minHeroHeight = isMobile ? size.height : (size.height < 760 ? 700.0 : size.height);
 
     return Container(
-      height: isMobile ? null : size.height,
-      constraints: isMobile
-          ? BoxConstraints(minHeight: size.height, maxWidth: double.infinity)
-          : BoxConstraints(maxWidth: double.infinity),
+      constraints: BoxConstraints(
+        minHeight: minHeroHeight,
+        maxWidth: double.infinity,
+      ),
       padding: EdgeInsets.fromLTRB(
         isMobile ? 20 : 48,
         0,
@@ -73,7 +74,7 @@ class HeroSection extends StatelessWidget {
               maxLines: 1,
               softWrap: false,
               style: AppTheme.instrumentSerif.copyWith(
-                fontSize: isMobile ? size.width * 0.25 : 220,
+                fontSize: isMobile ? size.width * 0.25 : (size.height * 0.26).clamp(140.0, 220.0),
                 fontStyle: FontStyle.italic,
                 height: 1.0,
                 color: Colors.transparent,
@@ -92,23 +93,25 @@ class HeroSection extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisAlignment:
-                  isMobile ? MainAxisAlignment.center : MainAxisAlignment.start,
+                  isMobile ? MainAxisAlignment.center : MainAxisAlignment.spaceBetween,
               children: [
-                const SizedBox(height: 115),
-                ConstrainedBox(
-                  constraints: const BoxConstraints(maxWidth: 1300),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _buildEyebrow(),
-                      const SizedBox(height: 32),
-                      _buildHeadline(isMobile, size),
-                      const SizedBox(height: 40),
-                      _buildSubRow(isMobile),
-                    ],
+                SizedBox(height: isMobile ? 100 : (size.height * 0.11).clamp(80.0, 115.0)),
+                Center(
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 1300),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildEyebrow(),
+                        SizedBox(height: isMobile ? 24 : (size.height * 0.035).clamp(20.0, 32.0)),
+                        _buildHeadline(isMobile, size),
+                        SizedBox(height: isMobile ? 32 : (size.height * 0.04).clamp(24.0, 40.0)),
+                        _buildSubRow(isMobile, size),
+                      ],
+                    ),
                   ),
                 ),
-                if (!isMobile) const Spacer() else const SizedBox(height: 60),
+                SizedBox(height: isMobile ? 40 : (size.height * 0.05).clamp(32.0, 60.0)),
                 Center(
                   child: ConstrainedBox(
                     constraints: const BoxConstraints(maxWidth: 1300),
@@ -160,11 +163,14 @@ class HeroSection extends StatelessWidget {
   }
 
   Widget _buildHeadline(bool isMobile, Size size) {
-    final double fontSize = isMobile ? size.width * 0.18 : 128.0;
+    final double rawFontSize = isMobile 
+        ? size.width * 0.18 
+        : (size.height * 0.135).clamp(64.0, 128.0);
+    final double fontSize = rawFontSize.clamp(48.0, 128.0);
     return RichText(
       text: TextSpan(
         style: AppTheme.instrumentSerif.copyWith(
-          fontSize: fontSize.clamp(52.0, 128.0),
+          fontSize: fontSize,
           height: 0.95,
           letterSpacing: -0.02,
         ),
@@ -192,7 +198,7 @@ class HeroSection extends StatelessWidget {
     );
   }
 
-  Widget _buildSubRow(bool isMobile) {
+  Widget _buildSubRow(bool isMobile, Size size) {
     if (isMobile) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -203,13 +209,14 @@ class HeroSection extends StatelessWidget {
         ],
       );
     }
+    final double gap = size.width < 1100 ? 24 : 48;
     return ConstrainedBox(
       constraints: const BoxConstraints(maxWidth: 900),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Expanded(child: _buildDesc()),
-          const SizedBox(width: 48),
+          SizedBox(width: gap),
           Expanded(
               child: Align(
                   alignment: Alignment.bottomLeft, child: _buildActions(isMobile: false))),
