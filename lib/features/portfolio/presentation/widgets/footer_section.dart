@@ -6,6 +6,17 @@ import 'package:abhishek_dev/core/utils/responsive.dart';
 class FooterSection extends StatelessWidget {
   const FooterSection({super.key});
 
+  void _scrollToTop(BuildContext context) {
+    final ScrollController? controller = PrimaryScrollController.maybeOf(context);
+    if (controller != null && controller.hasClients) {
+      controller.animateTo(
+        0.0,
+        duration: const Duration(milliseconds: 800),
+        curve: Curves.easeInOut,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final isMobile = Responsive.isMobile(context);
@@ -14,9 +25,9 @@ class FooterSection extends StatelessWidget {
       width: double.infinity,
       padding: EdgeInsets.symmetric(
         horizontal: isMobile ? 20 : 48,
-        vertical: isMobile ? 20 : 28,
+        vertical: isMobile ? 24 : 32,
       ),
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: AppColors.ink2,
         border: Border(top: BorderSide(color: AppColors.border)),
       ),
@@ -24,20 +35,18 @@ class FooterSection extends StatelessWidget {
           ? Column(
               children: [
                 _buildLogo(),
-                const SizedBox(height: 10),
-                _buildCopy(
-                    '© ${DateTime.now().year} Abhishek Yadav · Flutter Developer · Mumbai'),
-                const SizedBox(height: 10),
-                _buildCopy('Built with Flutter passion ✦'),
+                const SizedBox(height: 14),
+                _buildCopy('© ${DateTime.now().year} Abhishek Yadav · Flutter Developer · Mumbai'),
+                const SizedBox(height: 14),
+                _buildBackToTop(context),
               ],
             )
           : Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 _buildLogo(),
-                _buildCopy(
-                    '© ${DateTime.now().year} Abhishek Yadav · Flutter Developer · Mumbai'),
-                _buildCopy('Built with Flutter passion ✦'),
+                _buildCopy('© ${DateTime.now().year} Abhishek Yadav · Flutter Developer · Mumbai'),
+                _buildBackToTop(context),
               ],
             ),
     );
@@ -47,9 +56,9 @@ class FooterSection extends StatelessWidget {
     return RichText(
       text: TextSpan(
         style: AppTheme.syne.copyWith(
-          fontSize: 12, // 0.75rem
+          fontSize: 12.5,
           fontWeight: FontWeight.w700,
-          letterSpacing: 2.16, // 0.18em
+          letterSpacing: 2.16,
           color: AppColors.textMain,
         ),
         children: const [
@@ -69,9 +78,31 @@ class FooterSection extends StatelessWidget {
       text,
       textAlign: TextAlign.center,
       style: AppTheme.jetBrainsMono.copyWith(
-        fontSize: 9.9, // 0.62rem
-        letterSpacing: 1.28, // 0.08em
-        color: AppColors.muted,
+        fontSize: 10,
+        letterSpacing: 1.28,
+        color: AppColors.muted2,
+      ),
+    );
+  }
+
+  Widget _buildBackToTop(BuildContext context) {
+    return InkWell(
+      onTap: () => _scrollToTop(context),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Icon(Icons.arrow_upward_rounded, size: 14, color: AppColors.lime),
+          const SizedBox(width: 6),
+          Text(
+            'BACK TO TOP',
+            style: AppTheme.jetBrainsMono.copyWith(
+              fontSize: 10,
+              letterSpacing: 1.6,
+              color: AppColors.lime,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ],
       ),
     );
   }

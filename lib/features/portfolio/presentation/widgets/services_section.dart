@@ -153,39 +153,67 @@ class _HoverServiceCardState extends State<_HoverServiceCard> {
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
       child: AnimatedContainer(
-        duration: const Duration(milliseconds: 300),
-        color: _isHovered ? AppColors.ink3 : AppColors.ink2,
+        duration: const Duration(milliseconds: 250),
+        decoration: BoxDecoration(
+          color: _isHovered ? AppColors.ink3 : AppColors.ink2,
+          border: Border.all(
+            color: _isHovered ? AppColors.lime.withOpacity(0.35) : Colors.transparent,
+          ),
+        ),
         child: Stack(
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 44),
+              padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 40),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    widget.numText,
-                    style: AppTheme.instrumentSerif.copyWith(
-                      fontSize: 64, // 4rem
-                      fontStyle: FontStyle.italic,
-                      color: Colors.white.withOpacity(0.04),
-                      height: 1.0,
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      AnimatedDefaultTextStyle(
+                        duration: const Duration(milliseconds: 250),
+                        style: AppTheme.instrumentSerif.copyWith(
+                          fontSize: 56,
+                          fontStyle: FontStyle.italic,
+                          color: _isHovered ? AppColors.lime.withOpacity(0.5) : Colors.white.withOpacity(0.06),
+                          height: 1.0,
+                        ),
+                        child: Text(widget.numText),
+                      ),
+                      AnimatedOpacity(
+                        duration: const Duration(milliseconds: 250),
+                        opacity: _isHovered ? 1.0 : 0.0,
+                        child: Container(
+                          padding: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            color: AppColors.lime.withOpacity(0.12),
+                            shape: BoxShape.circle,
+                          ),
+                          child: const Icon(
+                            Icons.arrow_outward_rounded,
+                            size: 16,
+                            color: AppColors.lime,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 4),
-                  Text(
-                    widget.title,
+                  const SizedBox(height: 12),
+                  AnimatedDefaultTextStyle(
+                    duration: const Duration(milliseconds: 250),
                     style: AppTheme.syne.copyWith(
-                      fontSize: 14.4, // 0.9rem
+                      fontSize: 15,
                       fontWeight: FontWeight.w700,
-                      letterSpacing: 0.64, // 0.04em
-                      color: AppColors.textMain,
+                      letterSpacing: 0.64,
+                      color: _isHovered ? AppColors.lime : AppColors.textMain,
                     ),
+                    child: Text(widget.title),
                   ),
                   const SizedBox(height: 14),
                   Text(
                     widget.desc,
                     style: AppTheme.syne.copyWith(
-                      fontSize: 13.4, // 0.84rem
+                      fontSize: 13.4,
                       height: 1.7,
                       color: AppColors.muted2,
                     ),
@@ -198,7 +226,7 @@ class _HoverServiceCardState extends State<_HoverServiceCard> {
               right: 0,
               bottom: 0,
               child: AnimatedContainer(
-                duration: const Duration(milliseconds: 400),
+                duration: const Duration(milliseconds: 350),
                 height: 2,
                 color: AppColors.lime,
                 transform: Matrix4.identity()..scale(_isHovered ? 1.0 : 0.0, 1.0, 1.0),

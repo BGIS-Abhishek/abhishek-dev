@@ -20,6 +20,98 @@ class Navbar extends StatelessWidget {
     required this.onContactTap,
   });
 
+  void _openMobileMenu(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      isScrollControlled: true,
+      builder: (context) {
+        return ClipRRect(
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+          child: BackdropFilter(
+            filter: ui.ImageFilter.blur(sigmaX: 20, sigmaY: 20),
+            child: Container(
+              color: AppColors.ink.withOpacity(0.95),
+              padding: const EdgeInsets.fromLTRB(28, 24, 28, 48),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      _buildLogo(),
+                      IconButton(
+                        onPressed: () => Navigator.pop(context),
+                        icon: const Icon(Icons.close, color: AppColors.textMain, size: 24),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 32),
+                  _buildMobileMenuItem(context, 'ABOUT', onAboutTap),
+                  _buildMobileMenuItem(context, 'WORK', onWorkTap),
+                  _buildMobileMenuItem(context, 'SERVICES', onServicesTap),
+                  _buildMobileMenuItem(context, 'CONTACT', onContactTap),
+                  const SizedBox(height: 24),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                        onContactTap();
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.lime,
+                        foregroundColor: AppColors.ink,
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+                      ),
+                      child: Text(
+                        'HIRE ME',
+                        style: AppTheme.jetBrainsMono.copyWith(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                          letterSpacing: 2.0,
+                          color: AppColors.ink,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildMobileMenuItem(BuildContext context, String title, VoidCallback onTap) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 12),
+      child: InkWell(
+        onTap: () {
+          Navigator.pop(context);
+          onTap();
+        },
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              title,
+              style: AppTheme.syne.copyWith(
+                fontSize: 20,
+                fontWeight: FontWeight.w700,
+                color: AppColors.textMain,
+              ),
+            ),
+            const Icon(Icons.arrow_forward_ios, size: 14, color: AppColors.lime),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final isMobile = Responsive.isMobile(context);
@@ -40,13 +132,13 @@ class Navbar extends StatelessWidget {
       child: isSolid ? ClipRRect(
         child: BackdropFilter(
           filter: ui.ImageFilter.blur(sigmaX: 16, sigmaY: 16),
-          child: _buildContent(isMobile),
+          child: _buildContent(context, isMobile),
         ),
-      ) : _buildContent(isMobile),
+      ) : _buildContent(context, isMobile),
     );
   }
 
-  Widget _buildContent(bool isMobile) {
+  Widget _buildContent(BuildContext context, bool isMobile) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -54,6 +146,11 @@ class Navbar extends StatelessWidget {
         if (!isMobile) ...[
           _buildNavLinks(),
           _buildHireButton(),
+        ] else ...[
+          IconButton(
+            onPressed: () => _openMobileMenu(context),
+            icon: const Icon(Icons.menu_rounded, color: AppColors.textMain, size: 26),
+          ),
         ],
       ],
     );
@@ -63,7 +160,7 @@ class Navbar extends StatelessWidget {
     return RichText(
       text: TextSpan(
         style: AppTheme.syne.copyWith(
-          fontSize: 12.5, // ~0.78rem
+          fontSize: 13, // ~0.8rem
           fontWeight: FontWeight.w700,
           letterSpacing: 2.2, // 0.18em
           color: AppColors.textMain,

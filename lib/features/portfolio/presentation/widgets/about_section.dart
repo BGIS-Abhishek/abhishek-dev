@@ -181,46 +181,89 @@ class AboutSection extends StatelessWidget {
 
   Widget _buildCodeBlock() {
     return Container(
-      padding: const EdgeInsets.all(32),
       decoration: BoxDecoration(
         color: AppColors.ink2,
         border: Border.all(color: AppColors.border),
-        borderRadius: BorderRadius.circular(4),
-      ),
-      child: SelectableText.rich(
-        TextSpan(
-          style: AppTheme.jetBrainsMono.copyWith(
-            fontSize: 12.5, // 0.78rem
-            height: 1.9,
-            color: AppColors.muted2,
+        borderRadius: BorderRadius.circular(8),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.3),
+            blurRadius: 20,
+            offset: const Offset(0, 8),
           ),
-          children: const [
-            TextSpan(text: '// Abhishek\'s approach to every project\n', style: TextStyle(color: AppColors.muted, fontStyle: FontStyle.italic)),
-            TextSpan(text: 'class ', style: TextStyle(color: Color(0xFFC8F041))),
-            TextSpan(text: 'AbhishekYadav ', style: TextStyle(color: Color(0xFF82B4FF))),
-            TextSpan(text: 'extends ', style: TextStyle(color: Color(0xFFC8F041))),
-            TextSpan(text: 'FlutterDeveloper ', style: TextStyle(color: Color(0xFF82B4FF))),
-            TextSpan(text: '{\n'),
-            TextSpan(text: '  final ', style: TextStyle(color: Color(0xFFC8F041))),
-            TextSpan(text: 'architecture = '),
-            TextSpan(text: "'Clean + Scalable'", style: TextStyle(color: Color(0xFFE8A87C))),
-            TextSpan(text: ';\n'),
-            TextSpan(text: '  final ', style: TextStyle(color: Color(0xFFC8F041))),
-            TextSpan(text: 'platforms = ['),
-            TextSpan(text: "'Android'", style: TextStyle(color: Color(0xFFE8A87C))),
-            TextSpan(text: ', '),
-            TextSpan(text: "'iOS'", style: TextStyle(color: Color(0xFFE8A87C))),
-            TextSpan(text: '];\n'),
-            TextSpan(text: '  final ', style: TextStyle(color: Color(0xFFC8F041))),
-            TextSpan(text: 'passion = '),
-            TextSpan(text: "'Real-world impact'", style: TextStyle(color: Color(0xFFE8A87C))),
-            TextSpan(text: ';\n\n'),
-            TextSpan(text: '  build', style: TextStyle(color: Color(0xFF82B4FF))),
-            TextSpan(text: '(Idea idea) => '),
-            TextSpan(text: 'ProductionApp', style: TextStyle(color: Color(0xFF82B4FF))),
-            TextSpan(text: '(idea);\n}'),
-          ],
-        ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            decoration: BoxDecoration(
+              color: AppColors.ink3.withOpacity(0.5),
+              border: Border(bottom: BorderSide(color: AppColors.border)),
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(8)),
+            ),
+            child: Row(
+              children: [
+                Row(
+                  children: [
+                    Container(width: 10, height: 10, decoration: const BoxDecoration(color: Color(0xFFFF5F56), shape: BoxShape.circle)),
+                    const SizedBox(width: 6),
+                    Container(width: 10, height: 10, decoration: const BoxDecoration(color: Color(0xFFFFBD2E), shape: BoxShape.circle)),
+                    const SizedBox(width: 6),
+                    Container(width: 10, height: 10, decoration: const BoxDecoration(color: Color(0xFF27C93F), shape: BoxShape.circle)),
+                  ],
+                ),
+                const SizedBox(width: 16),
+                Text(
+                  'abhishek_developer.dart',
+                  style: AppTheme.jetBrainsMono.copyWith(
+                    fontSize: 11,
+                    color: AppColors.muted2,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(24),
+            child: SelectableText.rich(
+              TextSpan(
+                style: AppTheme.jetBrainsMono.copyWith(
+                  fontSize: 12.5, // 0.78rem
+                  height: 1.9,
+                  color: AppColors.muted2,
+                ),
+                children: const [
+                  TextSpan(text: '// Abhishek\'s approach to every project\n', style: TextStyle(color: AppColors.muted, fontStyle: FontStyle.italic)),
+                  TextSpan(text: 'class ', style: TextStyle(color: Color(0xFFC8F041))),
+                  TextSpan(text: 'AbhishekYadav ', style: TextStyle(color: Color(0xFF82B4FF))),
+                  TextSpan(text: 'extends ', style: TextStyle(color: Color(0xFFC8F041))),
+                  TextSpan(text: 'FlutterDeveloper ', style: TextStyle(color: Color(0xFF82B4FF))),
+                  TextSpan(text: '{\n'),
+                  TextSpan(text: '  final ', style: TextStyle(color: Color(0xFFC8F041))),
+                  TextSpan(text: 'architecture = '),
+                  TextSpan(text: "'Clean + Scalable'", style: TextStyle(color: Color(0xFFE8A87C))),
+                  TextSpan(text: ';\n'),
+                  TextSpan(text: '  final ', style: TextStyle(color: Color(0xFFC8F041))),
+                  TextSpan(text: 'platforms = ['),
+                  TextSpan(text: "'Android'", style: TextStyle(color: Color(0xFFE8A87C))),
+                  TextSpan(text: ', '),
+                  TextSpan(text: "'iOS'", style: TextStyle(color: Color(0xFFE8A87C))),
+                  TextSpan(text: '];\n'),
+                  TextSpan(text: '  final ', style: TextStyle(color: Color(0xFFC8F041))),
+                  TextSpan(text: 'passion = '),
+                  TextSpan(text: "'Real-world impact'", style: TextStyle(color: Color(0xFFE8A87C))),
+                  TextSpan(text: ';\n\n'),
+                  TextSpan(text: '  build', style: TextStyle(color: Color(0xFF82B4FF))),
+                  TextSpan(text: '(Idea idea) => '),
+                  TextSpan(text: 'ProductionApp', style: TextStyle(color: Color(0xFF82B4FF))),
+                  TextSpan(text: '(idea);\n}'),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
