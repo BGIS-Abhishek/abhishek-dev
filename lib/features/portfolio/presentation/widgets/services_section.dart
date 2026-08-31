@@ -50,8 +50,9 @@ class ServicesSection extends StatelessWidget {
                 delay: const Duration(milliseconds: 100),
                 child: RichText(
                   text: TextSpan(
-                    style: AppTheme.instrumentSerif.copyWith(
+                    style: AppTheme.syne.copyWith(
                       fontSize: isMobile ? 38.4 : 72,
+                      fontWeight: FontWeight.w800,
                       height: 1.05,
                       letterSpacing: -0.01,
                       color: textColor,
@@ -183,8 +184,9 @@ class _HoverServiceCardState extends State<_HoverServiceCard> {
                     children: [
                       AnimatedDefaultTextStyle(
                         duration: const Duration(milliseconds: 250),
-                        style: AppTheme.instrumentSerif.copyWith(
+                        style: AppTheme.syne.copyWith(
                           fontSize: 56,
+                          fontWeight: FontWeight.w800,
                           fontStyle: FontStyle.italic,
                           color: _isHovered ? accentColor.withOpacity(0.5) : textColor.withOpacity(0.08),
                           height: 1.0,
@@ -223,7 +225,7 @@ class _HoverServiceCardState extends State<_HoverServiceCard> {
                   const SizedBox(height: 14),
                   Text(
                     widget.desc,
-                    style: AppTheme.syne.copyWith(
+                    style: AppTheme.inter.copyWith(
                       fontSize: 13.4,
                       height: 1.7,
                       color: textSubtleColor,

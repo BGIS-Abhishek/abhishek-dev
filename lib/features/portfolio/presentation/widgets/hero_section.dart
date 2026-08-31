@@ -73,8 +73,9 @@ class HeroSection extends StatelessWidget {
               'Flutter',
               maxLines: 1,
               softWrap: false,
-              style: AppTheme.instrumentSerif.copyWith(
+              style: AppTheme.syne.copyWith(
                 fontSize: isMobile ? size.width * 0.25 : (size.height * 0.26).clamp(140.0, 220.0),
+                fontWeight: FontWeight.w800,
                 fontStyle: FontStyle.italic,
                 height: 1.0,
                 color: Colors.transparent,
@@ -174,8 +175,9 @@ class HeroSection extends StatelessWidget {
 
     return RichText(
       text: TextSpan(
-        style: AppTheme.instrumentSerif.copyWith(
+        style: AppTheme.syne.copyWith(
           fontSize: fontSize,
+          fontWeight: FontWeight.w800,
           height: 0.95,
           letterSpacing: -0.02,
         ),
@@ -236,7 +238,7 @@ class HeroSection extends StatelessWidget {
       constraints: const BoxConstraints(maxWidth: 380),
       child: RichText(
         text: TextSpan(
-          style: AppTheme.syne.copyWith(
+          style: AppTheme.inter.copyWith(
             fontSize: 16,
             height: 1.75,
             color: textSubtleColor,
@@ -323,8 +325,9 @@ class HeroSection extends StatelessWidget {
       children: [
         Text(
           num,
-          style: AppTheme.instrumentSerif.copyWith(
+          style: AppTheme.syne.copyWith(
             fontSize: isMobile ? 32 : 48,
+            fontWeight: FontWeight.w800,
             fontStyle: FontStyle.italic,
             color: accentColor,
             height: 1.0,
@@ -549,7 +552,7 @@ class _HoverButtonState extends State<_HoverButton> {
               ],
               Text(
                 widget.text,
-                style: AppTheme.syne.copyWith(
+                style: AppTheme.inter.copyWith(
                   fontSize: fontSize,
                   fontWeight:
                       widget.isPrimary ? FontWeight.w700 : FontWeight.w600,

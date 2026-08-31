@@ -51,8 +51,9 @@ class ExperienceSection extends StatelessWidget {
                 delay: const Duration(milliseconds: 100),
                 child: RichText(
                   text: TextSpan(
-                    style: AppTheme.instrumentSerif.copyWith(
+                    style: AppTheme.syne.copyWith(
                       fontSize: isMobile ? 38.4 : 72,
+                      fontWeight: FontWeight.w800,
                       height: 1.05,
                       letterSpacing: -0.01,
                       color: textColor,
@@ -134,8 +135,9 @@ class ExperienceSection extends StatelessWidget {
       children: [
         Text(
           'Flutter Developer',
-          style: AppTheme.instrumentSerif.copyWith(
+          style: AppTheme.syne.copyWith(
             fontSize: 38.4,
+            fontWeight: FontWeight.w700,
             fontStyle: FontStyle.italic,
             height: 1.1,
             color: textColor,
@@ -163,7 +165,7 @@ class ExperienceSection extends StatelessWidget {
       children: [
         RichText(
           text: TextSpan(
-            style: AppTheme.syne.copyWith(
+            style: AppTheme.inter.copyWith(
               fontSize: 15.3,
               height: 1.82,
               color: textSubtleColor,
@@ -216,7 +218,7 @@ class ExperienceSection extends StatelessWidget {
           const SizedBox(height: 4),
           Text(
             val,
-            style: AppTheme.syne.copyWith(
+            style: AppTheme.inter.copyWith(
               fontSize: 13.4,
               color: textSubtleColor,
             ),

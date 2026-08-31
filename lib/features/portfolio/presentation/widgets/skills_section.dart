@@ -52,8 +52,9 @@ class SkillsSection extends StatelessWidget {
                 delay: const Duration(milliseconds: 100),
                 child: RichText(
                   text: TextSpan(
-                    style: AppTheme.instrumentSerif.copyWith(
+                    style: AppTheme.syne.copyWith(
                       fontSize: isMobile ? 38.4 : 72,
+                      fontWeight: FontWeight.w800,
                       height: 1.05,
                       letterSpacing: -0.01,
                       color: textColor,
@@ -248,7 +249,7 @@ class _HoverSkillItemState extends State<_HoverSkillItem> {
           children: [
             Text(
               widget.text,
-              style: AppTheme.syne.copyWith(
+              style: AppTheme.inter.copyWith(
                 fontSize: 14.4,
                 color: _isHovered ? textColor : textSubtleColor,
               ),

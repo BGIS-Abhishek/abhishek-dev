@@ -31,10 +31,10 @@ class ContactSection extends StatelessWidget {
                 child: RichText(
                   textAlign: TextAlign.center,
                   text: TextSpan(
-                    style: AppTheme.instrumentSerif.copyWith(
+                    style: AppTheme.syne.copyWith(
                       fontSize: isMobile ? 48 : 128,
+                      fontWeight: FontWeight.w800,
                       fontStyle: FontStyle.italic,
-                      fontWeight: FontWeight.w400,
                       height: 1.0,
                       letterSpacing: -0.02,
                       color: textColor,
@@ -58,7 +58,7 @@ class ContactSection extends StatelessWidget {
                   child: Text(
                     'Open to freelance projects, collaborations, and anything interesting. Drop a message — I usually reply fast.',
                     textAlign: TextAlign.center,
-                    style: AppTheme.syne.copyWith(
+                    style: AppTheme.inter.copyWith(
                       fontSize: 16,
                       height: 1.8,
                       color: textSubtleColor,

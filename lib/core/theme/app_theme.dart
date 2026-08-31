@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'app_colors.dart';
+import 'app_typography.dart';
 
 class AppTheme {
   static ThemeData get darkTheme {
@@ -13,12 +13,7 @@ class AppTheme {
         surface: AppColors.darkInk2,
         error: Colors.redAccent,
       ),
-      textTheme: GoogleFonts.syneTextTheme(
-        ThemeData.dark().textTheme.copyWith(
-          bodyLarge: const TextStyle(color: AppColors.darkTextMain, fontWeight: FontWeight.w400),
-          bodyMedium: const TextStyle(color: AppColors.darkTextMain, fontWeight: FontWeight.w400),
-        ),
-      ),
+      textTheme: AppTypography.textTheme(AppColors.darkTextMain),
       useMaterial3: true,
     );
   }
@@ -33,17 +28,13 @@ class AppTheme {
         surface: AppColors.lightInk2,
         error: Colors.redAccent,
       ),
-      textTheme: GoogleFonts.syneTextTheme(
-        ThemeData.light().textTheme.copyWith(
-          bodyLarge: const TextStyle(color: AppColors.lightTextMain, fontWeight: FontWeight.w400),
-          bodyMedium: const TextStyle(color: AppColors.lightTextMain, fontWeight: FontWeight.w400),
-        ),
-      ),
+      textTheme: AppTypography.textTheme(AppColors.lightTextMain),
       useMaterial3: true,
     );
   }
 
-  static TextStyle get syne => GoogleFonts.syne();
-  static TextStyle get instrumentSerif => GoogleFonts.instrumentSerif();
-  static TextStyle get jetBrainsMono => GoogleFonts.jetBrainsMono();
+  static TextStyle get syne => AppTypography.syne;
+  static TextStyle get inter => AppTypography.inter;
+  static TextStyle get jetBrainsMono => AppTypography.jetBrainsMono;
+  static TextStyle get instrumentSerif => AppTypography.syne;
 }

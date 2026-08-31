@@ -74,8 +74,9 @@ class ProjectsSection extends StatelessWidget {
             const SizedBox(height: 20),
             RichText(
               text: TextSpan(
-                style: AppTheme.instrumentSerif.copyWith(
+                style: AppTheme.syne.copyWith(
                   fontSize: isMobile ? 38.4 : 72,
+                  fontWeight: FontWeight.w800,
                   height: 1.05,
                   letterSpacing: -0.01,
                   color: textColor,
@@ -93,8 +94,9 @@ class ProjectsSection extends StatelessWidget {
         ),
         Text(
           '05',
-          style: AppTheme.instrumentSerif.copyWith(
+          style: AppTheme.syne.copyWith(
             fontSize: 80,
+            fontWeight: FontWeight.w800,
             fontStyle: FontStyle.italic,
             color: line2Color,
             height: 1.0,
@@ -156,8 +158,9 @@ class ProjectsSection extends StatelessWidget {
           const SizedBox(height: 16),
           Text(
             'Tigram',
-            style: AppTheme.instrumentSerif.copyWith(
+            style: AppTheme.syne.copyWith(
               fontSize: 48,
+              fontWeight: FontWeight.w700,
               fontStyle: FontStyle.italic,
               height: 1.0,
               color: textColor,
@@ -166,7 +169,7 @@ class ProjectsSection extends StatelessWidget {
           const SizedBox(height: 12),
           Text(
             'Timber traceability platform used by the Kerala Forest Department to track and verify timber from forest to market using GPS and QR codes.',
-            style: AppTheme.syne.copyWith(
+            style: AppTheme.inter.copyWith(
               fontSize: 14.4,
               height: 1.7,
               color: textSubtleColor,
@@ -216,7 +219,7 @@ class ProjectsSection extends StatelessWidget {
         Expanded(
           child: RichText(
             text: TextSpan(
-              style: AppTheme.syne.copyWith(
+              style: AppTheme.inter.copyWith(
                 fontSize: 14,
                 height: 1.5,
                 color: textSubtleColor,
@@ -293,7 +296,7 @@ class ProjectsSection extends StatelessWidget {
                 const SizedBox(height: 8),
                 Text(
                   'Live in the field with Kerala Forest Department officers — directly reducing timber fraud through digital traceability.',
-                  style: AppTheme.syne.copyWith(
+                  style: AppTheme.inter.copyWith(
                     fontSize: 14,
                     height: 1.7,
                     color: textSubtleColor,
@@ -419,8 +422,9 @@ class _HoverProjectRowState extends State<_HoverProjectRow> {
                       children: [
                         Text(
                           widget.name,
-                          style: AppTheme.instrumentSerif.copyWith(
+                          style: AppTheme.syne.copyWith(
                             fontSize: 24,
+                            fontWeight: FontWeight.w700,
                             fontStyle: FontStyle.italic,
                             color: textColor,
                           ),
@@ -428,7 +432,7 @@ class _HoverProjectRowState extends State<_HoverProjectRow> {
                         const SizedBox(height: 4),
                         Text(
                           widget.desc,
-                          style: AppTheme.syne.copyWith(
+                          style: AppTheme.inter.copyWith(
                             fontSize: 12.8,
                             color: textSubtleColor,
                           ),
@@ -458,8 +462,9 @@ class _HoverProjectRowState extends State<_HoverProjectRow> {
                       children: [
                         Text(
                           widget.name,
-                          style: AppTheme.instrumentSerif.copyWith(
+                          style: AppTheme.syne.copyWith(
                             fontSize: 24,
+                            fontWeight: FontWeight.w700,
                             fontStyle: FontStyle.italic,
                             color: textColor,
                           ),
@@ -467,7 +472,7 @@ class _HoverProjectRowState extends State<_HoverProjectRow> {
                         const SizedBox(height: 4),
                         Text(
                           widget.desc,
-                          style: AppTheme.syne.copyWith(
+                          style: AppTheme.inter.copyWith(
                             fontSize: 12.8,
                             color: textSubtleColor,
                           ),

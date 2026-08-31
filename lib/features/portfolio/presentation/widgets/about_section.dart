@@ -84,8 +84,9 @@ class AboutSection extends StatelessWidget {
         const SizedBox(height: 20),
         RichText(
           text: TextSpan(
-            style: AppTheme.instrumentSerif.copyWith(
+            style: AppTheme.syne.copyWith(
               fontSize: 56,
+              fontWeight: FontWeight.w800,
               height: 1.05,
               letterSpacing: -0.01,
               color: textColor,
@@ -171,7 +172,7 @@ class AboutSection extends StatelessWidget {
     final textSubtleColor = AppColors.textSubtle(context);
     return RichText(
       text: TextSpan(
-        style: AppTheme.syne.copyWith(
+        style: AppTheme.inter.copyWith(
           fontSize: 16.8,
           height: 1.85,
           color: textSubtleColor,
