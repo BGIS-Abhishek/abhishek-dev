@@ -26,80 +26,107 @@ class Navbar extends StatelessWidget {
 
   void _openMobileMenu(BuildContext context) {
     final surfaceColor = AppColors.surface(context);
+    final lineBorder = AppColors.line(context);
     final textColor = AppColors.text(context);
     final accentColor = AppColors.accent(context);
+    final isDark = AppColors.isDark(context);
 
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
       isScrollControlled: true,
+      useRootNavigator: true,
       builder: (context) {
-        return ClipRRect(
-          borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
-          child: BackdropFilter(
-            filter: ui.ImageFilter.blur(sigmaX: 20, sigmaY: 20),
-            child: Container(
-              color: surfaceColor.withOpacity(0.96),
-              padding: const EdgeInsets.fromLTRB(28, 24, 28, 48),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      _buildLogo(context),
-                      Row(
-                        children: [
-                          IconButton(
-                            onPressed: () {
-                              onToggleTheme();
-                            },
-                            icon: Icon(
-                              AppColors.isDark(context) ? Icons.wb_sunny_outlined : Icons.dark_mode_outlined,
-                              color: textColor,
-                              size: 22,
-                            ),
+        return SafeArea(
+          child: ClipRRect(
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+            child: BackdropFilter(
+              filter: ui.ImageFilter.blur(sigmaX: 24, sigmaY: 24),
+              child: Container(
+                color: surfaceColor.withOpacity(0.97),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    // Drag handle
+                    Padding(
+                      padding: const EdgeInsets.only(top: 12, bottom: 4),
+                      child: Center(
+                        child: Container(
+                          width: 36,
+                          height: 4,
+                          decoration: BoxDecoration(
+                            color: lineBorder,
+                            borderRadius: BorderRadius.circular(2),
                           ),
-                          IconButton(
-                            onPressed: () => Navigator.pop(context),
-                            icon: Icon(Icons.close, color: textColor, size: 24),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 32),
-                  _buildMobileMenuItem(context, 'ABOUT', onAboutTap),
-                  _buildMobileMenuItem(context, 'WORK', onWorkTap),
-                  _buildMobileMenuItem(context, 'SERVICES', onServicesTap),
-                  _buildMobileMenuItem(context, 'CONTACT', onContactTap),
-                  const SizedBox(height: 24),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                        onContactTap();
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: accentColor,
-                        foregroundColor: AppColors.isDark(context) ? AppColors.darkInk : Colors.white,
-                        padding: const EdgeInsets.symmetric(vertical: 16),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-                      ),
-                      child: Text(
-                        'HIRE ME',
-                        style: AppTheme.jetBrainsMono.copyWith(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          letterSpacing: 2.0,
-                          color: AppColors.isDark(context) ? AppColors.darkInk : Colors.white,
                         ),
                       ),
                     ),
-                  ),
-                ],
+                    // Header row
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(24, 16, 8, 0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          _buildLogo(context),
+                          Row(
+                            children: [
+                              IconButton(
+                                onPressed: onToggleTheme,
+                                icon: Icon(
+                                  isDark ? Icons.wb_sunny_outlined : Icons.dark_mode_outlined,
+                                  color: textColor,
+                                  size: 20,
+                                ),
+                              ),
+                              IconButton(
+                                onPressed: () => Navigator.pop(context),
+                                icon: Icon(Icons.close_rounded, color: textColor, size: 22),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    // Divider
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                      child: Divider(height: 1, color: lineBorder),
+                    ),
+                    // Nav items
+                    _buildMobileMenuItem(context, '01', 'ABOUT', onAboutTap),
+                    _buildMobileMenuItem(context, '02', 'WORK', onWorkTap),
+                    _buildMobileMenuItem(context, '03', 'SERVICES', onServicesTap),
+                    _buildMobileMenuItem(context, '04', 'CONTACT', onContactTap),
+                    // CTA
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(24, 24, 24, 32),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                          onContactTap();
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          decoration: BoxDecoration(
+                            color: accentColor,
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                          alignment: Alignment.center,
+                          child: Text(
+                            'HIRE ME',
+                            style: AppTheme.inter.copyWith(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w700,
+                              letterSpacing: 2.4,
+                              color: isDark ? AppColors.darkInk : Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -108,28 +135,52 @@ class Navbar extends StatelessWidget {
     );
   }
 
-  Widget _buildMobileMenuItem(BuildContext context, String title, VoidCallback onTap) {
+  Widget _buildMobileMenuItem(BuildContext context, String num, String title, VoidCallback onTap) {
     final textColor = AppColors.text(context);
+    final textSubtleColor = AppColors.textSubtle(context);
     final accentColor = AppColors.accent(context);
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 12),
-      child: InkWell(
-        onTap: () {
-          Navigator.pop(context);
-          onTap();
-        },
+    final lineBorder = AppColors.line(context);
+
+    return InkWell(
+      onTap: () {
+        Navigator.pop(context);
+        onTap();
+      },
+      splashColor: accentColor.withOpacity(0.06),
+      highlightColor: accentColor.withOpacity(0.04),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              title,
-              style: AppTheme.syne.copyWith(
-                fontSize: 20,
-                fontWeight: FontWeight.w700,
-                color: textColor,
+            // Number prefix
+            SizedBox(
+              width: 36,
+              child: Text(
+                num,
+                style: AppTheme.jetBrainsMono.copyWith(
+                  fontSize: 10,
+                  letterSpacing: 1.2,
+                  color: textSubtleColor,
+                ),
               ),
             ),
-            Icon(Icons.arrow_forward_ios, size: 14, color: accentColor),
+            // Vertical separator
+            Container(width: 1, height: 20, color: lineBorder),
+            const SizedBox(width: 20),
+            // Title
+            Expanded(
+              child: Text(
+                title,
+                style: AppTheme.syne.copyWith(
+                  fontSize: 22,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: 0.5,
+                  color: textColor,
+                ),
+              ),
+            ),
+            // Arrow
+            Icon(Icons.arrow_forward_rounded, size: 18, color: accentColor),
           ],
         ),
       ),

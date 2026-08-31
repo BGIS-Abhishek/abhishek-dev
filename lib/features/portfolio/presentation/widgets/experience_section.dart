@@ -182,7 +182,7 @@ class ExperienceSection extends StatelessWidget {
           spacing: 12,
           runSpacing: 12,
           children: [
-            _buildHighlight(context, 'Domains', 'Forestry · GIS · Healthcare · Insurance', isMobile),
+            _buildHighlight(context, 'Domains', 'Banking · GIS · Healthcare ', isMobile),
             _buildHighlight(context, 'Deployment', 'Play Store & App Store, live in production', isMobile),
             _buildHighlight(context, 'Architecture', 'Bloc, Provider, Clean Architecture', isMobile),
             _buildHighlight(context, 'DevOps', 'Fastlane + GitHub Actions CI/CD', isMobile),
