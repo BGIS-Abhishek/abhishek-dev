@@ -14,7 +14,6 @@ class SkillsSection extends StatelessWidget {
     final accentColor = AppColors.accent(context);
     final textColor = AppColors.text(context);
     final textSubtleColor = AppColors.textSubtle(context);
-    final lineBorder = AppColors.line(context);
 
     return Container(
       width: double.infinity,
@@ -69,86 +68,115 @@ class SkillsSection extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 60),
+              const SizedBox(height: 50),
               RevealAnimation(
                 delay: const Duration(milliseconds: 200),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: lineBorder,
-                    border: Border.all(color: lineBorder),
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                  child: isMobile
-                      ? Column(
-                          children: [
-                            _buildSkillCard(context, '📱', 'Core Development', [
-                              'Flutter & Dart',
-                              'State — Bloc',
-                              'State — Provider',
-                              'REST API Integration',
-                              'WebSocket',
-                              'Clean Architecture'
-                            ]),
-                            Container(height: 1, color: lineBorder),
-                            _buildSkillCard(context, '🛠', 'Tools & Infra', [
-                              'Fastlane + GitHub Actions',
-                              'Firebase',
-                              'SQLite & Hive',
-                              'MongoDB',
-                              'Git & GitHub',
-                              'Play Store / App Store'
-                            ]),
-                            Container(height: 1, color: lineBorder),
-                            _buildSkillCard(context, '⚡', 'Strengths', [
-                              'Performance Optimization',
-                              'Scalable Codebase',
-                              'GIS & Geotagging',
-                              'Image Processing',
-                              'Offline-First Design',
-                              'Production Deployment'
-                            ]),
-                          ],
-                        )
-                      : IntrinsicHeight(
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              Expanded(
-                                child: _buildSkillCard(context, '📱', 'Core Development', [
-                                  'Flutter & Dart',
-                                  'State — Bloc',
-                                  'State — Provider',
-                                  'REST API Integration',
-                                  'WebSocket',
-                                  'Clean Architecture'
-                                ]),
-                              ),
-                              Container(width: 1, color: lineBorder),
-                              Expanded(
-                                child: _buildSkillCard(context, '🛠', 'Tools & Infra', [
-                                  'Fastlane + GitHub Actions',
-                                  'Firebase',
-                                  'SQLite & Hive',
-                                  'MongoDB',
-                                  'Git & GitHub',
-                                  'Play Store / App Store'
-                                ]),
-                              ),
-                              Container(width: 1, color: lineBorder),
-                              Expanded(
-                                child: _buildSkillCard(context, '⚡', 'Strengths', [
-                                  'Performance Optimization',
-                                  'Scalable Codebase',
-                                  'GIS & Geotagging',
-                                  'Image Processing',
-                                  'Offline-First Design',
-                                  'Production Deployment'
-                                ]),
-                              ),
+                child: isMobile
+                    ? Column(
+                        children: [
+                          _buildGlassCard(
+                            context,
+                            icon: '📱',
+                            category: 'Core Development',
+                            badgeText: 'Production',
+                            items: [
+                              const _SkillChip(name: 'Flutter & Dart', icon: '⚡', isPrimary: true),
+                              const _SkillChip(name: 'State — BLoC', icon: '📦', isPrimary: true),
+                              const _SkillChip(name: 'State — Provider', icon: '🔄'),
+                              const _SkillChip(name: 'Clean Architecture', icon: '📐', isPrimary: true),
+                              const _SkillChip(name: 'REST API Integration', icon: '🌐'),
+                              const _SkillChip(name: 'WebSocket Engine', icon: '🔌'),
                             ],
                           ),
+                          const SizedBox(height: 20),
+                          _buildGlassCard(
+                            context,
+                            icon: '🛠',
+                            category: 'Tools & DevOps',
+                            badgeText: 'Infrastructure',
+                            items: [
+                              const _SkillChip(name: 'Fastlane Pipelines', icon: '🚀', isPrimary: true),
+                              const _SkillChip(name: 'GitHub Actions', icon: '🐙', isPrimary: true),
+                              const _SkillChip(name: 'Firebase Suite', icon: '🔥'),
+                              const _SkillChip(name: 'SQLite & Hive DB', icon: '💾', isPrimary: true),
+                              const _SkillChip(name: 'MongoDB', icon: '🍃'),
+                              const _SkillChip(name: 'App Store / Play Store', icon: '📱'),
+                            ],
+                          ),
+                          const SizedBox(height: 20),
+                          _buildGlassCard(
+                            context,
+                            icon: '⚡',
+                            category: 'Specialized Engineering',
+                            badgeText: 'Core Strengths',
+                            items: [
+                              const _SkillChip(name: 'Offline-First Engine', icon: '🔒', isPrimary: true),
+                              const _SkillChip(name: 'GIS & Geotagging', icon: '🗺️', isPrimary: true),
+                              const _SkillChip(name: 'Bluetooth Thermal Print', icon: '🖨️'),
+                              const _SkillChip(name: 'Image Compression', icon: '🖼️'),
+                              const _SkillChip(name: 'Performance Profiling', icon: '⚡', isPrimary: true),
+                              const _SkillChip(name: 'CI/CD Automation', icon: '🛠️'),
+                            ],
+                          ),
+                        ],
+                      )
+                    : IntrinsicHeight(
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Expanded(
+                              child: _buildGlassCard(
+                                context,
+                                icon: '📱',
+                                category: 'Core Development',
+                                badgeText: 'Production',
+                                items: [
+                                  const _SkillChip(name: 'Flutter & Dart', icon: '⚡', isPrimary: true),
+                                  const _SkillChip(name: 'State — BLoC', icon: '📦', isPrimary: true),
+                                  const _SkillChip(name: 'State — Provider', icon: '🔄'),
+                                  const _SkillChip(name: 'Clean Architecture', icon: '📐', isPrimary: true),
+                                  const _SkillChip(name: 'REST API Integration', icon: '🌐'),
+                                  const _SkillChip(name: 'WebSocket Engine', icon: '🔌'),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(width: 20),
+                            Expanded(
+                              child: _buildGlassCard(
+                                context,
+                                icon: '🛠',
+                                category: 'Tools & DevOps',
+                                badgeText: 'Infrastructure',
+                                items: [
+                                  const _SkillChip(name: 'Fastlane Pipelines', icon: '🚀', isPrimary: true),
+                                  const _SkillChip(name: 'GitHub Actions', icon: '🐙', isPrimary: true),
+                                  const _SkillChip(name: 'Firebase Suite', icon: '🔥'),
+                                  const _SkillChip(name: 'SQLite & Hive DB', icon: '💾', isPrimary: true),
+                                  const _SkillChip(name: 'MongoDB', icon: '🍃'),
+                                  const _SkillChip(name: 'App Store / Play Store', icon: '📱'),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(width: 20),
+                            Expanded(
+                              child: _buildGlassCard(
+                                context,
+                                icon: '⚡',
+                                category: 'Specialized Engineering',
+                                badgeText: 'Core Strengths',
+                                items: [
+                                  const _SkillChip(name: 'Offline-First Engine', icon: '🔒', isPrimary: true),
+                                  const _SkillChip(name: 'GIS & Geotagging', icon: '🗺️', isPrimary: true),
+                                  const _SkillChip(name: 'Bluetooth Thermal Print', icon: '🖨️'),
+                                  const _SkillChip(name: 'Image Compression', icon: '🖼️'),
+                                  const _SkillChip(name: 'Performance Profiling', icon: '⚡', isPrimary: true),
+                                  const _SkillChip(name: 'CI/CD Automation', icon: '🛠️'),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
-                ),
+                      ),
               ),
             ],
           ),
@@ -157,35 +185,125 @@ class SkillsSection extends StatelessWidget {
     );
   }
 
-  Widget _buildSkillCard(BuildContext context, String icon, String title, List<String> skills) {
+  Widget _buildGlassCard(
+    BuildContext context, {
+    required String icon,
+    required String category,
+    required String badgeText,
+    required List<Widget> items,
+  }) {
+    return _GlassHoverCard(
+      icon: icon,
+      category: category,
+      badgeText: badgeText,
+      items: items,
+    );
+  }
+}
+
+class _GlassHoverCard extends StatefulWidget {
+  final String icon;
+  final String category;
+  final String badgeText;
+  final List<Widget> items;
+
+  const _GlassHoverCard({
+    required this.icon,
+    required this.category,
+    required this.badgeText,
+    required this.items,
+  });
+
+  @override
+  State<_GlassHoverCard> createState() => _GlassHoverCardState();
+}
+
+class _GlassHoverCardState extends State<_GlassHoverCard> {
+  bool _isHovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final surfaceColor = AppColors.surface(context);
     final accentColor = AppColors.accent(context);
     final lineBorder = AppColors.line(context);
+    final textColor = AppColors.text(context);
 
-    return _HoverCard(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 40),
+    return MouseRegion(
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        padding: const EdgeInsets.all(28),
+        decoration: BoxDecoration(
+          color: surfaceColor,
+          border: Border.all(
+            color: _isHovered ? accentColor.withOpacity(0.5) : lineBorder,
+            width: _isHovered ? 1.5 : 1.0,
+          ),
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+              color: _isHovered ? accentColor.withOpacity(0.1) : Colors.black.withOpacity(0.04),
+              blurRadius: _isHovered ? 24 : 12,
+              offset: const Offset(0, 6),
+            ),
+          ],
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(icon, style: const TextStyle(fontSize: 24)),
-            const SizedBox(height: 20),
-            Container(
-              padding: const EdgeInsets.only(bottom: 16),
-              margin: const EdgeInsets.only(bottom: 20),
-              decoration: BoxDecoration(
-                border: Border(bottom: BorderSide(color: lineBorder)),
-              ),
-              child: Text(
-                title.toUpperCase(),
-                style: AppTheme.syne.copyWith(
-                  fontSize: 11.5,
-                  fontWeight: FontWeight.w700,
-                  letterSpacing: 2.4,
-                  color: accentColor,
+            // Header with Icon & Category Badge
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: accentColor.withOpacity(0.08),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Text(widget.icon, style: const TextStyle(fontSize: 22)),
                 ),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: _isHovered ? accentColor.withOpacity(0.12) : Colors.transparent,
+                    border: Border.all(
+                      color: _isHovered ? accentColor.withOpacity(0.4) : lineBorder,
+                    ),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Text(
+                    widget.badgeText.toUpperCase(),
+                    style: AppTheme.jetBrainsMono.copyWith(
+                      fontSize: 9.5,
+                      letterSpacing: 1.2,
+                      color: _isHovered ? accentColor : AppColors.textCaption(context),
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            Text(
+              widget.category.toUpperCase(),
+              style: AppTheme.syne.copyWith(
+                fontSize: 13,
+                fontWeight: FontWeight.w700,
+                letterSpacing: 1.8,
+                color: textColor,
               ),
             ),
-            ...skills.map((s) => _HoverSkillItem(text: s)),
+            const SizedBox(height: 16),
+            Divider(color: lineBorder, height: 1),
+            const SizedBox(height: 20),
+            // Skill Chips Wrap Grid
+            Wrap(
+              spacing: 8,
+              runSpacing: 10,
+              children: widget.items,
+            ),
           ],
         ),
       ),
@@ -193,74 +311,71 @@ class SkillsSection extends StatelessWidget {
   }
 }
 
-class _HoverCard extends StatefulWidget {
-  final Widget child;
-  const _HoverCard({required this.child});
+class _SkillChip extends StatefulWidget {
+  final String name;
+  final String icon;
+  final bool isPrimary;
+
+  const _SkillChip({
+    required this.name,
+    required this.icon,
+    this.isPrimary = false,
+  });
 
   @override
-  State<_HoverCard> createState() => _HoverCardState();
+  State<_SkillChip> createState() => _SkillChipState();
 }
 
-class _HoverCardState extends State<_HoverCard> {
+class _SkillChipState extends State<_SkillChip> {
   bool _isHovered = false;
 
   @override
   Widget build(BuildContext context) {
-    final bgColor = AppColors.bg(context);
-    final surfaceColor = AppColors.surface(context);
+    final accentColor = AppColors.accent(context);
+    final textColor = AppColors.text(context);
+    final textSubtleColor = AppColors.textSubtle(context);
+    final lineBorder = AppColors.line(context);
+    final elevatedColor = AppColors.elevated(context);
 
     return MouseRegion(
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
       child: AnimatedContainer(
-        duration: const Duration(milliseconds: 300),
-        color: _isHovered ? surfaceColor : bgColor,
-        child: widget.child,
-      ),
-    );
-  }
-}
-
-class _HoverSkillItem extends StatefulWidget {
-  final String text;
-  const _HoverSkillItem({required this.text});
-
-  @override
-  State<_HoverSkillItem> createState() => _HoverSkillItemState();
-}
-
-class _HoverSkillItemState extends State<_HoverSkillItem> {
-  bool _isHovered = false;
-
-  @override
-  Widget build(BuildContext context) {
-    final textColor = AppColors.text(context);
-    final textSubtleColor = AppColors.textSubtle(context);
-    final accentColor = AppColors.accent(context);
-    final line2Color = AppColors.line2(context);
-
-    return MouseRegion(
-      onEnter: (_) => setState(() => _isHovered = true),
-      onExit: (_) => setState(() => _isHovered = false),
-      child: Padding(
-        padding: const EdgeInsets.only(bottom: 10),
+        duration: const Duration(milliseconds: 200),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
+        decoration: BoxDecoration(
+          color: _isHovered
+              ? accentColor.withOpacity(0.12)
+              : (widget.isPrimary ? elevatedColor : Colors.transparent),
+          border: Border.all(
+            color: _isHovered
+                ? accentColor
+                : (widget.isPrimary ? accentColor.withOpacity(0.3) : lineBorder),
+          ),
+          borderRadius: BorderRadius.circular(6),
+          boxShadow: _isHovered
+              ? [
+                  BoxShadow(
+                    color: accentColor.withOpacity(0.15),
+                    blurRadius: 8,
+                    offset: const Offset(0, 2),
+                  ),
+                ]
+              : [],
+        ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisSize: MainAxisSize.min,
           children: [
+            Text(widget.icon, style: const TextStyle(fontSize: 12)),
+            const SizedBox(width: 6),
             Text(
-              widget.text,
+              widget.name,
               style: AppTheme.inter.copyWith(
-                fontSize: 14.4,
-                color: _isHovered ? textColor : textSubtleColor,
-              ),
-            ),
-            AnimatedContainer(
-              duration: const Duration(milliseconds: 200),
-              width: 5,
-              height: 5,
-              decoration: BoxDecoration(
-                color: _isHovered ? accentColor : line2Color,
-                shape: BoxShape.circle,
+                fontSize: 12.5,
+                fontWeight: widget.isPrimary ? FontWeight.w600 : FontWeight.w400,
+                color: _isHovered
+                    ? accentColor
+                    : (widget.isPrimary ? textColor : textSubtleColor),
               ),
             ),
           ],
