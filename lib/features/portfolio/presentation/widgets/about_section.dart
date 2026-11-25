@@ -77,31 +77,30 @@ class AboutSection extends StatelessWidget {
         Text.rich(
           TextSpan(children: [
             TextSpan(
-              text: 'Building apps\n',
-              style: GoogleFonts.playfairDisplay(
-                fontSize: isMobile ? 36 : 50,
-                fontWeight: FontWeight.w700,
+              text: 'Engineering apps\n',
+              style: GoogleFonts.dmSans(
+                fontSize: isMobile ? 36 : 48,
+                fontWeight: FontWeight.w800,
                 height: 1.1, letterSpacing: -1.0,
                 color: textColor,
               ),
             ),
             TextSpan(
-              text: 'that ship',
-              style: GoogleFonts.playfairDisplay(
-                fontSize: isMobile ? 36 : 50,
-                fontWeight: FontWeight.w700,
-                fontStyle: FontStyle.italic,
+              text: 'that scale & protect',
+              style: GoogleFonts.dmSans(
+                fontSize: isMobile ? 36 : 48,
+                fontWeight: FontWeight.w800,
                 height: 1.1, letterSpacing: -1.0,
-                color: AppColors.textSubtle(context),
+                color: AppColors.teal,
               ),
             ),
           ]),
         ),
         const SizedBox(height: 20),
         Text(
-          'I specialize in scalable Flutter architecture, offline-first mobile apps, and high-performance production code designed for real-world impact.',
+          'Flutter developer with 5 years of experience shipping production Android & iOS apps for banking, government, and enterprise clients. Currently building NSDL Payments Bank\'s digital banking app with strict RBI security guidelines, and author of the open-source wfs_layer package on pub.dev.',
           style: GoogleFonts.dmSans(
-            fontSize: 14, height: 1.75, color: mutedColor,
+            fontSize: 14.5, height: 1.7, color: mutedColor,
           ),
         ),
       ],
@@ -125,16 +124,16 @@ class AboutSection extends StatelessWidget {
             spacing: 8, runSpacing: 8,
             children: const [
               _HoverPill(text: 'Flutter & Dart'),
-              _HoverPill(text: 'Bloc Pattern'),
-              _HoverPill(text: 'Provider'),
-              _HoverPill(text: 'WebSocket'),
-              _HoverPill(text: 'REST APIs'),
-              _HoverPill(text: 'Firebase'),
-              _HoverPill(text: 'SQLite · Hive'),
-              _HoverPill(text: 'Fastlane'),
-              _HoverPill(text: 'GitHub Actions'),
-              _HoverPill(text: 'GIS Mapping'),
-              _HoverPill(text: 'MongoDB'),
+              _HoverPill(text: 'Bloc & Cubit'),
+              _HoverPill(text: 'AES-GCM Security'),
+              _HoverPill(text: 'SSL Pinning'),
+              _HoverPill(text: 'Biometric Auth'),
+              _HoverPill(text: 'SIM Binding'),
+              _HoverPill(text: 'wfs_layer (pub.dev)'),
+              _HoverPill(text: 'Mapbox & OSM'),
+              _HoverPill(text: 'Fastlane CI/CD'),
+              _HoverPill(text: 'flutter_secure_storage'),
+              _HoverPill(text: 'Hive & SQLite'),
             ],
           ),
         ),
@@ -155,10 +154,10 @@ class AboutSection extends StatelessWidget {
             ? (constraints.maxWidth - 12) / 2
             : (constraints.maxWidth - 36) / 4;
         final metrics = [
-          _Metric(value: '5+', label: 'Apps Shipped', sub: 'Android & iOS'),
-          _Metric(value: '100K+', label: 'Users Impacted', sub: 'Govt & Healthcare'),
-          _Metric(value: '99.9%', label: 'Crash-Free Rate', sub: 'Clean Architecture'),
-          _Metric(value: '100%', label: 'Offline-First', sub: 'GIS & Local Sync'),
+          _Metric(value: '5+', label: 'Years Experience', sub: 'Android & iOS Stores'),
+          _Metric(value: '12-Dev', label: 'Team PR Reviewer', sub: 'NSDL Payments Bank'),
+          _Metric(value: '100%', label: 'RBI Hardened', sub: 'AES-GCM & SSL Pinning'),
+          _Metric(value: 'pub.dev', label: 'Package Author', sub: 'wfs_layer OGC Vector'),
         ];
         return Wrap(
           spacing: 12, runSpacing: 12,
@@ -187,17 +186,17 @@ class AboutSection extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Currently open to freelance',
-                  style: GoogleFonts.playfairDisplay(
-                    fontSize: 20, fontWeight: FontWeight.w700,
+                  'B.Sc. Information Technology',
+                  style: GoogleFonts.dmSans(
+                    fontSize: 18, fontWeight: FontWeight.w700,
                     color: AppColors.cream, height: 1.2,
                   ),
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: 6),
                 Text(
-                  'Looking for meaningful projects to build.',
+                  'Patkar Varde College, Mumbai · Open for FinTech, Mobile & GIS Roles',
                   style: GoogleFonts.dmSans(
-                    fontSize: 13, color: AppColors.cream.withOpacity(0.6), height: 1.5,
+                    fontSize: 13, color: AppColors.cream.withValues(alpha: 0.7), height: 1.5,
                   ),
                 ),
               ],

@@ -76,24 +76,24 @@ class ServicesSection extends StatelessWidget {
     return Column(
       children: const [
         _ServiceCard(
-          icon: Icons.phone_android_rounded,
+          icon: Icons.account_balance_rounded,
           iconBgColor: Color(0xFF267365), // Deep Teal
-          title: 'Mobile App Development',
-          subtitle: 'Flutter, Android, iOS · 7+ Projects',
+          title: 'Banking & FinTech Apps',
+          subtitle: 'NSDL Payments Bank, UPI, Biometrics, AES-GCM',
         ),
         SizedBox(height: 20),
         _ServiceCard(
           icon: Icons.map_rounded,
           iconBgColor: Color(0xFFF3A93B), // Warm Amber
-          title: 'GIS & Mapping Solutions',
-          subtitle: 'GPS, Geofencing, Field Surveys',
+          title: 'GIS & Spatial Mapping',
+          subtitle: 'Author of wfs_layer on pub.dev · Mapbox · GPS',
         ),
         SizedBox(height: 20),
         _ServiceCard(
-          icon: Icons.hub_rounded,
+          icon: Icons.verified_user_rounded,
           iconBgColor: Color(0xFFEE6344), // Coral Orange
-          title: 'Architecture & Backend Sync',
-          subtitle: 'BLoC, REST APIs, Offline SQLite',
+          title: 'Secure Architecture & CI/CD',
+          subtitle: 'Bloc, RBI Guidelines, Fastlane, SOLID',
         ),
       ],
     );
@@ -119,7 +119,7 @@ class ServicesSection extends StatelessWidget {
         ),
         const SizedBox(height: 24),
         Text(
-          'I help teams and organizations find practical engineering solutions to turn ambitious ideas into polished, dependable digital products.',
+          'Flutter developer with 5 years of experience shipping production Android and iOS apps for banking, government, and enterprise clients.',
           style: GoogleFonts.dmSans(
             fontSize: 16,
             height: 1.65,
@@ -128,7 +128,7 @@ class ServicesSection extends StatelessWidget {
         ),
         const SizedBox(height: 14),
         Text(
-          'Specializing in Flutter cross-platform mobile apps, GIS geospatial mapping, and offline-first data sync architectures that perform seamlessly under real-world conditions.',
+          'Currently building NSDL Payments Bank’s digital banking app with RBI-grade security, and maintainer of open-source geospatial packages on pub.dev.',
           style: GoogleFonts.dmSans(
             fontSize: 15,
             height: 1.65,
@@ -139,9 +139,9 @@ class ServicesSection extends StatelessWidget {
         // TWO BIG STATS (285+ Project Completed / 190+ Happy Clients style)
         Row(
           children: [
-            _buildBigStat(context, '7+', 'Projects Completed'),
+            _buildBigStat(context, '5+', 'Years Experience'),
             const SizedBox(width: 56),
-            _buildBigStat(context, '100k+', 'End Users Impacted'),
+            _buildBigStat(context, '10k+', 'Daily Transits Handled'),
           ],
         ),
       ],

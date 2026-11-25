@@ -166,6 +166,11 @@ class ContactSection extends StatelessWidget {
               label: 'WhatsApp',
               onTap: () => _launch('https://wa.me/919768661441'),
             ),
+            _SocialPill(
+              icon: Icons.extension_rounded,
+              label: 'pub.dev (wfs_layer)',
+              onTap: () => _launch('https://pub.dev/packages/wfs_layer'),
+            ),
           ],
         ),
       ],

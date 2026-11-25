@@ -319,7 +319,7 @@ class HeroSection extends StatelessWidget {
       textBaseline: TextBaseline.alphabetic,
       children: [
         Text(
-          '3+',
+          '5+',
           style: GoogleFonts.dmSans(
             fontSize: 54,
             fontWeight: FontWeight.w900,
@@ -348,7 +348,7 @@ class HeroSection extends StatelessWidget {
     return ConstrainedBox(
       constraints: const BoxConstraints(maxWidth: 240),
       child: Text(
-        'I build beautifully simple Flutter apps,\nand I love what I do.',
+        'Building secure digital banking & enterprise apps with Flutter.',
         style: GoogleFonts.dmSans(
           fontSize: 14.5,
           fontWeight: FontWeight.w400,
@@ -383,15 +383,15 @@ class HeroSection extends StatelessWidget {
           ),
           child: const Center(
             child: Icon(
-              Icons.flutter_dash_rounded,
+              Icons.security_rounded,
               color: Color(0xFF54C5F8),
-              size: 28,
+              size: 26,
             ),
           ),
         ),
         const SizedBox(height: 12),
         Text(
-          'CERTIFIED FLUTTER\nDEVELOPER',
+          'FINTECH & BANKING\nFLUTTER ARCHITECT',
           textAlign: TextAlign.center,
           style: GoogleFonts.dmSans(
             fontSize: 10,

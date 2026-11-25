@@ -104,46 +104,46 @@ class ProjectsSection extends StatelessWidget {
   Widget _buildProjectsGrid(BuildContext context, bool isMobile) {
     final projects = [
       _ProjectData(
-        title: 'Tigram Mobile',
-        category: 'GOVERNMENT · TIMBER TRACEABILITY',
-        client: 'Kerala Forest Department',
+        title: 'NSDL Jiffy Banking',
+        category: 'FINTECH · DIGITAL BANKING',
+        client: 'NSDL Payments Bank',
         description:
-            'A mission-critical enterprise timber verification platform deployed across field checkposts. Integrates QR scanning, GPS-based tree tracking, offline-first SQLite sync, and secure verification backend.',
+            'Digital banking app built to RBI security guidelines: customer onboarding, UPI, biometric authentication, SIM binding, and dual-layer AES-GCM payload encryption across a 12-developer mobile team.',
         cardColor: const Color(0xFFF3A93B), // Warm amber yellow
         textColor: const Color(0xFF1B2738),
-        tags: ['Flutter', 'BLoC', 'GPS & QR', 'Offline Sync', 'REST API'],
-        icon: Icons.forest_rounded,
-        screenMockupType: _MockupType.timberApp,
-        statNumber: '10k+',
-        statLabel: 'Field logs verified',
+        tags: ['Flutter', 'Bloc', 'AES-GCM', 'UPI & Biometrics', 'SIM Binding', 'RBI Guidelines'],
+        icon: Icons.account_balance_rounded,
+        screenMockupType: _MockupType.bankingApp,
+        statNumber: '12-Dev',
+        statLabel: 'Mobile Team · RBI Hardened',
       ),
       _ProjectData(
-        title: 'GIS Tree Census',
-        category: 'SPATIAL MAPPING & GEO-SURVEY',
-        client: 'Forest & Urban Planning',
+        title: 'TIGRAM & BMC Zoo GIS',
+        category: 'GOVT. GIS & SPATIAL NAVIGATION',
+        client: 'Kerala Forest Dept. & BMC Mumbai',
         description:
-            'Spatial survey app with polygon boundary geofencing, sub-meter GPS location accuracy, live camera tagging, and geospatial vector layers for field researchers.',
+            'Timber traceability platform handling 10,000+ daily QR e-transit permits with live GPS tracking, alongside real-time GIS navigation across 4,000+ species for Mumbai Botanical Garden & Zoo.',
         cardColor: const Color(0xFF267365), // Deep Forest Teal
         textColor: Colors.white,
-        tags: ['Flutter', 'Google Maps / OSM', 'GeoJSON', 'Fastlane', 'Camera API'],
-        icon: Icons.map_rounded,
+        tags: ['Flutter', 'QR Scanner', 'GPS & Geotagging', 'Offline Cache', 'Mapbox / OSM'],
+        icon: Icons.forest_rounded,
         screenMockupType: _MockupType.gisApp,
-        statNumber: '50k+',
-        statLabel: 'Trees geo-tagged',
+        statNumber: '10k+',
+        statLabel: 'Daily permits · 4k+ species',
       ),
       _ProjectData(
-        title: 'Field Workforce Dispatch',
-        category: 'LOGISTICS & REAL-TIME DISPATCH',
-        client: 'BGIS Operations',
+        title: 'wfs_layer & Health App',
+        category: 'OPEN SOURCE & OFFLINE-FIRST',
+        client: 'pub.dev · Municipal Health Dept.',
         description:
-            'Real-time workforce management mobile suite featuring live background telemetry, WebSocket incident alerts, automated shift logging, and encrypted sync.',
+            'Author of wfs_layer on pub.dev for OGC vector layers with BBOX pagination, plus Mukhyamantri Arogya offline-first healthcare app serving 1,700+ municipal healthcare workers.',
         cardColor: const Color(0xFFE86043), // Warm Terracotta Coral
         textColor: Colors.white,
-        tags: ['Flutter', 'WebSocket', 'Background Service', 'SQLite', 'Clean Arch'],
-        icon: Icons.navigation_rounded,
-        screenMockupType: _MockupType.dispatchApp,
-        statNumber: '99.9%',
-        statLabel: 'Uptime reliability',
+        tags: ['pub.dev', 'wfs_layer', 'Hive Offline', 'SQLite', 'BBOX Pagination'],
+        icon: Icons.extension_rounded,
+        screenMockupType: _MockupType.openSourceApp,
+        statNumber: '1,700+',
+        statLabel: 'Health workers · pub.dev',
       ),
     ];
 
@@ -179,7 +179,7 @@ class ProjectsSection extends StatelessWidget {
   }
 }
 
-enum _MockupType { timberApp, gisApp, dispatchApp }
+enum _MockupType { bankingApp, gisApp, openSourceApp }
 
 class _ProjectData {
   final String title;
@@ -511,16 +511,16 @@ class _ProjectCardState extends State<_ProjectCard> {
 
   Widget _buildMockupContent(_ProjectData p) {
     switch (p.screenMockupType) {
-      case _MockupType.timberApp:
-        return _buildTimberMockup();
+      case _MockupType.bankingApp:
+        return _buildBankingMockup();
       case _MockupType.gisApp:
         return _buildGisMockup();
-      case _MockupType.dispatchApp:
-        return _buildDispatchMockup();
+      case _MockupType.openSourceApp:
+        return _buildOpenSourceMockup();
     }
   }
 
-  Widget _buildTimberMockup() {
+  Widget _buildBankingMockup() {
     return Container(
       color: const Color(0xFFFBFBFB),
       padding: const EdgeInsets.all(14),
@@ -537,14 +537,14 @@ class _ProjectCardState extends State<_ProjectCard> {
                     width: 22,
                     height: 22,
                     decoration: BoxDecoration(
-                      color: const Color(0xFF2E7D32),
+                      color: const Color(0xFF1A237E),
                       borderRadius: BorderRadius.circular(6),
                     ),
-                    child: const Icon(Icons.qr_code_scanner_rounded, size: 14, color: Colors.white),
+                    child: const Icon(Icons.account_balance_rounded, size: 14, color: Colors.white),
                   ),
                   const SizedBox(width: 8),
                   Text(
-                    'Tigram Verification',
+                    'NSDL Jiffy Banking',
                     style: GoogleFonts.dmSans(
                       fontSize: 11,
                       fontWeight: FontWeight.w700,
@@ -560,7 +560,7 @@ class _ProjectCardState extends State<_ProjectCard> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Text(
-                  'SYNCED',
+                  'RBI COMPLIANT',
                   style: GoogleFonts.dmSans(
                     fontSize: 8,
                     fontWeight: FontWeight.w800,
@@ -571,68 +571,49 @@ class _ProjectCardState extends State<_ProjectCard> {
             ],
           ),
           const SizedBox(height: 12),
-          // QR Verification Card
+          // Banking Account Card
           Container(
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: const Color(0xFFF0F4F2),
+              gradient: const LinearGradient(
+                colors: [Color(0xFF1A237E), Color(0xFF283593)],
+              ),
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Row(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  width: 44,
-                  height: 44,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: const Color(0xFFE0E0E0)),
-                  ),
-                  child: const Icon(Icons.qr_code_2_rounded, size: 30, color: Color(0xFF1B2738)),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'NSDL Payments Bank',
+                      style: GoogleFonts.dmSans(fontSize: 9, color: Colors.white70),
+                    ),
+                    const Icon(Icons.fingerprint_rounded, size: 16, color: Color(0xFF64B5F6)),
+                  ],
                 ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Pass #KL-2024-9842',
-                        style: GoogleFonts.dmSans(
-                          fontSize: 10.5,
-                          fontWeight: FontWeight.w700,
-                          color: const Color(0xFF1B2738),
-                        ),
-                      ),
-                      Text(
-                        'Teak Wood · 14.2 m³ · Nilambur',
-                        style: GoogleFonts.dmSans(
-                          fontSize: 9,
-                          color: const Color(0xFF6B7280),
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      Row(
-                        children: [
-                          const Icon(Icons.check_circle_rounded, size: 10, color: Color(0xFF2E7D32)),
-                          const SizedBox(width: 4),
-                          Text(
-                            'GPS Validated at Checkpost',
-                            style: GoogleFonts.dmSans(
-                              fontSize: 8.5,
-                              fontWeight: FontWeight.w600,
-                              color: const Color(0xFF2E7D32),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                const SizedBox(height: 10),
+                Text(
+                  '•••• •••• •••• 4821',
+                  style: GoogleFonts.dmSans(fontSize: 12, fontWeight: FontWeight.w700, color: Colors.white, letterSpacing: 2.0),
+                ),
+                const SizedBox(height: 4),
+                Row(
+                  children: [
+                    const Icon(Icons.lock_rounded, size: 10, color: Color(0xFF81C784)),
+                    const SizedBox(width: 4),
+                    Text(
+                      'AES-GCM 256-bit Encrypted',
+                      style: GoogleFonts.dmSans(fontSize: 8.5, fontWeight: FontWeight.w600, color: const Color(0xFF81C784)),
+                    ),
+                  ],
                 ),
               ],
             ),
           ),
           const SizedBox(height: 10),
-          // Field records list
+          // Security badges
           Row(
             children: [
               Expanded(
@@ -646,8 +627,8 @@ class _ProjectCardState extends State<_ProjectCard> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Species Count', style: GoogleFonts.dmSans(fontSize: 8.5, color: const Color(0xFF9E9E9E))),
-                      Text('24 Logs', style: GoogleFonts.dmSans(fontSize: 12, fontWeight: FontWeight.w800, color: const Color(0xFF1B2738))),
+                      Text('SIM Binding', style: GoogleFonts.dmSans(fontSize: 8.5, color: const Color(0xFF9E9E9E))),
+                      Text('Active · Verified', style: GoogleFonts.dmSans(fontSize: 11, fontWeight: FontWeight.w800, color: const Color(0xFF2E7D32))),
                     ],
                   ),
                 ),
@@ -664,8 +645,8 @@ class _ProjectCardState extends State<_ProjectCard> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Offline Queue', style: GoogleFonts.dmSans(fontSize: 8.5, color: const Color(0xFF9E9E9E))),
-                      Text('0 Pending', style: GoogleFonts.dmSans(fontSize: 12, fontWeight: FontWeight.w800, color: const Color(0xFF2E7D32))),
+                      Text('Architecture', style: GoogleFonts.dmSans(fontSize: 8.5, color: const Color(0xFF9E9E9E))),
+                      Text('Bloc · SOLID', style: GoogleFonts.dmSans(fontSize: 11, fontWeight: FontWeight.w800, color: const Color(0xFF1B2738))),
                     ],
                   ),
                 ),
@@ -758,7 +739,7 @@ class _ProjectCardState extends State<_ProjectCard> {
     );
   }
 
-  Widget _buildDispatchMockup() {
+  Widget _buildOpenSourceMockup() {
     return Container(
       color: const Color(0xFFF9F9FB),
       padding: const EdgeInsets.all(14),
@@ -768,27 +749,44 @@ class _ProjectCardState extends State<_ProjectCard> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                'Live Dispatch Telemetry',
-                style: GoogleFonts.dmSans(
-                  fontSize: 11,
-                  fontWeight: FontWeight.w700,
-                  color: const Color(0xFF1B2738),
-                ),
-              ),
               Row(
                 children: [
                   Container(
-                    width: 6,
-                    height: 6,
-                    decoration: const BoxDecoration(
-                      color: Color(0xFFE86043),
-                      shape: BoxShape.circle,
+                    width: 20,
+                    height: 20,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF0175C2),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: const Center(
+                      child: Text('pub', style: TextStyle(color: Colors.white, fontSize: 8, fontWeight: FontWeight.w900)),
                     ),
                   ),
-                  const SizedBox(width: 4),
-                  Text('LIVE', style: GoogleFonts.dmSans(fontSize: 8.5, fontWeight: FontWeight.w800, color: const Color(0xFFE86043))),
+                  const SizedBox(width: 8),
+                  Text(
+                    'pub.dev/packages/wfs_layer',
+                    style: GoogleFonts.dmSans(
+                      fontSize: 10.5,
+                      fontWeight: FontWeight.w700,
+                      color: const Color(0xFF1B2738),
+                    ),
+                  ),
                 ],
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFE1F5FE),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Text(
+                  'PUBLISHED',
+                  style: GoogleFonts.dmSans(
+                    fontSize: 8,
+                    fontWeight: FontWeight.w800,
+                    color: const Color(0xFF0288D1),
+                  ),
+                ),
               ),
             ],
           ),
@@ -802,14 +800,14 @@ class _ProjectCardState extends State<_ProjectCard> {
             ),
             child: Row(
               children: [
-                const Icon(Icons.route_rounded, size: 24, color: Color(0xFFE86043)),
+                const Icon(Icons.layers_rounded, size: 24, color: Color(0xFF0288D1)),
                 const SizedBox(width: 10),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Route B-104 · 8 Waypoints', style: GoogleFonts.dmSans(fontSize: 10, fontWeight: FontWeight.w700, color: const Color(0xFF1B2738))),
-                      Text('Status: Field Surveyor En Route', style: GoogleFonts.dmSans(fontSize: 8.5, color: const Color(0xFF757575))),
+                      Text('OGC WFS Vector Layer', style: GoogleFonts.dmSans(fontSize: 10, fontWeight: FontWeight.w700, color: const Color(0xFF1B2738))),
+                      Text('BBOX Spatial Pagination · Fast GeoJSON Parser', style: GoogleFonts.dmSans(fontSize: 8.5, color: const Color(0xFF757575))),
                     ],
                   ),
                 ),
@@ -825,11 +823,13 @@ class _ProjectCardState extends State<_ProjectCard> {
             ),
             child: Row(
               children: [
-                const Icon(Icons.bolt_rounded, size: 14, color: Color(0xFFE65100)),
+                const Icon(Icons.health_and_safety_rounded, size: 14, color: Color(0xFFE65100)),
                 const SizedBox(width: 6),
-                Text(
-                  'WebSocket: Latency 42ms · Auto-reconnect OK',
-                  style: GoogleFonts.dmSans(fontSize: 8.5, fontWeight: FontWeight.w600, color: const Color(0xFFE65100)),
+                Expanded(
+                  child: Text(
+                    'Mukhyamantri Arogya: 1,700+ Health Workers · Hive DB',
+                    style: GoogleFonts.dmSans(fontSize: 8.5, fontWeight: FontWeight.w600, color: const Color(0xFFE65100)),
+                  ),
                 ),
               ],
             ),

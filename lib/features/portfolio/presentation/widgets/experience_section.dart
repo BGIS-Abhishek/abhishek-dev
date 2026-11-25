@@ -126,24 +126,24 @@ class ExperienceSection extends StatelessWidget {
   Widget _buildTimeline(BuildContext context) {
     final entries = [
       _TimelineEntry(
-        company: 'BGIS / Govt. Projects',
-        period: '2023 — Present',
-        role: 'Flutter Developer',
-        desc: 'Built Tigram & Geo Survey for Kerala Forest Dept. — GPS geotagging, offline sync, QR traceability, live in production.',
+        company: 'MindCraft Software',
+        period: 'Dec 2025 — Present',
+        role: 'Flutter Developer · NSDL Payments Bank',
+        desc: 'Building NSDL Jiffy banking app: onboarding, UPI, biometric auth, SIM binding, AES-GCM payload encryption, RBI security hardening. Review PRs for 12-developer team.',
         dotColor: AppColors.teal,
       ),
       _TimelineEntry(
-        company: 'Enterprise / Insurance',
-        period: '2023',
-        role: 'Mobile App Developer',
-        desc: 'Delivered Claim Assure — PDF generation, image processing, full CI/CD pipeline via Fastlane & GitHub Actions.',
+        company: 'Bhugol GIS Pvt. Ltd.',
+        period: 'Oct 2021 — Nov 2025',
+        role: 'Flutter Developer · Govt. & Enterprise',
+        desc: 'Delivered Tigram, BMC Zoo GIS, and Mukhyamantri Arogya. Reduced app size by 35–45%, built reusable design systems, and automated store deployments with Fastlane & GitHub Actions.',
         dotColor: AppColors.amber,
       ),
       _TimelineEntry(
-        company: 'Healthcare',
-        period: '2022 — 2023',
-        role: 'Flutter Developer',
-        desc: 'Built Arogya Aplya Dari — healthcare doorstep app for senior citizens. Firebase, REST API, cross-platform.',
+        company: 'pub.dev Open Source',
+        period: '2024 — Present',
+        role: 'Package Author · wfs_layer',
+        desc: 'Author of wfs_layer on pub.dev — open-source Flutter package to fetch, parse, and render OGC WFS vector layers with BBOX spatial pagination.',
         dotColor: AppColors.redOrange,
       ),
     ];
@@ -158,21 +158,21 @@ class ExperienceSection extends StatelessWidget {
   Widget _buildSkillsGrid(BuildContext context) {
     final categories = [
       _SkillCategory(
-        label: 'Core Stack',
-        skills: ['Flutter & Dart', 'Bloc Pattern', 'Provider', 'Clean Architecture'],
+        label: 'FinTech & App Security',
+        skills: ['AES-GCM Encryption', 'SSL Pinning', 'SIM Binding', 'Biometric Auth', 'Root Detection', 'RBI Guidelines'],
         isPrimary: true,
       ),
       _SkillCategory(
-        label: 'Integration',
-        skills: ['REST APIs', 'WebSocket', 'Firebase', 'SQLite', 'Hive', 'MongoDB'],
+        label: 'Architecture & State',
+        skills: ['Flutter & Dart', 'Bloc & Cubit', 'Feature-Based Arch', 'SOLID', 'flutter_secure_storage', 'Hive'],
       ),
       _SkillCategory(
-        label: 'DevOps & Deployment',
-        skills: ['Fastlane', 'GitHub Actions', 'Play Store', 'App Store'],
+        label: 'GIS & Mapping',
+        skills: ['wfs_layer (pub.dev)', 'Google Maps', 'Mapbox', 'OSM & WFS', 'Geotagging', 'BBOX Pagination'],
       ),
       _SkillCategory(
-        label: 'Specialties',
-        skills: ['GIS & Mapping', 'GPS Geotagging', 'Offline-First', 'Image Processing'],
+        label: 'Quality & DevOps',
+        skills: ['Unit & Bloc Testing', 'Fastlane', 'GitHub Actions', 'Play Store & App Store', 'DevTools Profiling'],
       ),
     ];
 
