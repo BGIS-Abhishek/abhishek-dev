@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:abhishek_dev/core/theme/app_colors.dart';
-import 'package:abhishek_dev/core/theme/app_theme.dart';
 import 'package:abhishek_dev/core/utils/responsive.dart';
 import 'dart:ui' as ui;
 
@@ -11,6 +11,7 @@ class Navbar extends StatelessWidget {
   final VoidCallback onAboutTap;
   final VoidCallback onWorkTap;
   final VoidCallback onServicesTap;
+  final VoidCallback? onExperienceTap;
   final VoidCallback onContactTap;
 
   const Navbar({
@@ -21,14 +22,15 @@ class Navbar extends StatelessWidget {
     required this.onAboutTap,
     required this.onWorkTap,
     required this.onServicesTap,
+    this.onExperienceTap,
     required this.onContactTap,
   });
 
   void _openMobileMenu(BuildContext context) {
-    final surfaceColor = AppColors.surface(context);
-    final lineBorder = AppColors.line(context);
+    final bgColor = AppColors.bg(context);
     final textColor = AppColors.text(context);
     final accentColor = AppColors.accent(context);
+    final borderColor = AppColors.line2(context);
     final isDark = AppColors.isDark(context);
 
     showModalBottomSheet(
@@ -39,30 +41,29 @@ class Navbar extends StatelessWidget {
       builder: (context) {
         return SafeArea(
           child: ClipRRect(
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(28)),
             child: BackdropFilter(
               filter: ui.ImageFilter.blur(sigmaX: 24, sigmaY: 24),
               child: Container(
-                color: surfaceColor.withOpacity(0.97),
+                color: bgColor.withOpacity(0.97),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     // Drag handle
                     Padding(
-                      padding: const EdgeInsets.only(top: 12, bottom: 4),
+                      padding: const EdgeInsets.only(top: 14, bottom: 4),
                       child: Center(
                         child: Container(
-                          width: 36,
-                          height: 4,
+                          width: 36, height: 4,
                           decoration: BoxDecoration(
-                            color: lineBorder,
+                            color: borderColor,
                             borderRadius: BorderRadius.circular(2),
                           ),
                         ),
                       ),
                     ),
-                    // Header row
+                    // Header
                     Padding(
                       padding: const EdgeInsets.fromLTRB(24, 16, 8, 0),
                       child: Row(
@@ -75,8 +76,7 @@ class Navbar extends StatelessWidget {
                                 onPressed: onToggleTheme,
                                 icon: Icon(
                                   isDark ? Icons.wb_sunny_outlined : Icons.dark_mode_outlined,
-                                  color: textColor,
-                                  size: 20,
+                                  color: textColor, size: 20,
                                 ),
                               ),
                               IconButton(
@@ -88,38 +88,29 @@ class Navbar extends StatelessWidget {
                         ],
                       ),
                     ),
-                    // Divider
+                    const SizedBox(height: 16),
+                    Divider(color: borderColor, height: 1, indent: 24, endIndent: 24),
+                    _buildMobileItem(context, 'Services', onServicesTap),
+                    _buildMobileItem(context, 'Work', onWorkTap),
+                    _buildMobileItem(context, 'Experience', onExperienceTap ?? onAboutTap),
+                    _buildMobileItem(context, 'About', onAboutTap),
+                    _buildMobileItem(context, 'Contact', onContactTap),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                      child: Divider(height: 1, color: lineBorder),
-                    ),
-                    // Nav items
-                    _buildMobileMenuItem(context, '01', 'ABOUT', onAboutTap),
-                    _buildMobileMenuItem(context, '02', 'WORK', onWorkTap),
-                    _buildMobileMenuItem(context, '03', 'SERVICES', onServicesTap),
-                    _buildMobileMenuItem(context, '04', 'CONTACT', onContactTap),
-                    // CTA
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(24, 24, 24, 32),
+                      padding: const EdgeInsets.fromLTRB(24, 16, 24, 32),
                       child: GestureDetector(
-                        onTap: () {
-                          Navigator.pop(context);
-                          onContactTap();
-                        },
+                        onTap: () { Navigator.pop(context); onContactTap(); },
                         child: Container(
                           padding: const EdgeInsets.symmetric(vertical: 16),
                           decoration: BoxDecoration(
                             color: accentColor,
-                            borderRadius: BorderRadius.circular(6),
+                            borderRadius: BorderRadius.circular(50),
                           ),
                           alignment: Alignment.center,
                           child: Text(
-                            'HIRE ME',
-                            style: AppTheme.inter.copyWith(
-                              fontSize: 13,
-                              fontWeight: FontWeight.w700,
-                              letterSpacing: 2.4,
-                              color: isDark ? AppColors.darkInk : Colors.white,
+                            'Hire Me',
+                            style: GoogleFonts.dmSans(
+                              fontSize: 15, fontWeight: FontWeight.w700,
+                              color: Colors.white,
                             ),
                           ),
                         ),
@@ -135,53 +126,18 @@ class Navbar extends StatelessWidget {
     );
   }
 
-  Widget _buildMobileMenuItem(BuildContext context, String num, String title, VoidCallback onTap) {
+  Widget _buildMobileItem(BuildContext context, String title, VoidCallback onTap) {
     final textColor = AppColors.text(context);
-    final textSubtleColor = AppColors.textSubtle(context);
-    final accentColor = AppColors.accent(context);
-    final lineBorder = AppColors.line(context);
-
     return InkWell(
-      onTap: () {
-        Navigator.pop(context);
-        onTap();
-      },
-      splashColor: accentColor.withOpacity(0.06),
-      highlightColor: accentColor.withOpacity(0.04),
+      onTap: () { Navigator.pop(context); onTap(); },
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-        child: Row(
-          children: [
-            // Number prefix
-            SizedBox(
-              width: 36,
-              child: Text(
-                num,
-                style: AppTheme.jetBrainsMono.copyWith(
-                  fontSize: 10,
-                  letterSpacing: 1.2,
-                  color: textSubtleColor,
-                ),
-              ),
-            ),
-            // Vertical separator
-            Container(width: 1, height: 20, color: lineBorder),
-            const SizedBox(width: 20),
-            // Title
-            Expanded(
-              child: Text(
-                title,
-                style: AppTheme.syne.copyWith(
-                  fontSize: 22,
-                  fontWeight: FontWeight.w700,
-                  letterSpacing: 0.5,
-                  color: textColor,
-                ),
-              ),
-            ),
-            // Arrow
-            Icon(Icons.arrow_forward_rounded, size: 18, color: accentColor),
-          ],
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+        child: Text(
+          title,
+          style: GoogleFonts.playfairDisplay(
+            fontSize: 26, fontWeight: FontWeight.w700,
+            color: textColor, letterSpacing: -0.5,
+          ),
         ),
       ),
     );
@@ -190,28 +146,29 @@ class Navbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isMobile = Responsive.isMobile(context);
-    final padding = isMobile ? const EdgeInsets.symmetric(horizontal: 20, vertical: 16) : const EdgeInsets.symmetric(horizontal: 48, vertical: 22);
-    final solidPadding = isMobile ? const EdgeInsets.symmetric(horizontal: 20, vertical: 12) : const EdgeInsets.symmetric(horizontal: 48, vertical: 16);
-    final bgColor = AppColors.surface(context);
-    final borderLine = AppColors.line(context);
+    final bgColor = AppColors.bg(context);
 
     return AnimatedContainer(
       duration: const Duration(milliseconds: 400),
-      padding: isSolid ? solidPadding : padding,
+      padding: isMobile
+          ? EdgeInsets.symmetric(horizontal: 20, vertical: isSolid ? 12 : 16)
+          : EdgeInsets.symmetric(horizontal: 56, vertical: isSolid ? 14 : 20),
       decoration: BoxDecoration(
         color: isSolid ? bgColor.withOpacity(0.92) : Colors.transparent,
         border: Border(
           bottom: BorderSide(
-            color: isSolid ? borderLine : Colors.transparent,
+            color: isSolid ? AppColors.line2(context) : Colors.transparent,
           ),
         ),
       ),
-      child: isSolid ? ClipRRect(
-        child: BackdropFilter(
-          filter: ui.ImageFilter.blur(sigmaX: 16, sigmaY: 16),
-          child: _buildContent(context, isMobile),
-        ),
-      ) : _buildContent(context, isMobile),
+      child: isSolid
+          ? ClipRect(
+              child: BackdropFilter(
+                filter: ui.ImageFilter.blur(sigmaX: 20, sigmaY: 20),
+                child: _buildContent(context, isMobile),
+              ),
+            )
+          : _buildContent(context, isMobile),
     );
   }
 
@@ -222,21 +179,19 @@ class Navbar extends StatelessWidget {
       children: [
         _buildLogo(context),
         if (!isMobile) ...[
+          _buildDesktopLinks(context),
           Row(
             children: [
-              _buildNavLinks(context),
-              const SizedBox(width: 24),
               IconButton(
                 onPressed: onToggleTheme,
-                tooltip: 'Toggle Theme Mode',
+                tooltip: 'Toggle Theme',
                 icon: Icon(
                   AppColors.isDark(context) ? Icons.wb_sunny_outlined : Icons.dark_mode_outlined,
-                  color: textColor,
-                  size: 20,
+                  color: textColor, size: 20,
                 ),
               ),
-              const SizedBox(width: 16),
-              _buildHireButton(context),
+              const SizedBox(width: 8),
+              _buildHireBtn(context),
             ],
           ),
         ] else ...[
@@ -246,8 +201,7 @@ class Navbar extends StatelessWidget {
                 onPressed: onToggleTheme,
                 icon: Icon(
                   AppColors.isDark(context) ? Icons.wb_sunny_outlined : Icons.dark_mode_outlined,
-                  color: textColor,
-                  size: 22,
+                  color: textColor, size: 22,
                 ),
               ),
               IconButton(
@@ -263,59 +217,77 @@ class Navbar extends StatelessWidget {
 
   Widget _buildLogo(BuildContext context) {
     final textColor = AppColors.text(context);
-    final accentColor = AppColors.accent(context);
-    return RichText(
-      text: TextSpan(
-        style: AppTheme.syne.copyWith(
-          fontSize: 13,
-          fontWeight: FontWeight.w700,
-          letterSpacing: 2.2,
-          color: textColor,
-        ),
-        children: [
-          const TextSpan(text: 'A'),
-          TextSpan(
-            text: '.',
-            style: TextStyle(color: accentColor),
-          ),
-          const TextSpan(text: 'YADAV'),
-        ],
+    return Text(
+      'Abhishek',
+      style: GoogleFonts.caveat(
+        fontSize: 26,
+        fontWeight: FontWeight.w700,
+        color: textColor,
+        letterSpacing: 0.5,
       ),
     );
   }
 
-  Widget _buildNavLinks(BuildContext context) {
+  Widget _buildDesktopLinks(BuildContext context) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        _NavLink(text: 'ABOUT', onTap: onAboutTap),
-        const SizedBox(width: 32),
-        _NavLink(text: 'WORK', onTap: onWorkTap),
-        const SizedBox(width: 32),
-        _NavLink(text: 'SERVICES', onTap: onServicesTap),
-        const SizedBox(width: 32),
-        _NavLink(text: 'CONTACT', onTap: onContactTap),
+        _PillNavLink(text: 'Services',   isActive: true, onTap: onServicesTap),
+        const SizedBox(width: 4),
+        _PillNavLink(text: 'Works',      onTap: onWorkTap),
+        const SizedBox(width: 4),
+        _PillNavLink(text: 'Experience', onTap: onExperienceTap ?? onAboutTap),
+        const SizedBox(width: 4),
+        _PillNavLink(text: 'About',      onTap: onAboutTap),
+        const SizedBox(width: 4),
+        _PillNavLink(text: 'Contact',    onTap: onContactTap),
       ],
     );
   }
 
-  Widget _buildHireButton(BuildContext context) {
-    final accentColor = AppColors.accent(context);
-    return InkWell(
-      onTap: onContactTap,
-      borderRadius: BorderRadius.circular(2),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 9),
-        decoration: BoxDecoration(
-          border: Border.all(color: accentColor),
-          borderRadius: BorderRadius.circular(2),
-        ),
-        child: Text(
-          'HIRE ME',
-          style: AppTheme.jetBrainsMono.copyWith(
-            fontSize: 11,
-            letterSpacing: 1.6,
-            color: accentColor,
+  Widget _buildHireBtn(BuildContext context) {
+    return _HireButton(onTap: onContactTap);
+  }
+}
+
+// ── Pill Nav Link ─────────────────────────────────────────────────────────────
+class _PillNavLink extends StatefulWidget {
+  final String text;
+  final bool isActive;
+  final VoidCallback onTap;
+  const _PillNavLink({required this.text, this.isActive = false, required this.onTap});
+
+  @override
+  State<_PillNavLink> createState() => _PillNavLinkState();
+}
+
+class _PillNavLinkState extends State<_PillNavLink> {
+  bool _hovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final textColor = AppColors.text(context);
+    final bool filled = widget.isActive || _hovered;
+
+    return MouseRegion(
+      onEnter: (_) => setState(() => _hovered = true),
+      onExit: (_) => setState(() => _hovered = false),
+      child: GestureDetector(
+        onTap: widget.onTap,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
+          decoration: BoxDecoration(
+            color: filled ? textColor : Colors.transparent,
+            borderRadius: BorderRadius.circular(50),
+          ),
+          child: Text(
+            widget.text,
+            style: GoogleFonts.dmSans(
+              fontSize: 13,
+              fontWeight: FontWeight.w500,
+              color: filled ? AppColors.bg(context) : textColor,
+            ),
           ),
         ),
       ),
@@ -323,36 +295,43 @@ class Navbar extends StatelessWidget {
   }
 }
 
-class _NavLink extends StatefulWidget {
-  final String text;
+// ── Hire Me Button ────────────────────────────────────────────────────────────
+class _HireButton extends StatefulWidget {
   final VoidCallback onTap;
-
-  const _NavLink({required this.text, required this.onTap});
+  const _HireButton({required this.onTap});
 
   @override
-  State<_NavLink> createState() => _NavLinkState();
+  State<_HireButton> createState() => _HireButtonState();
 }
 
-class _NavLinkState extends State<_NavLink> {
-  bool _isHovered = false;
+class _HireButtonState extends State<_HireButton> {
+  bool _hovered = false;
 
   @override
   Widget build(BuildContext context) {
-    final accentColor = AppColors.accent(context);
-    final subtleTextColor = AppColors.textSubtle(context);
-    return InkWell(
-      onTap: widget.onTap,
-      onHover: (value) => setState(() => _isHovered = value),
-      splashColor: Colors.transparent,
-      highlightColor: Colors.transparent,
-      child: AnimatedDefaultTextStyle(
-        duration: const Duration(milliseconds: 250),
-        style: AppTheme.jetBrainsMono.copyWith(
-          fontSize: 11,
-          letterSpacing: 1.6,
-          color: _isHovered ? accentColor : subtleTextColor,
+    final teal = AppColors.accent(context);
+    return MouseRegion(
+      onEnter: (_) => setState(() => _hovered = true),
+      onExit: (_) => setState(() => _hovered = false),
+      child: GestureDetector(
+        onTap: widget.onTap,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 9),
+          decoration: BoxDecoration(
+            color: _hovered ? teal : Colors.transparent,
+            border: Border.all(color: teal),
+            borderRadius: BorderRadius.circular(50),
+          ),
+          child: Text(
+            'Hire Me',
+            style: GoogleFonts.dmSans(
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+              color: _hovered ? Colors.white : teal,
+            ),
+          ),
         ),
-        child: Text(widget.text),
       ),
     );
   }

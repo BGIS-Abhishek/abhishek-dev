@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:abhishek_dev/core/theme/app_colors.dart';
-import 'package:abhishek_dev/core/theme/app_theme.dart';
 import 'package:abhishek_dev/core/utils/responsive.dart';
 
 class FooterSection extends StatelessWidget {
@@ -20,95 +20,98 @@ class FooterSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isMobile = Responsive.isMobile(context);
-    final surfaceColor = AppColors.surface(context);
-    final lineBorder = AppColors.line(context);
+    final bgColor = AppColors.bg(context);
+    final subtleColor = AppColors.textSubtle(context);
+    final borderColor = AppColors.line(context);
 
     return Container(
       width: double.infinity,
+      color: bgColor,
       padding: EdgeInsets.symmetric(
-        horizontal: isMobile ? 20 : 48,
-        vertical: isMobile ? 24 : 32,
+        horizontal: isMobile ? 20 : 56,
+        vertical: 32,
       ),
       decoration: BoxDecoration(
-        color: surfaceColor,
-        border: Border(top: BorderSide(color: lineBorder)),
+        border: Border(top: BorderSide(color: borderColor)),
       ),
-      child: isMobile
-          ? Column(
-              children: [
-                _buildLogo(context),
-                const SizedBox(height: 14),
-                _buildCopy(context, '© ${DateTime.now().year} Abhishek Yadav · Flutter Developer · Mumbai'),
-                const SizedBox(height: 14),
-                _buildBackToTop(context),
-              ],
-            )
-          : Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                _buildLogo(context),
-                _buildCopy(context, '© ${DateTime.now().year} Abhishek Yadav · Flutter Developer · Mumbai'),
-                _buildBackToTop(context),
-              ],
-            ),
+      child: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 1200),
+          child: isMobile
+              ? Column(
+                  children: [
+                    _buildLogo(context),
+                    const SizedBox(height: 12),
+                    Text(
+                      '© ${DateTime.now().year} Abhishek Yadav. All Rights Reserved.',
+                      style: GoogleFonts.dmSans(
+                        fontSize: 12.5,
+                        color: subtleColor,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 16),
+                    _buildBackToTop(context),
+                  ],
+                )
+              : Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        _buildLogo(context),
+                        const SizedBox(width: 24),
+                        Text(
+                          '© ${DateTime.now().year} Abhishek Yadav. Built with Flutter Web.',
+                          style: GoogleFonts.dmSans(
+                            fontSize: 13,
+                            color: subtleColor,
+                          ),
+                        ),
+                      ],
+                    ),
+                    _buildBackToTop(context),
+                  ],
+                ),
+        ),
+      ),
     );
   }
 
   Widget _buildLogo(BuildContext context) {
     final textColor = AppColors.text(context);
-    final accentColor = AppColors.accent(context);
-    return RichText(
-      text: TextSpan(
-        style: AppTheme.syne.copyWith(
-          fontSize: 12.5,
-          fontWeight: FontWeight.w700,
-          letterSpacing: 2.16,
-          color: textColor,
-        ),
-        children: [
-          const TextSpan(text: 'A'),
-          TextSpan(
-            text: '.',
-            style: TextStyle(color: accentColor),
-          ),
-          const TextSpan(text: 'YADAV'),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildCopy(BuildContext context, String text) {
-    final textSubtleColor = AppColors.textSubtle(context);
     return Text(
-      text,
-      textAlign: TextAlign.center,
-      style: AppTheme.jetBrainsMono.copyWith(
-        fontSize: 10,
-        letterSpacing: 1.28,
-        color: textSubtleColor,
+      'Abhishek',
+      style: GoogleFonts.caveat(
+        fontSize: 28,
+        fontWeight: FontWeight.w700,
+        color: textColor,
+        letterSpacing: 0.5,
       ),
     );
   }
 
   Widget _buildBackToTop(BuildContext context) {
-    final accentColor = AppColors.accent(context);
     return InkWell(
       onTap: () => _scrollToTop(context),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(Icons.arrow_upward_rounded, size: 14, color: accentColor),
-          const SizedBox(width: 6),
-          Text(
-            'BACK TO TOP',
-            style: AppTheme.jetBrainsMono.copyWith(
-              fontSize: 10,
-              letterSpacing: 1.6,
-              color: accentColor,
-              fontWeight: FontWeight.w600,
+      borderRadius: BorderRadius.circular(20),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(Icons.arrow_upward_rounded, size: 16, color: AppColors.teal),
+            const SizedBox(width: 6),
+            Text(
+              'Back to top',
+              style: GoogleFonts.dmSans(
+                fontSize: 13,
+                fontWeight: FontWeight.w700,
+                color: AppColors.teal,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

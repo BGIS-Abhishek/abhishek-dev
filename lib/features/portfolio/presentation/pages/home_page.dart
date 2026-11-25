@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:abhishek_dev/core/theme/app_colors.dart';
 import 'package:abhishek_dev/features/portfolio/presentation/widgets/navbar.dart';
 import 'package:abhishek_dev/features/portfolio/presentation/widgets/hero_section.dart';
-import 'package:abhishek_dev/features/portfolio/presentation/widgets/marquee_strip.dart';
-import 'package:abhishek_dev/features/portfolio/presentation/widgets/about_section.dart';
-import 'package:abhishek_dev/features/portfolio/presentation/widgets/skills_section.dart';
-import 'package:abhishek_dev/features/portfolio/presentation/widgets/projects_section.dart';
 import 'package:abhishek_dev/features/portfolio/presentation/widgets/services_section.dart';
 import 'package:abhishek_dev/features/portfolio/presentation/widgets/experience_section.dart';
+import 'package:abhishek_dev/features/portfolio/presentation/widgets/projects_section.dart';
+import 'package:abhishek_dev/features/portfolio/presentation/widgets/about_section.dart';
 import 'package:abhishek_dev/features/portfolio/presentation/widgets/contact_section.dart';
 import 'package:abhishek_dev/features/portfolio/presentation/widgets/footer_section.dart';
 
@@ -29,9 +27,10 @@ class _HomePageState extends State<HomePage> {
   final ScrollController _scrollController = ScrollController();
   bool _isScrolled = false;
 
-  final GlobalKey _aboutKey = GlobalKey();
-  final GlobalKey _workKey = GlobalKey();
   final GlobalKey _servicesKey = GlobalKey();
+  final GlobalKey _experienceKey = GlobalKey();
+  final GlobalKey _workKey = GlobalKey();
+  final GlobalKey _aboutKey = GlobalKey();
   final GlobalKey _contactKey = GlobalKey();
 
   @override
@@ -69,7 +68,6 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final bgColor = AppColors.bg(context);
     final surfaceColor = AppColors.surface(context);
-    final borderLine = AppColors.line(context);
 
     return Scaffold(
       backgroundColor: bgColor,
@@ -84,15 +82,15 @@ class _HomePageState extends State<HomePage> {
                   onWorkPressed: () => _scrollTo(_workKey),
                   onContactPressed: () => _scrollTo(_contactKey),
                 ),
-                const MarqueeStrip(),
                 Container(
-                  key: _aboutKey,
+                  key: _servicesKey,
                   color: bgColor,
-                  child: const AboutSection(),
+                  child: const ServicesSection(),
                 ),
                 Container(
-                  color: bgColor,
-                  child: const SkillsSection(),
+                  key: _experienceKey,
+                  color: surfaceColor,
+                  child: const ExperienceSection(),
                 ),
                 Container(
                   key: _workKey,
@@ -100,20 +98,13 @@ class _HomePageState extends State<HomePage> {
                   child: const ProjectsSection(),
                 ),
                 Container(
-                  key: _servicesKey,
+                  key: _aboutKey,
                   color: surfaceColor,
-                  child: const ServicesSection(),
-                ),
-                Container(
-                  color: bgColor,
-                  child: const ExperienceSection(),
+                  child: const AboutSection(),
                 ),
                 Container(
                   key: _contactKey,
-                  decoration: BoxDecoration(
-                    color: surfaceColor,
-                    border: Border(top: BorderSide(color: borderLine)),
-                  ),
+                  color: bgColor,
                   child: const ContactSection(),
                 ),
                 const FooterSection(),
@@ -128,9 +119,10 @@ class _HomePageState extends State<HomePage> {
               isSolid: _isScrolled,
               themeMode: widget.themeMode,
               onToggleTheme: widget.onToggleTheme,
-              onAboutTap: () => _scrollTo(_aboutKey),
-              onWorkTap: () => _scrollTo(_workKey),
               onServicesTap: () => _scrollTo(_servicesKey),
+              onWorkTap: () => _scrollTo(_workKey),
+              onExperienceTap: () => _scrollTo(_experienceKey),
+              onAboutTap: () => _scrollTo(_aboutKey),
               onContactTap: () => _scrollTo(_contactKey),
             ),
           ),

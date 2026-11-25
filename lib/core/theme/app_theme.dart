@@ -8,12 +8,12 @@ class AppTheme {
       brightness: Brightness.dark,
       scaffoldBackgroundColor: AppColors.darkInk,
       colorScheme: const ColorScheme.dark(
-        primary: AppColors.darkLime,
-        secondary: AppColors.darkLime2,
+        primary: AppColors.darkAccent,
+        secondary: AppColors.darkAccent2,
         surface: AppColors.darkInk2,
         error: Colors.redAccent,
       ),
-      textTheme: AppTypography.textTheme(AppColors.darkTextMain),
+      textTheme: AppTypography.textTheme(AppColors.darkText),
       useMaterial3: true,
     );
   }
@@ -21,20 +21,23 @@ class AppTheme {
   static ThemeData get lightTheme {
     return ThemeData(
       brightness: Brightness.light,
-      scaffoldBackgroundColor: AppColors.lightInk,
+      scaffoldBackgroundColor: AppColors.cream,
       colorScheme: const ColorScheme.light(
-        primary: AppColors.lightLime,
-        secondary: AppColors.lightLime2,
-        surface: AppColors.lightInk2,
+        primary: AppColors.teal,
+        secondary: AppColors.amber,
+        surface: AppColors.cream2,
         error: Colors.redAccent,
       ),
-      textTheme: AppTypography.textTheme(AppColors.lightTextMain),
+      textTheme: AppTypography.textTheme(AppColors.darkNavy),
       useMaterial3: true,
     );
   }
 
-  static TextStyle get syne => AppTypography.syne;
-  static TextStyle get inter => AppTypography.inter;
+  // Font shorthands — now all pointing to warm fonts
+  static TextStyle get syne          => AppTypography.syne;
+  static TextStyle get inter         => AppTypography.inter;
   static TextStyle get jetBrainsMono => AppTypography.jetBrainsMono;
-  static TextStyle get instrumentSerif => AppTypography.syne;
+  static TextStyle get instrumentSerif => AppTypography.playfair;
+  static TextStyle get caveat        => AppTypography.caveat;
 }
+
